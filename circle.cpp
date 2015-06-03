@@ -74,6 +74,18 @@ bool Circle::getCentermarkVisible(){
     return this->showCenter;
 }
 
+void Circle::setIndexVisible(bool b){
+    this->showIndex  = b;
+}
+
+bool Circle::getIndexVisible(){
+    return this->showIndex;
+}
+
+void Circle::setIndex(int i){
+    this->index = i;
+}
+
 int Circle::getIndex(){
     return this->index;
 }
@@ -94,8 +106,21 @@ qreal Circle::getThickness(){
     return this->borderThickness;
 }
 
+bool Circle::isTangent(Circle *c){
+    //circles are tangent if distance between centers is equal to sum of radii
+    qreal cRadius = c->getRadius();
+    QPointF cCenter = c->getCenter();
+
+    qreal centerDist = std::sqrt(pow((cCenter.y()-center.y()), 2)
+                                 + pow((cCenter.x() - center.x()), 2));
+    qreal radialDist = cRadius + radius;
+
+    if(fabs(centerDist - radialDist) < EPSILON) return true;
+    else return false;
+}
+
 QRectF Circle::boundingRect() const {
-    return QRectF(0, 0, this->radius * 2.0, this->radius * 2.0);
+    return QRectF(-radius, -radius, this->radius * 2.0, this->radius * 2.0);
 }
 
 QPainterPath Circle::shape() const {
@@ -116,6 +141,14 @@ void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
         painter->setPen(QPen(Qt::black, 1));
         painter->drawLine(QPointF(0, radius/3.0), QPointF(0, -(radius/3.0)));
         painter->drawLine(QPointF(radius/3.0, 0), QPointF(-(radius/3.0), 0));
+    }
+    if(showIndex){
+        QFont font("Times", 10);
+        font.setStyleStrategy(QFont::ForceOutline);
+        painter->setFont(font);
+        painter->save();
+        painter->drawText(QPointF(0, 0), QString("%1").arg(this->index));
+        painter->restore();
     }
 
 }

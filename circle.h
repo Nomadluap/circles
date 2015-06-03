@@ -38,6 +38,10 @@ public:
     void setCentermarkVisible(bool);
     bool getCentermarkVisible();
 
+    void setIndexVisible(bool);
+    bool getIndexVisible();
+
+    void setIndex(int i);
     int getIndex();
 
     void setColor(QColor c);
@@ -45,6 +49,13 @@ public:
 
     void setThickness(qreal t);
     qreal getThickness();
+
+    /**
+     * @brief isTangent Determine if circles are tangent
+     * @param c circle to test against
+     * @return true if circles are tangent
+     */
+    bool isTangent(Circle *c);
 
     QRectF boundingRect() const Q_DECL_OVERRIDE;
     QPainterPath shape() const Q_DECL_OVERRIDE;
@@ -54,10 +65,12 @@ protected:
 
 
 private:
+    const qreal EPSILON = 1e-06;
     QPointF center;
     qreal radius;
     bool showCenter = false;
-    int index = -1; //in future will dereference assosciated node object.
+    bool showIndex = true;
+    int index = 1234; //in future will dereference assosciated node object.
     QColor fillColor;
     qreal borderThickness = 2.0;
 
