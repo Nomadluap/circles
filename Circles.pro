@@ -18,14 +18,14 @@ SOURCES += main.cpp\
     Packing.cpp \
     Circle.cpp \
     EuclideanCircle.cpp \
-    EuclideanPacking.cpp
+    PFile.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
     Packing.hpp \
     Circle.hpp \
     EuclideanCircle.hpp \
-    EuclideanPacking.hpp
+    PFile.hpp
 
 FORMS    += mainwindow.ui
 

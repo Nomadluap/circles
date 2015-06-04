@@ -1,10 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "PFile.hpp"
 
 
 #include <QDebug>
 #include <QtMath>
 #include <QWidget>
+#include <QFileDialog>
 #define PI 3.141592653589793238463
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -19,13 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
-    p = new EuclideanPacking();
+    p = new Packing(Packing::PackingType::EuclideanPacking);
     connect(ui->checkCenters, SIGNAL(toggled(bool)), this->p, SLOT(setDrawCenters(bool)));
     connect(ui->checkCircles, SIGNAL(toggled(bool)), this->p, SLOT(setDrawCircles(bool)));
     connect(ui->checkConnectors, SIGNAL(toggled(bool)), this->p, SLOT(setDrawLinks(bool)));
     connect(ui->checkIndicies, SIGNAL(toggled(bool)), this->p, SLOT(setDrawIndicies(bool)));
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
+    connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
 
+    //set up default view
     p->addNode(new Node(123, QPointF(0, 0), 40.0));
     ui->view->setScene(this->p);
 }
@@ -42,4 +46,16 @@ void MainWindow::setZoom(int zoom)
     QMatrix m;
     m.scale(scale, scale);
     ui->view->setMatrix(m);
+}
+
+void MainWindow::openFile()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Open File", ".", "*.p");
+    if(!filename.isNull()){
+        qDebug() << filename;
+        PFile f(filename);
+        if(p != nullptr) delete p;
+        p = f.generatePacking();
+        ui->view->setScene(this->p);
+    }
 }

@@ -19,7 +19,12 @@ class Packing : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    Packing();
+    enum class PackingType{ EuclideanPacking, HyperbolicPacking};
+
+    Packing(PackingType type = PackingType::EuclideanPacking);
+
+    void setPackingType(PackingType type);
+    PackingType getType();
 
     bool getDrawCenters();
     bool getDrawLinks();
@@ -37,13 +42,15 @@ public slots:
 
 
 
-protected:
-    virtual void addCircle(Node *n);
+private:
+    void addCircle(Node *n);
 
     bool drawCenters=true;
     bool drawLinks=true;
     bool drawCircles=true;
     bool drawIndicies=true;
+
+    PackingType type;
 
     QList<Node*> nodes;
     QList<Node*> boundaryNodes;

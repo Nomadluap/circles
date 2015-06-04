@@ -5,7 +5,6 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Packing.hpp"
-#include "EuclideanPacking.hpp"
 
 
 namespace Ui {
@@ -21,9 +20,11 @@ public:
     ~MainWindow();
 private slots:
     void setZoom(int zoom);
+    void openFile();
 private:
     Ui::MainWindow *ui;
     Packing *p;
+
 };
 
 #endif // MAINWINDOW_H

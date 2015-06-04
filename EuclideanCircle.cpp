@@ -1,5 +1,6 @@
 #include "EuclideanCircle.hpp"
 #include <QtWidgets>
+#include <QDebug>
 
 EuclideanCircle::EuclideanCircle(Node *n, Packing *p):
     Circle(n, p)
@@ -17,15 +18,15 @@ void EuclideanCircle::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     Q_UNUSED(widget)
     //get the scale of the scene
-    qreal lod = option->levelOfDetail;
+    qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
     qreal radius = this->node->getRadius();
     if(parent->getDrawCircles()){
-        painter->setPen(QPen(Qt::black, BORDER_THICKNESS*lod ));
+        painter->setPen(QPen(Qt::black, BORDER_THICKNESS/lod ));
         painter->setBrush(QBrush(this->node->getColor()));
         painter->drawEllipse(QPointF(0, 0), radius, radius);
     }
     if(parent->getDrawCenters()){
-        painter->setPen(QPen(Qt::black, 1));
+        painter->setPen(QPen(Qt::black, 2/lod));
         painter->drawLine(QPointF(0, radius/4.0), QPointF(0, -radius/4.0));
         painter->drawLine(QPointF(radius/4.0, 0), QPointF(-radius/4.0, 0));
     }
@@ -34,7 +35,8 @@ void EuclideanCircle::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
         font.setStyleStrategy(QFont::ForceOutline);
         painter->setFont(font);
         painter->save();
-        painter->drawText(QPointF(2, -2), QString("%1").arg(this->node->getId()));
+        painter->scale(1.0/lod, 1.0/lod);
+        painter->drawText(QPointF(4, -4), QString("%1").arg(this->node->getId()));
         painter->restore();
     }
 }

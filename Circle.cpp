@@ -4,6 +4,7 @@ Circle::Circle(Node *n, Packing *p)
 {
     this->node = n;
     this->parent = p;
+    this->setPos(this->node->getPosition());
 }
 
 
