@@ -14,9 +14,20 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    circle.cpp
+    Node.cpp \
+    Packing.cpp \
+    Circle.cpp \
+    EuclideanCircle.cpp \
+    EuclideanPacking.cpp
 
 HEADERS  += mainwindow.h \
-    circle.h
+    Node.hpp \
+    Packing.hpp \
+    Circle.hpp \
+    EuclideanCircle.hpp \
+    EuclideanPacking.hpp
 
 FORMS    += mainwindow.ui
+
+DISTFILES += \
+    molecule.p

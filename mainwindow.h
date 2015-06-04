@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QGraphicsScene>
+#include "Packing.hpp"
+#include "EuclideanPacking.hpp"
+
 
 namespace Ui {
 class MainWindow;
@@ -16,12 +19,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private slots:
+    void setZoom(int zoom);
 private:
     Ui::MainWindow *ui;
-
-    void populateScene();
-    QGraphicsScene *scene;
+    Packing *p;
 };
 
 #endif // MAINWINDOW_H
