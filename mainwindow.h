@@ -21,6 +21,10 @@ public:
 private slots:
     void setZoom(int zoom);
     void openFile();
+    void setDrawCircles(bool b);
+    void setDrawCenters(bool b);
+    void setDrawIndicies(bool b);
+    void setDrawLinks(bool b);
 private:
     Ui::MainWindow *ui;
     Packing *p;

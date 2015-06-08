@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     ui->view->setRenderHint(QPainter::Antialiasing, true);
     ui->view->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->view->setInteractive(false);
@@ -22,10 +23,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
     p = new Packing(Packing::PackingType::EuclideanPacking);
-    connect(ui->checkCenters, SIGNAL(toggled(bool)), this->p, SLOT(setDrawCenters(bool)));
-    connect(ui->checkCircles, SIGNAL(toggled(bool)), this->p, SLOT(setDrawCircles(bool)));
-    connect(ui->checkConnectors, SIGNAL(toggled(bool)), this->p, SLOT(setDrawLinks(bool)));
-    connect(ui->checkIndicies, SIGNAL(toggled(bool)), this->p, SLOT(setDrawIndicies(bool)));
+    connect(ui->checkCenters, SIGNAL(toggled(bool)), this, SLOT(setDrawCenters(bool)));
+    connect(ui->checkCircles, SIGNAL(toggled(bool)), this, SLOT(setDrawCircles(bool)));
+    connect(ui->checkConnectors, SIGNAL(toggled(bool)), this, SLOT(setDrawLinks(bool)));
+    connect(ui->checkIndicies, SIGNAL(toggled(bool)), this, SLOT(setDrawIndicies(bool)));
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
     connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
 
@@ -58,4 +59,24 @@ void MainWindow::openFile()
         p = f.generatePacking();
         ui->view->setScene(this->p);
     }
+}
+
+void MainWindow::setDrawCircles(bool b)
+{
+    this->p->setDrawCircles(b);
+}
+
+void MainWindow::setDrawCenters(bool b)
+{
+    this->p->setDrawCenters(b);
+}
+
+void MainWindow::setDrawIndicies(bool b)
+{
+    this->p->setDrawIndicies(b);
+}
+
+void MainWindow::setDrawLinks(bool b)
+{
+    this->p->setDrawLinks(b);
 }
