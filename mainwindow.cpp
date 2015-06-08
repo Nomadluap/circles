@@ -52,7 +52,13 @@ void MainWindow::setZoom(int zoom)
 void MainWindow::openFile()
 {
     QString filename = QFileDialog::getOpenFileName(this, "Open File", ".", "*.p");
-    if(!filename.isNull()){
+    if(!filename.isNull()){ //if the file dialog isn't cancelled
+        //reset checkboxes
+        ui->checkCenters->setChecked(true);
+        ui->checkCircles->setChecked(true);
+        ui->checkConnectors->setChecked(true);
+        ui->checkIndicies->setChecked(true);
+
         qDebug() << filename;
         PFile f(filename);
         if(p != nullptr) delete p;
