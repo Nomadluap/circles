@@ -16,12 +16,18 @@ class Circle : public QGraphicsItem
 public:
     Circle(Node *n, Packing *p);
 
-//    virtual void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) Q_DECL_OVERRIDE;
-//    virtual QRectF	boundingRect() const Q_DECL_OVERRIDE;
+    QRectF	boundingRect() const Q_DECL_OVERRIDE;
+    void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) Q_DECL_OVERRIDE;
+
+private:
+    QRectF boundingRect_euclidean() const;
+    QRectF boundingRect_hyperbolic() const;
+
+    void paint_euclidean(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
+    void paint_hyperbolic(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
 
     static const qreal BORDER_THICKNESS;
 
-protected:
     Node *node;
     Packing *parent;
 

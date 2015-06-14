@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
-    p = new Packing(Packing::PackingType::EuclideanPacking);
+    p = new Packing(PackingType::EuclideanPacking);
     connect(ui->checkCenters, SIGNAL(toggled(bool)), this, SLOT(setDrawCenters(bool)));
     connect(ui->checkCircles, SIGNAL(toggled(bool)), this, SLOT(setDrawCircles(bool)));
     connect(ui->checkConnectors, SIGNAL(toggled(bool)), this, SLOT(setDrawLinks(bool)));

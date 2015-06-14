@@ -24,6 +24,7 @@ public:
     void addNeibhour(Node *node);
     void delNeibhour(Node *node);
     bool isNeibhour(Node *node);
+    QList<Node*> getNeibhours();
 
     void setPosition(QPointF &position);
     QPointF getPosition();

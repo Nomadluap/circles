@@ -65,6 +65,11 @@ bool Node::isNeibhour(Node *node)
     return this->neibhours.contains(node) && node->neibhours.contains(this);
 }
 
+QList<Node *> Node::getNeibhours()
+{
+    return QList<Node*>(this->neibhours);
+}
+
 void Node::setPosition(QPointF &position)
 {
     this->position = position;

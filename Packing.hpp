@@ -4,11 +4,15 @@
 //to prevent cyclic imports.
 class Packing;
 
+enum class PackingType{ EuclideanPacking, HyperbolicPacking};
+
+
 #include <QGraphicsScene>
 #include <QWidget>
 #include <QObject>
 #include "Node.hpp"
 #include "Circle.hpp"
+#include "Connector.hpp"
 
 /**
  * @brief The Packing class is an abstract class which defines a circle packing.
@@ -19,7 +23,6 @@ class Packing : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    enum class PackingType{ EuclideanPacking, HyperbolicPacking};
 
     Packing(PackingType type = PackingType::EuclideanPacking);
 
@@ -44,6 +47,9 @@ public slots:
 
 private:
     void addCircle(Node *n);
+    void recomputeConnectors();
+
+    void drawForeground(QPainter *painter, const QRectF &rect) Q_DECL_OVERRIDE;
 
     bool drawCenters=true;
     bool drawLinks=true;
@@ -55,6 +61,7 @@ private:
     QList<Node*> nodes;
     QList<Node*> boundaryNodes;
     QList<Circle*> circles;
+    QList<Connector*> connectors;
 
 
 

@@ -1,13 +1,13 @@
 #include "Packing.hpp"
-#include "EuclideanCircle.hpp"
 #include <QWidget>
+#include <QtDebug>
 
 Packing::Packing(PackingType type)
 {
     this->type = type;
 }
 
-void Packing::setPackingType(Packing::PackingType type)
+void Packing::setPackingType(PackingType type)
 {
     this->type = type;
     //changing packing type forces complete redraw.
@@ -19,7 +19,13 @@ void Packing::setPackingType(Packing::PackingType type)
     for(Node *n: this->nodes){
         this->addCircle(n);
     }
+    this->recomputeConnectors();
     this->update();
+}
+
+PackingType Packing::getType()
+{
+    return this->type;
 }
 
 bool Packing::getDrawCenters()
@@ -45,16 +51,41 @@ bool Packing::getDrawIndicies()
 void Packing::addNode(Node *n){
     if(!this->nodes.contains(n)) this->nodes.append(n);
     this->addCircle(n);
+    this->recomputeConnectors();
 }
 
 void Packing::addCircle(Node *n)
 {
-    if(this->type == PackingType::EuclideanPacking){
-        Circle *c = new EuclideanCircle(n, this);
-        circles.append(c);
-        this->addItem(c);
+    Circle *c = new Circle(n, this);
+    circles.append(c);
+    this->addItem(c);
+
+}
+
+void Packing::recomputeConnectors()
+{
+    qDebug() << "recomputing Connectors...";
+    for(Connector* c: this->connectors){
+        if(c->scene() == this) this->removeItem(c);
+        if (c != nullptr) delete c;
     }
-    //todo: add hyperbolic circles
+    this->connectors.clear();
+
+    if(this->getDrawLinks()){
+        for(Node* n1: this->nodes){
+            for (Node* n2: n1->getNeibhours()){
+                if(n2->getId() < n1->getId()) continue;
+                Connector* c = new Connector(n1, n2);
+                connectors.append(c);
+                this->addItem(c);
+            }
+        }
+    }
+}
+
+void Packing::drawForeground(QPainter *painter, const QRectF &rect)
+{
+
 }
 
 void Packing::setDrawCenters(bool d)
@@ -67,6 +98,7 @@ void Packing::setDrawCenters(bool d)
 void Packing::setDrawLinks(bool d)
 {
     this->drawLinks = d;
+    this->recomputeConnectors();
     this->update();
 }
 

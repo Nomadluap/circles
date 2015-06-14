@@ -17,15 +17,15 @@ SOURCES += main.cpp\
     Node.cpp \
     Packing.cpp \
     Circle.cpp \
-    EuclideanCircle.cpp \
-    PFile.cpp
+    PFile.cpp \
+    Connector.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
     Packing.hpp \
     Circle.hpp \
-    EuclideanCircle.hpp \
-    PFile.hpp
+    PFile.hpp \
+    Connector.hpp
 
 FORMS    += mainwindow.ui
 
