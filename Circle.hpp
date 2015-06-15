@@ -26,6 +26,9 @@ private:
     void paint_euclidean(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
     void paint_hyperbolic(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
 
+    QPointF hyp_getActualCenter();
+    qreal hyp_getActualRadius();
+
     static const qreal BORDER_THICKNESS;
 
     Node *node;

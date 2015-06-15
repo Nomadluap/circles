@@ -7,6 +7,7 @@
 #include <QtMath>
 #include <QWidget>
 #include <QFileDialog>
+#include "Hyperbolic.hpp"
 #define PI 3.141592653589793238463
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -22,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
-    p = new Packing(PackingType::EuclideanPacking);
     connect(ui->checkCenters, SIGNAL(toggled(bool)), this, SLOT(setDrawCenters(bool)));
     connect(ui->checkCircles, SIGNAL(toggled(bool)), this, SLOT(setDrawCircles(bool)));
     connect(ui->checkConnectors, SIGNAL(toggled(bool)), this, SLOT(setDrawLinks(bool)));
@@ -30,8 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
     connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
 
+    connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
+
+    p = new Packing(PackingType::HyperbolicPacking);
     //set up default view
-    p->addNode(new Node(123, QPointF(0, 0), 40.0));
+    p->addNode(new Node(123, QPointF(2, 0), 40.0));
     ui->view->setScene(this->p);
 }
 
@@ -85,4 +88,13 @@ void MainWindow::setDrawIndicies(bool b)
 void MainWindow::setDrawLinks(bool b)
 {
     this->p->setDrawLinks(b);
+}
+
+void MainWindow::test()
+{
+    for(qreal i = 0; i > -10; i --){
+        QPointF eucl(i, 0);
+        QPointF hyp = Hyperbolic::proj(eucl);
+        qDebug() << "euclidean: " << eucl << " hyp: " << hyp;
+    }
 }

@@ -18,14 +18,16 @@ SOURCES += main.cpp\
     Packing.cpp \
     Circle.cpp \
     PFile.cpp \
-    Connector.cpp
+    Connector.cpp \
+    Hyperbolic.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
     Packing.hpp \
     Circle.hpp \
     PFile.hpp \
-    Connector.hpp
+    Connector.hpp \
+    Hyperbolic.hpp
 
 FORMS    += mainwindow.ui
 

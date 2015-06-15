@@ -1,11 +1,18 @@
 #include "Packing.hpp"
 #include "Circle.hpp"
 #include <QtWidgets>
+#include "Hyperbolic.hpp"
+#include <cmath>
 Circle::Circle(Node *n, Packing *p)
 {
     this->node = n;
     this->parent = p;
-    this->setPos(this->node->getPosition());
+    if(this->parent->getType() == PackingType::EuclideanPacking){
+        this->setPos(this->node->getPosition());
+    }
+    else{
+        this->setPos(Hyperbolic::proj(this->node->getPosition()));
+    }
 }
 
 QRectF Circle::boundingRect() const
@@ -36,12 +43,31 @@ QRectF Circle::boundingRect_euclidean() const
 
 QRectF Circle::boundingRect_hyperbolic() const
 {
-    return QRectF();
+    qreal radius = this->node->getRadius();
+    //get left extent of the circle
+    QPointF center = this->node->getPosition();
+    qreal theta = atan2(center.y(), center.x());
+
+    qreal c = sqrt(QPointF::dotProduct(center, center));
+    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
+    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
+    qreal actualCenterMag = (l + r) / 2.0;
+    QPointF actualCenter = QPointF(actualCenterMag * cos(theta),
+                                 actualCenterMag * sin(theta));
+    actualCenter -= center;
+
+    qreal R = fabs((l - r) / 2.0);
+
+    qreal x = actualCenter.x();
+    qreal y = actualCenter.y();
+    return QRectF(x-R, y-R, x+R, y+R);
+
 }
 
 void Circle::paint_euclidean(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(widget)
+    Q_UNUSED(option)
     //get the scale of the scene
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
     qreal radius = this->node->getRadius();
@@ -68,6 +94,67 @@ void Circle::paint_euclidean(QPainter *painter, const QStyleOptionGraphicsItem *
 
 void Circle::paint_hyperbolic(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(widget)
+    Q_UNUSED(option)
+    qreal actualRadius = this->hyp_getActualRadius();
+    QPointF actualCenter = this->hyp_getActualCenter();
+
+    qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
+
+    if(parent->getDrawCircles()){
+        painter->setPen(QPen(Qt::black, BORDER_THICKNESS/lod));
+        painter->setBrush(QBrush(this->node->getColor()));
+        painter->drawEllipse(actualCenter, actualRadius, actualRadius);
+    }
+
+    if(parent->getDrawCenters()){
+        painter->setPen(QPen(Qt::black, 2/lod));
+        painter->drawLine(actualCenter + QPointF(0, actualRadius/4.0),
+                          actualCenter + QPointF(0, -actualRadius/4.0));
+
+        painter->drawLine(actualCenter + QPointF(actualRadius/4.0, 0),
+                          actualCenter + QPointF(-actualRadius/4.0, 0));
+    }
+
+    if(parent->getDrawIndicies()){
+        QFont font("Times", 10);
+        font.setStyleStrategy(QFont::ForceOutline);
+        painter->setFont(font);
+        painter->save();
+        painter->scale(1.0/lod, 1.0/lod);
+        painter->drawText(actualCenter, QString("%1").arg(this->node->getId()));
+        painter->restore();
+    }
+}
+
+QPointF Circle::hyp_getActualCenter()
+{
+    qreal radius = this->node->getRadius();
+    //get left extent of the circle
+    QPointF center = this->node->getPosition();
+    qreal theta = atan2(center.y(), center.x());
+
+    qreal c = sqrt(QPointF::dotProduct(center, center));
+    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
+    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
+    qreal actualCenterMag = (l + r) / 2.0;
+    QPointF actualCenter = QPointF(actualCenterMag * cos(theta),
+                                 actualCenterMag * sin(theta));
+    actualCenter -= center;
+    return actualCenter;
+}
+
+qreal Circle::hyp_getActualRadius()
+{
+    qreal radius = this->node->getRadius();
+    //get left extent of the circle
+    QPointF center = this->node->getPosition();
+
+    qreal c = sqrt(QPointF::dotProduct(center, center));
+    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
+    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
+    qreal actualRadius = fabs((l - r) / 2.0);
+    return actualRadius;
 
 }
 

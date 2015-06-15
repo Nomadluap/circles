@@ -25,6 +25,7 @@ private slots:
     void setDrawCenters(bool b);
     void setDrawIndicies(bool b);
     void setDrawLinks(bool b);
+    void test();
 private:
     Ui::MainWindow *ui;
     Packing *p;
