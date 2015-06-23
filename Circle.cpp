@@ -11,7 +11,7 @@ Circle::Circle(Node *n, Packing *p)
         this->setPos(this->node->getPosition());
     }
     else{
-        this->setPos(Hyperbolic::proj(this->node->getPosition()));
+        this->setPos(hyp_getEuclideanCenter());
     }
 }
 
@@ -43,24 +43,23 @@ QRectF Circle::boundingRect_euclidean() const
 
 QRectF Circle::boundingRect_hyperbolic() const
 {
-    qreal radius = this->node->getRadius();
-    //get left extent of the circle
     QPointF center = this->node->getPosition();
-    qreal theta = atan2(center.y(), center.x());
 
     qreal c = sqrt(QPointF::dotProduct(center, center));
-    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
-    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
-    qreal actualCenterMag = (l + r) / 2.0;
-    QPointF actualCenter = QPointF(actualCenterMag * cos(theta),
-                                 actualCenterMag * sin(theta));
-    actualCenter -= center;
+    qreal r = this->node->getRadius();
 
-    qreal R = fabs((l - r) / 2.0);
+    qreal s = (exp(r) - 1) / (exp(r) + 1);
 
-    qreal x = actualCenter.x();
-    qreal y = actualCenter.y();
-    return QRectF(x-R, y-R, x+R, y+R);
+    // now the isometry phi maps the real point c to the origin.
+    //where phi(z) = (z-c)/(cz-1)
+    qreal a = (s-c)/(s*c - 1);
+    qreal b = (-s-c)/(-s*c - 1);
+
+    //now get radius, just like in hyp_getEuclideanRadius()
+    qreal R = fabs((a-b)/2.0);
+    //now form the rect
+    return QRectF(-R, -R, 2*R, 2*R);
+//    return QRectF(-2*R, -2*R, 4*R, 24*R);
 
 }
 
@@ -96,24 +95,24 @@ void Circle::paint_hyperbolic(QPainter *painter, const QStyleOptionGraphicsItem 
 {
     Q_UNUSED(widget)
     Q_UNUSED(option)
-    qreal actualRadius = this->hyp_getActualRadius();
-    QPointF actualCenter = this->hyp_getActualCenter();
-
+    qreal R = this->hyp_getEuclideanRadius();
+    QPointF eCent = this->hyp_getEuclideanCenter();
+    QPointF cent = this->node->getPosition();
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
 
     if(parent->getDrawCircles()){
         painter->setPen(QPen(Qt::black, BORDER_THICKNESS/lod));
         painter->setBrush(QBrush(this->node->getColor()));
-        painter->drawEllipse(actualCenter, actualRadius, actualRadius);
+        painter->drawEllipse(QPointF(0, 0), R, R);
     }
 
     if(parent->getDrawCenters()){
         painter->setPen(QPen(Qt::black, 2/lod));
-        painter->drawLine(actualCenter + QPointF(0, actualRadius/4.0),
-                          actualCenter + QPointF(0, -actualRadius/4.0));
+        painter->drawLine(cent - eCent + QPointF(0, R/4.0),
+                          cent - eCent + QPointF(0, -R/4.0));
 
-        painter->drawLine(actualCenter + QPointF(actualRadius/4.0, 0),
-                          actualCenter + QPointF(-actualRadius/4.0, 0));
+        painter->drawLine(cent - eCent + QPointF(R/4.0, 0),
+                          cent - eCent + QPointF(-R/4.0, 0));
     }
 
     if(parent->getDrawIndicies()){
@@ -122,39 +121,47 @@ void Circle::paint_hyperbolic(QPainter *painter, const QStyleOptionGraphicsItem 
         painter->setFont(font);
         painter->save();
         painter->scale(1.0/lod, 1.0/lod);
-        painter->drawText(actualCenter, QString("%1").arg(this->node->getId()));
+        painter->drawText(cent - eCent + QPointF(4, -4), QString("%1").arg(this->node->getId()));
         painter->restore();
     }
 }
 
-QPointF Circle::hyp_getActualCenter()
+QPointF Circle::hyp_getEuclideanCenter()
 {
-    qreal radius = this->node->getRadius();
-    //get left extent of the circle
     QPointF center = this->node->getPosition();
     qreal theta = atan2(center.y(), center.x());
 
     qreal c = sqrt(QPointF::dotProduct(center, center));
-    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
-    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
-    qreal actualCenterMag = (l + r) / 2.0;
-    QPointF actualCenter = QPointF(actualCenterMag * cos(theta),
-                                 actualCenterMag * sin(theta));
-    actualCenter -= center;
-    return actualCenter;
+    qreal r = this->node->getRadius();
+
+    qreal s = (exp(r) - 1) / (exp(r) + 1);
+
+    // now the isometry phi maps the real point c to the origin.
+    //where phi(z) = (z-c)/(cz-1)
+    qreal a = (s-c)/(s*c - 1);
+    qreal b = (-s-c)/(-s*c - 1);
+
+    //now magnitude of euclidean center is at midpoint of a and b
+    qreal m = (a+b)/2.0;
+    return QPointF(m*cos(theta), m*sin(theta));
 }
 
-qreal Circle::hyp_getActualRadius()
+qreal Circle::hyp_getEuclideanRadius()
 {
-    qreal radius = this->node->getRadius();
-    //get left extent of the circle
     QPointF center = this->node->getPosition();
 
     qreal c = sqrt(QPointF::dotProduct(center, center));
-    qreal l = Hyperbolic::proj(QPointF(c - radius, 0)).x();
-    qreal r = Hyperbolic::proj(QPointF(c + radius, 0)).x();
-    qreal actualRadius = fabs((l - r) / 2.0);
-    return actualRadius;
+    qreal r = this->node->getRadius();
+
+    qreal s = (exp(r) - 1) / (exp(r) + 1);
+
+    // now the isometry phi maps the real point c to the origin.
+    //where phi(z) = (z-c)/(cz-1)
+    qreal a = (s-c)/(s*c - 1);
+    qreal b = (-s-c)/(-s*c - 1);
+
+    //now half of difference between a and b is the radius
+    return fabs((a-b)/2.0);
 
 }
 

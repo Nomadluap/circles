@@ -18,18 +18,17 @@ SOURCES += main.cpp\
     Packing.cpp \
     Circle.cpp \
     PFile.cpp \
-    Connector.cpp \
-    Hyperbolic.cpp
+    Connector.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
     Packing.hpp \
     Circle.hpp \
     PFile.hpp \
-    Connector.hpp \
-    Hyperbolic.hpp
+    Connector.hpp
 
 FORMS    += mainwindow.ui
 
 DISTFILES += \
-    molecule.p
+    molecule.p \
+    Owl.p

@@ -85,7 +85,8 @@ void Packing::recomputeConnectors()
 
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)
 {
-
+    Q_UNUSED(painter);
+    Q_UNUSED(rect);
 }
 
 void Packing::setDrawCenters(bool d)

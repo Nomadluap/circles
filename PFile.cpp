@@ -31,6 +31,18 @@ PFile::PFile(QString filename)
     qDebug() << "radii_base: " << radii_base;
     int center_base = words.indexOf(QRegExp("CENTERS:")) + 1;
     qDebug() << "center_base" << center_base;
+    int geometry_base = words.indexOf(QRegExp("GEOMETRY:"));
+
+    if(words.at(geometry_base+1).toLower() == "hyperbolic"){
+        this->packingType = PackingType::HyperbolicPacking;
+    }
+    else if(words.at(geometry_base+1).toLower() == "euclidean"){
+        this->packingType = PackingType::EuclideanPacking;
+    }
+    else{
+        QMessageBox::warning(nullptr, "Error", "Packing geometry is not understood");
+        return;
+    }
 
     //now construct the nodes. If the radii are defined then we pass both
     //the radii and the positions to the nodes. Otherwise, we only pass the
@@ -70,7 +82,7 @@ PFile::PFile(QString filename)
 
 Packing* PFile::generatePacking()
 {
-    Packing *p = new Packing(PackingType::HyperbolicPacking);
+    Packing *p = new Packing(this->packingType);
     for(Node *n: nodes) p->addNode(n);
     return p;
 }

@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     p = new Packing(PackingType::HyperbolicPacking);
     //set up default view
-    p->addNode(new Node(123, QPointF(2, 0), 40.0));
+    p->addNode(new Node(123, QPointF(0.5, 0), 40.0));
     ui->view->setScene(this->p);
 }
 

@@ -14,6 +14,7 @@ public:
 private:
     QString filename;
     QList<Node*> nodes;
+    PackingType packingType;
 
 };
 
