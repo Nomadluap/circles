@@ -243,6 +243,11 @@ void Packing::recomputeConnectors()
     }
 }
 
+QList<Node *> Packing::getNodes()
+{
+    return QList<Node*>(this->nodes);
+}
+
 bool Packing::isInterior(Node *n)
 {
     return !(this->boundaryNodes.contains(n)) && this->nodes.contains(n);

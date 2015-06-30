@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
 
-    p = new SelectionPacking(Node::generateHexArray(20, 50.0), PackingType::EuclideanPacking);
+    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::HyperbolicPacking);
     ui->view->setScene(this->p);
 }
 
@@ -92,7 +92,9 @@ void MainWindow::setDrawLinks(bool b)
 
 void MainWindow::test()
 {
-
+    int index = ui->spinBox->value();
+    QPointF location = p->getNodes().at(index)->getPosition();
+    qDebug() << location;
 }
 
 void MainWindow::setDragMode()

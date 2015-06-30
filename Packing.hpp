@@ -81,6 +81,8 @@ public:
      */
     void recomputeConnectors();
 
+    QList<Node*> getNodes();
+
 public slots:
     void setDrawCenters(bool d);
     void setDrawLinks(bool d);

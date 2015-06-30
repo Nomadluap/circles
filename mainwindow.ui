@@ -129,6 +129,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QSpinBox" name="spinBox">
+        <property name="maximum">
+         <number>999</number>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="btnTest">
         <property name="text">
          <string>Test</string>

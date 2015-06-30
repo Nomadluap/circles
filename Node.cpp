@@ -152,7 +152,7 @@ void Node::setPosition(QPointF &position)
 
 QPointF Node::getPosition()
 {
-    if(this->hasPosition()) return this->position;
+    if(this->hasPosition()) return QPointF(this->position);
     else return QPointF();
 }
 
