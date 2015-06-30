@@ -204,6 +204,9 @@ void Circle::setSelectionState(Circle::SelectionState s)
     this->update();
 }
 
-
+Node* Circle::getNode()
+{
+    return this->node;
+}
 
 const qreal Circle::BORDER_THICKNESS = 2.0;

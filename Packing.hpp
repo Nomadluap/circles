@@ -14,6 +14,7 @@ class Packing;
 #include "Connector.hpp"
 #include "PackingType.hpp"
 
+
 /**
  * @brief The Packing class is an abstract class which defines a circle packing.
  * A circle packing may be either euclidean or hyperbolic, as found in
@@ -23,16 +24,22 @@ class Packing : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    /**
-     * @brief Generates a hex-tile packing that is suitable for intersection
-     * with arbitrary shapes to begin a hyperbolic repacking
-     * @param size the number of circles across to generate
-     * @param radius the radius of each individual circle.
-     * @return The generated packing.
-     */
-    static Packing *generateHexPacking(int size, qreal radius);
 
+
+    /**
+     * @brief Create a new, empty Packing object with specified geometry
+     * @param type either PackingType::EuclideanPacking or PackingType::HyperbolicPacking
+     */
     Packing(PackingType type = PackingType::EuclideanPacking);
+
+    /**
+     * @brief Generate a packing containing the specified nodes.
+     * @param nodes
+     * @param type
+     */
+    Packing(QList<Node*> nodes, PackingType type = PackingType::EuclideanPacking);
+
+    ~Packing();
 
     /**
      * @brief setPackingType sets the geometry of the packing
@@ -66,7 +73,7 @@ public:
     void addNode_fast(Node *n);
 
 
-    void mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent) Q_DECL_OVERRIDE;
+    virtual void mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent) Q_DECL_OVERRIDE;
 
     /**
      * @brief recomputeConnectors re-computes the coordinates of the connectors
@@ -96,8 +103,7 @@ public slots:
 
 
 
-private:
-    enum class SelectionState{NoneSelected, PartialSelection, f};
+protected:
     /**
      * @brief angle Compute the angle formed by the tangent circles of 3 nodes.
      * @param r the center node of the angle

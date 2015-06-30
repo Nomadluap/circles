@@ -13,6 +13,16 @@ public:
     Node(int id, QPointF &position, qreal radius=0);
     ~Node();
 
+    /**
+     * @brief Generates a list of nodes which form a specified hex-tiling,
+     * suitable for passing to a Selection packing, with arbitrary shapes to
+     *  begin a hyperbolic repacking
+     * @param size the number of circles across to generate
+     * @param radius the radius of each individual circle.
+     * @return The generated Node list.
+     */
+    static QList<Node*> generateHexArray(int size, qreal radius);
+
 
     int getId();
     void setId(int value);

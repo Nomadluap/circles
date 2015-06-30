@@ -1,4 +1,5 @@
 #include "Node.hpp"
+#define PI 3.1415926535897932384626433
 
 Node::Node(int id)
 {
@@ -15,6 +16,49 @@ Node::Node(int id, QPointF &position, qreal radius)
     this->radius = radius;
     this->bHasPosition = true;
     this->color = QColor(255, 255, 255);
+}
+
+QList<Node *> Node::generateHexArray(int size, qreal radius)
+{
+    //first we must generate a 2d vector of the appropriate size
+    QVector<QVector<Node*> > mat;
+    mat.resize(size);
+    //now fill it with nodes
+    for(int row=0; row < size; row++){
+        for(int col=0; col< size; col++){
+            Node *n = new Node(row*size + col);
+            n->setRadius(radius);
+            qreal xpos = 2 * (row - size/2) * radius + 2 * (col - size/2)*radius*cos(2*PI/3.0);
+            qreal ypos = 2 * (col - size/2) * radius * sin(2 * PI/3.0);
+            n->setPosition(QPointF(xpos, ypos));
+            mat[row].append(n);
+        }
+    }
+    //now set up neibhour relations with those nodes.
+    for(int row=0; row < size; row++){
+        for(int col=0; col< size; col++){
+            Node *n = mat[row][col];
+            if(row >= 1){
+                n->addNeibhour(mat[row-1][col]);
+                if(col >= 1) n->addNeibhour(mat[row-1][col-1]);
+            }
+            if(col <= size-2) n->addNeibhour(mat[row][col+1]);
+            if(col >= 1) n->addNeibhour(mat[row][col-1]);
+
+            if(row <= size-2){
+                n->addNeibhour(mat[row+1][col]);
+                if(col <= size-2) n->addNeibhour(mat[row+1][col+1]);
+            }
+        }
+    }
+    //now add the nodes to a new packing
+    QList<Node*>  l;
+    for(QVector<Node*> row: mat){
+        for(Node* n: row){
+            l.append(n);
+        }
+    }
+    return l;
 }
 
 int Node::getId()

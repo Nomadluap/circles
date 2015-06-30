@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "PFile.hpp"
+#include "SelectionPacking.hpp"
 
 
 #include <QDebug>
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
 
-    p = Packing::generateHexPacking(20, 10.0);
+    p = new SelectionPacking(Node::generateHexArray(20, 50.0), PackingType::EuclideanPacking);
     ui->view->setScene(this->p);
 }
 
@@ -102,6 +103,7 @@ void MainWindow::setDragMode()
 
 void MainWindow::setSelectMode()
 {
-    ui->view->setDragMode(QGraphicsView::RubberBandDrag);
+//    ui->view->setDragMode(QGraphicsView::RubberBandDrag);
+    ui->view->setDragMode(QGraphicsView::NoDrag);
     ui->view->setInteractive(true);
 }

@@ -24,6 +24,8 @@ public:
     SelectionState getSelectionState();
     void setSelectionState(SelectionState s);
 
+    Node* getNode();
+
 private:
 
     void mousePressEvent(QGraphicsSceneMouseEvent * event) Q_DECL_OVERRIDE;
@@ -34,7 +36,18 @@ private:
     void paint_euclidean(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
     void paint_hyperbolic(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr);
 
+    /**
+     * @brief hyp_getEuclideanCenter
+     * @return the location of the center of the euclidean circle which
+     * corresponds to this hyperbolic circle
+     */
     QPointF hyp_getEuclideanCenter();
+
+    /**
+     * @brief hyp_getEuclideanRadius
+     * @return radius of euclidean circle corresponding to this hyperbolic
+     * circle.
+     */
     qreal hyp_getEuclideanRadius();
 
     QColor getSelectionColor();

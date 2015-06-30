@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     Circle.cpp \
     PFile.cpp \
     Connector.cpp \
-    ShapeSelector.cpp
+    ShapeSelector.cpp \
+    SelectionPacking.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     PFile.hpp \
     Connector.hpp \
     ShapeSelector.hpp \
-    PackingType.hpp
+    PackingType.hpp \
+    SelectionPacking.hpp
 
 FORMS    += mainwindow.ui \
     ShapeSelector.ui
@@ -36,3 +38,4 @@ FORMS    += mainwindow.ui \
 DISTFILES += \
     molecule.p \
     Owl.p
+
