@@ -7,7 +7,6 @@
 #include <QtMath>
 #include <QWidget>
 #include <QFileDialog>
-#include "Hyperbolic.hpp"
 #define PI 3.141592653589793238463
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -29,12 +28,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->checkIndicies, SIGNAL(toggled(bool)), this, SLOT(setDrawIndicies(bool)));
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
     connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
+    connect(ui->rdSelectionMode, SIGNAL(clicked(bool)), this, SLOT(setSelectMode()));
+    connect(ui->rdDragMode, SIGNAL(clicked(bool)), this, SLOT(setDragMode()));
 
     connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
 
-    p = new Packing(PackingType::HyperbolicPacking);
-    //set up default view
-    p->addNode(new Node(123, QPointF(0.5, 0), 40.0));
+    p = Packing::generateHexPacking(20, 10.0);
     ui->view->setScene(this->p);
 }
 
@@ -92,9 +91,17 @@ void MainWindow::setDrawLinks(bool b)
 
 void MainWindow::test()
 {
-    for(qreal i = 0; i > -10; i --){
-        QPointF eucl(i, 0);
-        QPointF hyp = Hyperbolic::proj(eucl);
-        qDebug() << "euclidean: " << eucl << " hyp: " << hyp;
-    }
+
+}
+
+void MainWindow::setDragMode()
+{
+    ui->view->setInteractive(false);
+    ui->view->setDragMode(QGraphicsView::ScrollHandDrag);
+}
+
+void MainWindow::setSelectMode()
+{
+    ui->view->setDragMode(QGraphicsView::RubberBandDrag);
+    ui->view->setInteractive(true);
 }

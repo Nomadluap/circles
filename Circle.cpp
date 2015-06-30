@@ -1,10 +1,10 @@
 #include "Packing.hpp"
 #include "Circle.hpp"
 #include <QtWidgets>
-#include "Hyperbolic.hpp"
 #include <cmath>
 Circle::Circle(Node *n, Packing *p)
 {
+    this->setFlag(ItemIsSelectable);
     this->node = n;
     this->parent = p;
     if(this->parent->getType() == PackingType::EuclideanPacking){
@@ -33,6 +33,20 @@ void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     else{
         this->paint_hyperbolic(painter, option, widget);
     }
+}
+
+void Circle::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "circle " << this->node->getId() << "got mouse press event";
+    if(this->selectionState == SelectionState::Selected){
+        this->selectionState = SelectionState::None;
+        qDebug() << "State is now Unselected";
+    }
+    else{
+        this->selectionState = SelectionState::Selected;
+        qDebug() << "State is now selected";
+    }
+    this->update();
 }
 
 QRectF Circle::boundingRect_euclidean() const
@@ -72,7 +86,7 @@ void Circle::paint_euclidean(QPainter *painter, const QStyleOptionGraphicsItem *
     qreal radius = this->node->getRadius();
     if(parent->getDrawCircles()){
         painter->setPen(QPen(Qt::black, BORDER_THICKNESS/lod ));
-        painter->setBrush(QBrush(this->node->getColor()));
+        painter->setBrush(QBrush(this->getSelectionColor()));
         painter->drawEllipse(QPointF(0, 0), radius, radius);
     }
     if(parent->getDrawCenters()){
@@ -102,7 +116,7 @@ void Circle::paint_hyperbolic(QPainter *painter, const QStyleOptionGraphicsItem 
 
     if(parent->getDrawCircles()){
         painter->setPen(QPen(Qt::black, BORDER_THICKNESS/lod));
-        painter->setBrush(QBrush(this->node->getColor()));
+        painter->setBrush(QBrush(this->getSelectionColor()));
         painter->drawEllipse(QPointF(0, 0), R, R);
     }
 
@@ -163,6 +177,31 @@ qreal Circle::hyp_getEuclideanRadius()
     //now half of difference between a and b is the radius
     return fabs((a-b)/2.0);
 
+}
+
+QColor Circle::getSelectionColor()
+{
+    switch(this->selectionState){
+    case SelectionState::None:
+        return this->node->getColor();
+    case SelectionState::Selected:
+        return QColor(227,116,116);
+    case SelectionState::Surrounded:
+        return QColor(116,227,172);
+    default:
+        return this->node->getColor();
+    }
+}
+
+Circle::SelectionState Circle::getSelectionState()
+{
+    return this->selectionState;
+}
+
+void Circle::setSelectionState(Circle::SelectionState s)
+{
+    this->selectionState = s;
+    this->update();
 }
 
 

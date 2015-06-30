@@ -52,7 +52,10 @@ void Node::addNeibhour(Node *node)
     //we must retain reflexivity
     if(!this->neibhours.contains(node)) this->neibhours.append(node);
     if(!node->neibhours.contains(this)) node->neibhours.append(this);
+
 }
+
+
 
 void Node::delNeibhour(Node *node)
 {
@@ -63,6 +66,32 @@ void Node::delNeibhour(Node *node)
 bool Node::isNeibhour(Node *node)
 {
     return this->neibhours.contains(node) && node->neibhours.contains(this);
+}
+
+void Node::sortNeibhours()
+{
+    QList<Node*> unsorted = this->neibhours;
+    QList<Node*> sorted;
+    //add the first item
+    sorted.append(unsorted.first());
+    unsorted.removeFirst();
+    while(!unsorted.empty()){
+        for(Node *n: unsorted){
+            //if n is a nbhr of the last sorted element, then place it at the
+            //back of the sorted list. If it is a nbhr of the first element,
+            //then place it at the front of the list.
+            if(n->isNeibhour(sorted.back())){
+                sorted.push_back(n);
+                unsorted.removeOne(n);
+            }
+            else if(n->isNeibhour(sorted.front())){
+                sorted.push_front(n);
+                unsorted.removeOne(n);
+            }
+        }
+    }
+    this->neibhours = sorted;
+
 }
 
 QList<Node *> Node::getNeibhours()
@@ -91,4 +120,5 @@ void Node::delPosition()
 {
     this->bHasPosition = false;
 }
+
 

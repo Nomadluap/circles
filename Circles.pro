@@ -18,16 +18,20 @@ SOURCES += main.cpp\
     Packing.cpp \
     Circle.cpp \
     PFile.cpp \
-    Connector.cpp
+    Connector.cpp \
+    ShapeSelector.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
     Packing.hpp \
     Circle.hpp \
     PFile.hpp \
-    Connector.hpp
+    Connector.hpp \
+    ShapeSelector.hpp \
+    PackingType.hpp
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    ShapeSelector.ui
 
 DISTFILES += \
     molecule.p \

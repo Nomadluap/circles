@@ -26,6 +26,8 @@ private slots:
     void setDrawIndicies(bool b);
     void setDrawLinks(bool b);
     void test();
+    void setDragMode();
+    void setSelectMode();
 private:
     Ui::MainWindow *ui;
     Packing *p;

@@ -83,7 +83,8 @@ PFile::PFile(QString filename)
 Packing* PFile::generatePacking()
 {
     Packing *p = new Packing(this->packingType);
-    for(Node *n: nodes) p->addNode(n);
+    for(Node *n: nodes) p->addNode_fast(n);
+    p->recomputeConnectors();
     return p;
 }
 

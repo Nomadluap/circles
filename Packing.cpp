@@ -1,6 +1,53 @@
 #include "Packing.hpp"
 #include <QWidget>
 #include <QtDebug>
+#include <cmath>
+
+#define PI 3.1415926535897932384626433
+
+Packing *Packing::generateHexPacking(int size, qreal radius)
+{
+    //first we must generate a 2d vector of the appropriate size
+    QVector<QVector<Node*> > mat;
+    mat.resize(size);
+    //now fill it with nodes
+    for(int row=0; row < size; row++){
+        for(int col=0; col< size; col++){
+            Node *n = new Node(row*size + col);
+            n->setRadius(radius);
+            qreal xpos = 2 * (row - size/2) * radius + 2 * (col - size/2)*radius*cos(2*PI/3.0);
+            qreal ypos = 2 * (col - size/2) * radius * sin(2 * PI/3.0);
+            n->setPosition(QPointF(xpos, ypos));
+            mat[row].append(n);
+        }
+    }
+    //now set up neibhour relations with those nodes.
+    for(int row=0; row < size; row++){
+        for(int col=0; col< size; col++){
+            Node *n = mat[row][col];
+            if(row >= 1){
+                n->addNeibhour(mat[row-1][col]);
+                if(col >= 1) n->addNeibhour(mat[row-1][col-1]);
+            }
+            if(col <= size-2) n->addNeibhour(mat[row][col+1]);
+            if(col >= 1) n->addNeibhour(mat[row][col-1]);
+
+            if(row <= size-2){
+                n->addNeibhour(mat[row+1][col]);
+                if(col <= size-2) n->addNeibhour(mat[row+1][col+1]);
+            }
+        }
+    }
+    //now add the nodes to a new packing
+    Packing *p = new Packing(PackingType::EuclideanPacking);
+    for(QVector<Node*> row: mat){
+        for(Node* n: row){
+            p->addNode_fast(n);
+        }
+    }
+    p->recomputeConnectors();
+    return p;
+}
 
 Packing::Packing(PackingType type)
 {
@@ -49,9 +96,143 @@ bool Packing::getDrawIndicies()
 }
 
 void Packing::addNode(Node *n){
+    this->addNode_fast(n);
+    this->recomputeConnectors();
+}
+
+void Packing::addNode_fast(Node *n)
+{
     if(!this->nodes.contains(n)) this->nodes.append(n);
     this->addCircle(n);
+}
+
+
+void Packing::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
+{
+    qDebug() << "scene got mouse press event";
+    QGraphicsScene::mousePressEvent(mouseEvent);
+    this->update();
+}
+
+void Packing::setDrawCenters(bool d)
+{
+
+    this->drawCenters = d;
+    this->update();
+}
+
+void Packing::setDrawLinks(bool d)
+{
+    this->drawLinks = d;
     this->recomputeConnectors();
+    this->update();
+}
+
+void Packing::setDrawCircles(bool d)
+{
+    this->drawCircles = d;
+    this->update();
+}
+
+void Packing::setDrawIndicies(bool d)
+{
+    this->drawIndicies = d;
+    this->update();
+}
+
+void Packing::repack(qreal epsilon, qreal outerRadius)
+{
+    //first set all radii
+    for(Node* n: this->nodes){
+        n->setRadius(outerRadius);
+    }
+    //compute a list of all inner nodes
+    QList<Node*> interior;
+    for(Node* n: this->nodes){
+        if(this->isInterior(n)) interior.append(n);
+    }
+    //Repacking loop
+    bool done = false;
+    while(!done){
+        //recompute radii
+        for(Node* n: interior){
+            qreal theta = this->anglesum(n);
+            qreal delta = fabs(2*PI - theta);
+            if(theta < 2*PI){
+                n->setRadius(n->getRadius() * (1 - delta/2.0));
+            }
+            else{
+                n->setRadius(n->getRadius() * (1 + delta/2.0));
+            }
+        }
+        //check that all radii satisfy the epsilon-condition
+        done = true;
+        for(Node* n: interior){
+            if(fabs(this->anglesum(n) - 2*PI) >= epsilon){
+                done=false;
+                break;
+            }
+        }
+    }
+}
+
+void Packing::layout(int centerCircle)
+{
+    QList<Node*> L = this->nodes;
+    //place the first circle
+    for(auto n: L){
+        if (n->getId() == centerCircle){
+            n->setPosition(QPointF(0, 0));
+            //place a neibhour on the positive x-axis
+            //need to get position so that hyperbolic distance is equal to r1+r2...
+            Node *m = n->getNeibhours().first();
+            L.removeAll(n);
+            break;
+        }
+    }
+
+}
+
+qreal Packing::angle(Node *r, Node *ra, Node *rb)
+
+{
+    if(this->type == PackingType::EuclideanPacking){
+        return this->angle_euclidean(r, ra, rb);
+    }
+    else{
+        return this->angle_hyperbolic(r, ra, rb);
+    }
+}
+
+qreal Packing::angle_euclidean(Node *r, Node *ra, Node *rb)
+{
+    //TODO
+    return 0;
+}
+
+qreal Packing::angle_hyperbolic(Node *r, Node *ra, Node *rb)
+{
+    qreal a = r->getRadius() + ra->getRadius();
+    qreal b = r->getRadius() + rb->getRadius();
+    qreal c = ra->getRadius() + rb->getRadius();
+
+    qreal arg = (cosh(a)*cosh(b) - cosh(c))/(sinh(a)*sinh(b));
+    qreal angle = acos(arg);
+    return angle;
+}
+
+qreal Packing::anglesum(Node *r)
+{
+    r->sortNeibhours();
+    qreal sum = 0;
+    QList<Node*> nbhd = r->getNeibhours();
+    for(int i = 0; i < nbhd.length()-1; i++){
+        sum += this->angle(r, nbhd.at(i), nbhd.at(i+1));
+    }
+    //and the last angle
+    sum += this->angle(r, nbhd.at(nbhd.length()-1), nbhd.at(0));
+
+    return sum;
 }
 
 void Packing::addCircle(Node *n)
@@ -83,34 +264,13 @@ void Packing::recomputeConnectors()
     }
 }
 
+bool Packing::isInterior(Node *n)
+{
+    return !(this->boundaryNodes.contains(n)) && this->nodes.contains(n);
+}
+
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)
 {
     Q_UNUSED(painter);
     Q_UNUSED(rect);
-}
-
-void Packing::setDrawCenters(bool d)
-{
-
-    this->drawCenters = d;
-    this->update();
-}
-
-void Packing::setDrawLinks(bool d)
-{
-    this->drawLinks = d;
-    this->recomputeConnectors();
-    this->update();
-}
-
-void Packing::setDrawCircles(bool d)
-{
-    this->drawCircles = d;
-    this->update();
-}
-
-void Packing::setDrawIndicies(bool d)
-{
-    this->drawIndicies = d;
-    this->update();
 }

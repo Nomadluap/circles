@@ -3,6 +3,9 @@
 
 #include <QWidget>
 
+/**
+ * @brief The Node class represents the metadata of a circle in a circle packing.
+ */
 class Node
 {
 public:
@@ -24,6 +27,7 @@ public:
     void addNeibhour(Node *node);
     void delNeibhour(Node *node);
     bool isNeibhour(Node *node);
+    void sortNeibhours();
     QList<Node*> getNeibhours();
 
     void setPosition(QPointF &position);
@@ -33,7 +37,7 @@ public:
 
 
 
-private:
+protected:
     int id;
     QPointF position;
     qreal radius;
