@@ -90,7 +90,7 @@ public slots:
     void setDrawIndicies(bool d);
 
     /**
-     * @brief repack Compute the radii of the circles that will result in
+     * @brief Compute the radii of the circles that will result in
      * an actual packing.
      * @param epsilon epsilon value to determine completeness. Small.
      * @param outerRadius Radius of boundary circles. Large.
@@ -105,31 +105,37 @@ public slots:
 
 
 
+
 protected:
+    void layout_hyperbolic(int centerCircle);
+    void layout_euclidean(int centerCircle);
+
     /**
-     * @brief angle Compute the angle formed by the tangent circles of 3 nodes.
+     * @brief Compute the angle formed by the tangent circles of 3 nodes.
      * @param r the center node of the angle
      * @param ra one leg of the angle
      * @param rb one leg of the angle
      * @return the angle formed, in radians.
      */
     qreal angle(Node* r, Node* ra, Node* rb);
+
     qreal angle_euclidean(Node* r, Node* ra, Node* rb);
     qreal angle_hyperbolic(Node* r, Node* ra, Node* rb);
 
     /**
-     * @brief anglesum returns sum of all angles formed with ajacent nodes
+     * @brief returns sum of all angles formed with ajacent nodes
      * @param r node
      * @return angle sum
      */
     qreal anglesum(Node* r);
 
     void addCircle(Node *n);
+    void purgeCircles();
 
 
 
     /**
-     * @brief isInterior Determine if given node is interior to packing.
+     * @brief Determine if given node is interior to packing.
      * @param n node
      * @return true if node is interior to packing. Otherwise False.
      */

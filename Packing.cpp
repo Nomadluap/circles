@@ -2,6 +2,8 @@
 #include <QWidget>
 #include <QtDebug>
 #include <cmath>
+#include <complex>
+
 
 #define PI 3.1415926535897932384626433
 
@@ -156,20 +158,102 @@ void Packing::repack(qreal epsilon, qreal outerRadius)
 
 void Packing::layout(int centerCircle)
 {
-    QList<Node*> L = this->nodes;
+    if(this->type == PackingType::EuclideanPacking)
+        this->layout_euclidean(centerCircle);
+    else if(this->type == PackingType::HyperbolicPacking)
+        this->layout_hyperbolic(centerCircle);
+
+    this->purgeCircles();
+    for(Node* n: this->nodes){
+        this->addCircle(n);
+    }
+    this->recomputeConnectors();
+
+}
+
+void Packing::layout_hyperbolic(int centerCircle)
+{
+    QList<Node*> availNodes(this->nodes);
+    QList<Node*> usedNodes;
     //place the first circle
-    for(auto n: L){
+    for(auto n: availNodes){
         if (n->getId() == centerCircle){
             n->setPosition(QPointF(0, 0));
-            //place a neibhour on the positive x-axis
-            //need to get position so that hyperbolic distance is equal to r1+r2...
+            usedNodes.append(n);
+            availNodes.removeAll(n);
+
             Node *m = n->getNeibhours().first();
-            L.removeAll(n);
+            qreal h1 = n->getRadius();
+            qreal h2 = m->getRadius();
+            //using the inverse of the log-formula since the first point is at the origin.
+            qreal s = (exp(h1 + h2) - 1)/(exp(h1 + h2) + 1);
+            m->setPosition(QPointF(s, 0));
+            usedNodes.append(m);
+            availNodes.removeAll(m);
             break;
         }
-        //TODO: special case for hyperbolic circles and euclidean circles.
+    }
+    while(availNodes.empty() == false){
+        for(Node* v: availNodes){
+            //find two neibhours who are neibhours of eachother
+            Node* u = nullptr;
+            Node* w = nullptr;
+            for(int i = 0; i < usedNodes.length()-1; i++){
+                Node* uu = usedNodes.at(i);
+                Node* ww;
+                if(!v->isNeibhour(uu)) continue;
+                for(int j = i+1; j < usedNodes.length(); j++){
+                    ww = usedNodes.at(j);
+                    if(!v->isNeibhour(ww)) continue;
+                    if(uu->isNeibhour(ww)) break;
+                }
+                if(uu->isNeibhour(ww)){ //we found a pair
+                    u = uu;
+                    w = ww;
+                    break;
+                }
+            }
+            if(u == nullptr || v == nullptr) continue;
+            //now we need to compute the position of v given u and w.
+            qreal ru = u->getRadius();
+            qreal rv = v->getRadius();
+            qreal rw = w->getRadius();
+            qreal a = ru + rw;
+            qreal b = rv + rw;
+            qreal c = ru + rv;
+
+            qreal arg = (cosh(a) * cosh(b) - cosh(c))/(sinh(a) * sinh(b));
+            qreal alpha = acos(arg);
+
+            //create a lambda for the isometry phi_w
+            QPointF wp = w->getPosition();
+            auto phi = [wp](QPointF zz)->QPointF{
+                std::complex<double> c(wp.x(), wp.y());
+                std::complex<double> cbar(wp.x(), -wp.y());
+                std::complex<double> z(zz.x(), zz.y());
+
+                std::complex<double> result = (z - c)/(cbar*z - 1.0);
+                return QPointF(result.real(), result.imag());
+            };
+            //now we can apply the isometry
+            QPointF uprime = phi(u->getPosition());
+            qreal beta = atan2(uprime.y(), -uprime.x());
+            qreal x = -(rw + rv)*cos(alpha-beta);
+            qreal y = (rw + rv)*sin(alpha-beta);
+            QPointF vprime(x, y);
+            QPointF vpos = phi(vprime);
+            v->setPosition(vpos);
+            //and now v has a position, so we can move it to the other list.
+            availNodes.removeAll(v);
+            usedNodes.append(v);
+        }
     }
 
+}
+
+void Packing::layout_euclidean(int centerCircle)
+{
+    //TODO
 }
 
 qreal Packing::angle(Node *r, Node *ra, Node *rb)
@@ -220,6 +304,14 @@ void Packing::addCircle(Node *n)
     circles.append(c);
     this->addItem(c);
 
+}
+
+void Packing::purgeCircles()
+{
+    for(Circle* c: this->circles){
+        this->removeItem(c);
+    }
+    this->circles.clear();
 }
 
 void Packing::recomputeConnectors()
