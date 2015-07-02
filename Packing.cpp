@@ -238,10 +238,13 @@ void Packing::layout_hyperbolic(int centerCircle)
             //now we can apply the isometry
             QPointF uprime = phi(u->getPosition());
             qreal beta = atan2(uprime.y(), -uprime.x());
-            qreal x = -(rw + rv)*cos(alpha-beta);
-            qreal y = (rw + rv)*sin(alpha-beta);
+
+            qreal s = (exp(rw+rv) - 1)/(exp(rw+rv) + 1);
+            qreal x = -s*cos(alpha-beta);
+            qreal y = s*sin(alpha-beta);
             QPointF vprime(x, y);
             QPointF vpos = phi(vprime);
+
             v->setPosition(vpos);
             //and now v has a position, so we can move it to the other list.
             availNodes.removeAll(v);
