@@ -15,8 +15,8 @@ public:
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) Q_DECL_OVERRIDE;
 
 private:
-    Node* n1;
-    Node* n2;
+    Node *n1;
+    Node *n2;
     QPointF midpoint;
 };
 

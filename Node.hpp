@@ -34,9 +34,9 @@ public:
     void setColor(const QColor &value);
 
     //neibhours must maintain reflexivity.
-    void addNeibhour(Node *node);
-    void delNeibhour(Node *node);
-    bool isNeibhour(Node *node);
+    void addNeibhour(Node* node);
+    void delNeibhour(Node* node);
+    bool isNeibhour(Node* node);
     void sortNeibhours();
     QList<Node*> getNeibhours();
 

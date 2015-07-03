@@ -10,7 +10,7 @@ class PFile
 {
 public:
     PFile(QString filename);
-    Packing *generatePacking();
+    Packing* generatePacking();
 private:
     QString filename;
     QList<Node*> nodes;

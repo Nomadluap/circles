@@ -12,8 +12,8 @@
 Packing::Packing(PackingType type)
 {
     this->type = type;
-    this->background = new Background();
-    if(this->background != nullptr) this->addItem(background);
+    this->boundary = new Boundary();
+    if(this->boundary != nullptr) this->addItem(boundary);
 }
 
 Packing::Packing(QList<Node *> nodes, PackingType type):
@@ -25,7 +25,7 @@ Packing::Packing(QList<Node *> nodes, PackingType type):
 
 Packing::~Packing()
 {
-    if(background!=nullptr) delete background;
+    if(boundary!=nullptr) delete boundary;
     //delete connectors
     for(Connector* c: this->connectors){
         if(c != nullptr) delete c;
@@ -196,6 +196,7 @@ void Packing::layout_hyperbolic(int centerCircle)
             break;
         }
     }
+    //until we've placed all nodes.
     while(availNodes.empty() == false){
         for(Node* v: availNodes){
             //find two neibhours who are neibhours of eachother

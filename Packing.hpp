@@ -13,7 +13,7 @@ class Packing;
 #include "Circle.hpp"
 #include "Connector.hpp"
 #include "PackingType.hpp"
-#include "Background.hpp"
+#include "Boundary.hpp"
 
 
 /**
@@ -158,7 +158,7 @@ protected:
     QList<Connector*> connectors;
 
 private:
-    Background* background = nullptr;
+    Boundary* boundary = nullptr;
 
 
 

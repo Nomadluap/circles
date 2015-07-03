@@ -21,7 +21,7 @@ SOURCES += main.cpp\
     Connector.cpp \
     ShapeSelector.cpp \
     SelectionPacking.cpp \
-    Background.cpp
+    Boundary.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -32,7 +32,7 @@ HEADERS  += mainwindow.h \
     ShapeSelector.hpp \
     PackingType.hpp \
     SelectionPacking.hpp \
-    Background.hpp
+    Boundary.hpp
 
 FORMS    += mainwindow.ui \
     ShapeSelector.ui
