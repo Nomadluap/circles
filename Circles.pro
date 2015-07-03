@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     PFile.cpp \
     Connector.cpp \
     ShapeSelector.cpp \
-    SelectionPacking.cpp
+    SelectionPacking.cpp \
+    Background.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -30,7 +31,8 @@ HEADERS  += mainwindow.h \
     Connector.hpp \
     ShapeSelector.hpp \
     PackingType.hpp \
-    SelectionPacking.hpp
+    SelectionPacking.hpp \
+    Background.hpp
 
 FORMS    += mainwindow.ui \
     ShapeSelector.ui

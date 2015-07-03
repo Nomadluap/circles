@@ -13,6 +13,7 @@ class Packing;
 #include "Circle.hpp"
 #include "Connector.hpp"
 #include "PackingType.hpp"
+#include "Background.hpp"
 
 
 /**
@@ -155,6 +156,9 @@ protected:
     QList<Node*> boundaryNodes;
     QList<Circle*> circles;
     QList<Connector*> connectors;
+
+private:
+    Background* background = nullptr;
 
 
 

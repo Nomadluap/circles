@@ -12,6 +12,8 @@
 Packing::Packing(PackingType type)
 {
     this->type = type;
+    this->background = new Background();
+    if(this->background != nullptr) this->addItem(background);
 }
 
 Packing::Packing(QList<Node *> nodes, PackingType type):
@@ -23,6 +25,7 @@ Packing::Packing(QList<Node *> nodes, PackingType type):
 
 Packing::~Packing()
 {
+    if(background!=nullptr) delete background;
     //delete connectors
     for(Connector* c: this->connectors){
         if(c != nullptr) delete c;
@@ -237,7 +240,7 @@ void Packing::layout_hyperbolic(int centerCircle)
             };
             //now we can apply the isometry
             QPointF uprime = phi(u->getPosition());
-            qreal beta = atan2(uprime.y(), -uprime.x());
+            qreal beta = atan2(uprime.y(), uprime.x());
 
             qreal s = (exp(rw+rv) - 1)/(exp(rw+rv) + 1);
             qreal x = -s*cos(alpha-beta);
