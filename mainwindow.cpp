@@ -48,7 +48,7 @@ void MainWindow::setZoom(int zoom)
 {
     qreal scale = qPow(1.50, qreal(zoom));
     QMatrix m;
-    m.scale(scale, scale);
+    m.scale(scale, -scale);
     ui->view->setMatrix(m);
 }
 

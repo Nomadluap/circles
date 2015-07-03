@@ -12,8 +12,8 @@
 Packing::Packing(PackingType type)
 {
     this->type = type;
-    this->boundary = new Boundary();
-    if(this->boundary != nullptr) this->addItem(boundary);
+//    this->boundary = new Boundary();
+//    if(this->boundary != nullptr) this->addItem(boundary);
 }
 
 Packing::Packing(QList<Node *> nodes, PackingType type):
