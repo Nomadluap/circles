@@ -34,7 +34,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
 
-    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
+//    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
+    QList<Node*> nodes;
+    for(int i = 0; i < 7; i++){
+        nodes.append(new Node(i, QPointF(0, 0), 0.5));
+    }
+    for(int i = 1; i < 7; i++){
+        nodes.at(i)->addNeibhour(nodes.at(0));
+        nodes.at(i)->addNeibhour(nodes.at((i+1)%7));
+        nodes.at(i)->setPosition(QPointF(0, 0));
+    }
+    nodes.last()->addNeibhour(nodes.first());
+    nodes.at(6)->addNeibhour(nodes.at(1));
+
+    p = new Packing(nodes, PackingType::EuclideanPacking);
     ui->view->setScene(this->p);
 }
 

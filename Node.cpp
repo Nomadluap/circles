@@ -93,6 +93,8 @@ void Node::setColor(const QColor &color)
 
 void Node::addNeibhour(Node *node)
 {
+    //node cannot be a neibhour to itself
+    if(node == this) return;
     //we must retain reflexivity
     if(!this->neibhours.contains(node)) this->neibhours.append(node);
     if(!node->neibhours.contains(this)) node->neibhours.append(this);

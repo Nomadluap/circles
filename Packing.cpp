@@ -4,7 +4,6 @@
 #include <cmath>
 #include <complex>
 
-
 #define PI 3.1415926535897932384626433
 
 
@@ -176,91 +175,207 @@ void Packing::layout(int centerCircle)
 
 void Packing::layout_hyperbolic(int centerCircle)
 {
-    QList<Node*> availNodes(this->nodes);
-    QList<Node*> usedNodes;
+    qDebug() << "Performing hyperbolic layout...";
+    QList<Node*> unplacedNodes(this->nodes); //Nodes which have not yet been placed
+    QList<Node*> placedNodes; //nodes which have been placed but do not have full flowers.
+    QList<Node*> floweredNodes; //nodes for which their entire flower has been placed.
     //place the first circle
-    for(auto n: availNodes){
+    for(auto n: unplacedNodes){ //find the circle that is to be the center circle.
         if (n->getId() == centerCircle){
+            qDebug() << "Placing first node #" << n->getId() << " at (0, 0)";
             n->setPosition(QPointF(0, 0));
-            usedNodes.append(n);
-            availNodes.removeAll(n);
-
+            placedNodes.append(n);
+            unplacedNodes.removeAll(n);
+            //place the second node to right of the first node.
             Node *m = n->getNeibhours().first();
             qreal h1 = n->getRadius();
             qreal h2 = m->getRadius();
-            //using the inverse of the log-formula since the first point is at the origin.
+            //using the inverse of the log-formula
+            //since the first point is at the origin we don't have to use an
+            //isometry.
             qreal s = (exp(h1 + h2) - 1)/(exp(h1 + h2) + 1);
             m->setPosition(QPointF(s, 0));
-            usedNodes.append(m);
-            availNodes.removeAll(m);
+            qDebug() << "Placing second node #" << m->getId() << " at (" <<
+                        s << ", 0)";
+            placedNodes.append(m);
+            unplacedNodes.removeAll(m);
             break;
         }
     }
-    //until we've placed all nodes.
-    while(availNodes.empty() == false){
-        for(Node* v: availNodes){
-            //find two neibhours who are neibhours of eachother
-            Node* u = nullptr;
-            Node* w = nullptr;
-            for(int i = 0; i < usedNodes.length()-1; i++){
-                Node* uu = usedNodes.at(i);
-                Node* ww;
-                if(!v->isNeibhour(uu)) continue;
-                for(int j = i+1; j < usedNodes.length(); j++){
-                    ww = usedNodes.at(j);
-                    if(!v->isNeibhour(ww)) continue;
-                    if(uu->isNeibhour(ww)) break;
-                }
-                if(uu->isNeibhour(ww)){ //we found a pair
-                    u = uu;
-                    w = ww;
-                    break;
-                }
+    //now continue until all nodes have been placed...
+    while(!unplacedNodes.empty()){
+        qDebug() << "--NEXT NODE--";
+        //find a placed node that does not have a full flower
+        Node *w = placedNodes.first();
+        qDebug() << "Center node: " << w->getId();
+        //find a nbhr of w which has been placed.
+        int nbhrIndex = 0;
+        //not an infinite loop since every placed node has at least one placed neibhour.
+        while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        //now continue going around the nodes until we find the first one that is unplaced
+        //we also need to check if the full flower has been placed.
+        bool fullFlower = false;
+        int nbhrOrigin = nbhrIndex;
+        while(!unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))){
+            nbhrIndex = (nbhrIndex + 1) % w->getNeibhours().length();
+            //if we wrap completely around, then we know that w's full flower
+            //has been placed.
+            if(nbhrIndex == nbhrOrigin){
+                qDebug() << "Node " << w->getId() << "has a full flower";
+                fullFlower = true;
+                break;
             }
-            if(u == nullptr || v == nullptr) continue;
-            //now we need to compute the position of v given u and w.
-            qreal ru = u->getRadius();
-            qreal rv = v->getRadius();
-            qreal rw = w->getRadius();
-            qreal a = ru + rw;
-            qreal b = rv + rw;
-            qreal c = ru + rv;
-
-            qreal arg = (cosh(a) * cosh(b) - cosh(c))/(sinh(a) * sinh(b));
-            qreal alpha = acos(arg);
-
-            //create a lambda for the isometry phi_w
-            QPointF wp = w->getPosition();
-            auto phi = [wp](QPointF zz)->QPointF{
-                std::complex<double> c(wp.x(), wp.y());
-                std::complex<double> cbar(wp.x(), -wp.y());
-                std::complex<double> z(zz.x(), zz.y());
-
-                std::complex<double> result = (z - c)/(cbar*z - 1.0);
-                return QPointF(result.real(), result.imag());
-            };
-            //now we can apply the isometry
-            QPointF uprime = phi(u->getPosition());
-            qreal beta = atan2(uprime.y(), uprime.x());
-
-            qreal s = (exp(rw+rv) - 1)/(exp(rw+rv) + 1);
-            qreal x = -s*cos(alpha-beta);
-            qreal y = s*sin(alpha-beta);
-            QPointF vprime(x, y);
-            QPointF vpos = phi(vprime);
-
-            v->setPosition(vpos);
-            //and now v has a position, so we can move it to the other list.
-            availNodes.removeAll(v);
-            usedNodes.append(v);
         }
-    }
+        //if the full flower is complete, then update the lists and try again
+        //with a different node.
+        if(fullFlower){
+            placedNodes.removeAll(w);
+            floweredNodes.append(w);
+        }
+        Node *u;
+        if(nbhrIndex == 0) u = w->getNeibhours().last();
+        else u = w->getNeibhours().at(nbhrIndex-1);
+        //now v becomes this "first unplaced node"
+        Node *v = w->getNeibhours().at(nbhrIndex);
+        qDebug() << "Node w has id " << w->getId() << ", radius " <<
+                    w->getRadius() << " and position" << w->getPosition();
+        qDebug() << "Node u has id " << u->getId() << ", radius " <<
+                    u->getRadius() << " and position " << u->getPosition();
+        qDebug() << "Node v has id " << v->getId() << " and radius " <<
+                    v->getRadius();
+        //now we create a lambda phi which is an isometry
+        QPointF wp = w->getPosition();
+        auto phi = [wp](QPointF zz)->QPointF{
+            std::complex<double> c(wp.x(), wp.y());
+            std::complex<double> cbar(wp.x(), -wp.y());
+            std::complex<double> z(zz.x(), zz.y());
 
+            std::complex<double> result = (z - c)/(1.0 - cbar*z);
+            return QPointF(result.real(), result.imag());
+        };
+        qDebug() << "phi(w)=" << phi(w->getPosition());
+        //find the angle <UWV=alpha
+        qreal alpha = this->angle(w, u, v);
+        qDebug() << "Calculated alpha " << alpha;
+        //find the argument of u
+        qreal beta = atan2(u->getPosition().y(), u->getPosition().x());
+        qDebug() << "Calculated beta" << beta;
+        //then the actual argument of v is alpha+beta
+        qreal arg = fmod(alpha+beta, 2 * PI);
+        qDebug() << "Therefore arg(v)=" << arg;
+        //now we plot the position of v, assuming that w is at the origin.
+        //find euclidean distance s such that the hyperbolic distance from 0 to
+        //s is equal to the sum of the hyperbolic radii.
+        qreal r = w->getRadius() + v->getRadius();
+        qreal s = (exp(r) - 1.0)/(exp(r)+1.0);
+        qDebug() << "s=" << s;
+        //now plot the point using sin and cosine
+        QPointF pos(s*cos(arg), s*sin(arg));
+        //set the position of v, remembering to take the isometry into account.
+        qDebug() << "pos=" << pos;
+        qDebug()  << "phi(pos)=" << phi(pos);
+        v->setPosition(phi(pos));
+        //and update the lists
+        unplacedNodes.removeAll(v);
+        placedNodes.append(v);
+        //and then we continue
+    }
+    qDebug() << "Layout complete";
 }
 
 void Packing::layout_euclidean(int centerCircle)
 {
-    //TODO
+    qDebug() << "Performing euclidean layout...";
+    QList<Node*> unplacedNodes(this->nodes); //Nodes which have not yet been placed
+    QList<Node*> placedNodes; //nodes which have been placed but do not have full flowers.
+    QList<Node*> floweredNodes; //nodes for which their entire flower has been placed.
+    //place the first circle
+    for(auto n: unplacedNodes){ //find the circle that is to be the center circle.
+        if (n->getId() == centerCircle){
+            qDebug() << "Placing first node #" << n->getId() << " at (0, 0)";
+            n->setPosition(QPointF(0, 0));
+            placedNodes.append(n);
+            unplacedNodes.removeAll(n);
+            //place the second node to right of the first node.
+            Node *m = n->getNeibhours().first();
+            qreal h1 = n->getRadius();
+            qreal h2 = m->getRadius();
+
+            qreal s = h1+h2;
+            m->setPosition(QPointF(s, 0));
+            qDebug() << "Placing second node #" << m->getId() << " at (" <<
+                        s << ", 0)";
+            placedNodes.append(m);
+            unplacedNodes.removeAll(m);
+            break;
+        }
+    }
+    //now continue until all nodes have been placed...
+    while(!unplacedNodes.empty()){
+        qDebug() << "--NEXT NODE--";
+        //find a placed node that does not have a full flower
+        Node *w = placedNodes.first();
+        qDebug() << "Center node: " << w->getId();
+        //find a nbhr of w which has been placed.
+        int nbhrIndex = 0;
+        //not an infinite loop since every placed node has at least one placed neibhour.
+        while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        //now continue going around the nodes until we find the first one that is unplaced
+        //we also need to check if the full flower has been placed.
+        bool fullFlower = false;
+        int nbhrOrigin = nbhrIndex;
+        while(!unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))){
+            nbhrIndex = (nbhrIndex + 1) % w->getNeibhours().length();
+            //if we wrap completely around, then we know that w's full flower
+            //has been placed.
+            if(nbhrIndex == nbhrOrigin){
+                qDebug() << "Node " << w->getId() << "has a full flower";
+                fullFlower = true;
+                break;
+            }
+        }
+        //if the full flower is complete, then update the lists and try again
+        //with a different node.
+        if(fullFlower){
+            placedNodes.removeAll(w);
+            floweredNodes.append(w);
+        }
+        Node *u;
+        if(nbhrIndex == 0) u = w->getNeibhours().last();
+        else u = w->getNeibhours().at(nbhrIndex-1);
+        //now v becomes this "first unplaced node"
+        Node *v = w->getNeibhours().at(nbhrIndex);
+        qDebug() << "Node w has id " << w->getId() << ", radius " <<
+                    w->getRadius() << " and position" << w->getPosition();
+        qDebug() << "Node u has id " << u->getId() << ", radius " <<
+                    u->getRadius() << " and position " << u->getPosition();
+        qDebug() << "Node v has id " << v->getId() << " and radius " <<
+                    v->getRadius();
+        //find the angle <UWV=alpha
+        qreal alpha = this->angle(w, u, v);
+        qDebug() << "Calculated alpha " << alpha;
+        //find the argument of u
+        qreal beta = atan2(u->getPosition().y(), u->getPosition().x());
+        qDebug() << "Calculated beta" << beta;
+        //then the actual argument of v is alpha+beta
+        qreal arg = fmod(alpha+beta, 2 * PI);
+        qDebug() << "Therefore arg(v)=" << arg;
+
+        qreal r = w->getRadius() + v->getRadius();
+        qDebug() << "r=" << r;
+        //now plot the point using sin and
+        //remember that this point is an offset from w.
+        QPointF pos(r*cos(arg), r*sin(arg));
+        pos += w->getPosition();
+        //set the position of v
+        qDebug() << "pos=" << pos;
+        v->setPosition(pos);
+        //and update the lists
+        unplacedNodes.removeAll(v);
+        placedNodes.append(v);
+        //and then we continue
+    }
+    qDebug() << "Layout complete";
 }
 
 qreal Packing::angle(Node *r, Node *ra, Node *rb)
@@ -276,8 +391,13 @@ qreal Packing::angle(Node *r, Node *ra, Node *rb)
 
 qreal Packing::angle_euclidean(Node *r, Node *ra, Node *rb)
 {
-    //TODO
-    return 0;
+    qreal a = r->getRadius() + ra->getRadius();
+    qreal b = r->getRadius() + rb->getRadius();
+    qreal c = ra->getRadius() + rb->getRadius();
+
+    qreal arg = (a*a + b*b - c*c)/(2.0 * a * b);
+    qreal angle = acos(arg);
+    return angle;
 }
 
 qreal Packing::angle_hyperbolic(Node *r, Node *ra, Node *rb)
@@ -324,12 +444,13 @@ void Packing::purgeCircles()
 void Packing::recomputeConnectors()
 {
     qDebug() << "recomputing Connectors...";
+    qDebug() << "clearing existing connectors";
     for(Connector* c: this->connectors){
-        if(c->scene() == this) this->removeItem(c);
+        this->removeItem(c);
         if (c != nullptr) delete c;
     }
     this->connectors.clear();
-
+    qDebug() << "drawing new connectors";
     if(this->getDrawLinks()){
         for(Node* n1: this->nodes){
             for (Node* n2: n1->getNeibhours()){
