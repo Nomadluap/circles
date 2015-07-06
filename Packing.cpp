@@ -313,8 +313,14 @@ void Packing::layout_euclidean(int centerCircle)
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
         qDebug() << "--NEXT NODE--";
-        //find a placed node that does not have a full flower
-        Node *w = placedNodes.first();
+        //find a placed node that does not have its full flower placed.
+        //we require that the w node does in fact have a full flower.
+        Node *w;
+        int wIndex = 0;
+        do{
+            w = placedNodes.at(wIndex);
+            wIndex++;
+        } while(!w->hasFullFlower());
         qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
@@ -355,7 +361,8 @@ void Packing::layout_euclidean(int centerCircle)
         qreal alpha = this->angle(w, u, v);
         qDebug() << "Calculated alpha " << alpha;
         //find the argument of u
-        qreal beta = atan2(u->getPosition().y(), u->getPosition().x());
+        QPointF relU = u->getPosition() - w->getPosition();
+        qreal beta = atan2(relU.y(), relU.x());
         qDebug() << "Calculated beta" << beta;
         //then the actual argument of v is alpha+beta
         qreal arg = fmod(alpha+beta, 2 * PI);
@@ -445,22 +452,23 @@ void Packing::recomputeConnectors()
 {
     qDebug() << "recomputing Connectors...";
     qDebug() << "clearing existing connectors";
-    for(Connector* c: this->connectors){
+    for(Connector *c: this->connectors){
         this->removeItem(c);
         if (c != nullptr) delete c;
     }
     this->connectors.clear();
     qDebug() << "drawing new connectors";
     if(this->getDrawLinks()){
-        for(Node* n1: this->nodes){
-            for (Node* n2: n1->getNeibhours()){
+        for(Node *n1: this->nodes){
+            for (Node *n2: n1->getNeibhours()){
                 if(n2->getId() < n1->getId()) continue;
-                Connector* c = new Connector(n1, n2);
+                Connector *c = new Connector(n1, n2);
                 connectors.append(c);
                 this->addItem(c);
             }
         }
     }
+    qDebug() << "Recomputing Connectors complete.";
 }
 
 QList<Node *> Packing::getNodes()

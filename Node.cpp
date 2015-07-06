@@ -98,6 +98,7 @@ void Node::addNeibhour(Node *node)
     //we must retain reflexivity
     if(!this->neibhours.contains(node)) this->neibhours.append(node);
     if(!node->neibhours.contains(this)) node->neibhours.append(this);
+    this->sortedNeibhours = false;
 
 }
 
@@ -107,6 +108,7 @@ void Node::delNeibhour(Node *node)
 {
     if(this->neibhours.contains(node)) this->neibhours.removeAll(node);
     if(node->neibhours.contains(this)) node->neibhours.removeAll(this);
+    this->sortedNeibhours = false;
 }
 
 bool Node::isNeibhour(Node *node)
@@ -137,7 +139,7 @@ void Node::sortNeibhours()
         }
     }
     this->neibhours = sorted;
-
+    this->sortedNeibhours = true;
 }
 
 QList<Node *> Node::getNeibhours()
@@ -165,6 +167,12 @@ bool Node::hasPosition(){
 void Node::delPosition()
 {
     this->bHasPosition = false;
+}
+
+bool Node::hasFullFlower()
+{
+    if(!this->sortedNeibhours) this->sortNeibhours();
+    return this->neibhours.first()->isNeibhour(this->neibhours.last());
 }
 
 

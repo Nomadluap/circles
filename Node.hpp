@@ -45,6 +45,8 @@ public:
     bool hasPosition();
     void delPosition();
 
+    bool hasFullFlower();
+
 
 
 protected:
@@ -54,6 +56,7 @@ protected:
     QList<Node*> neibhours;
     QColor color;
     bool bHasPosition=false;
+    bool sortedNeibhours=false;
 };
 
 #endif // NODE_HPP
