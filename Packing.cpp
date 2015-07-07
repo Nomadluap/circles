@@ -365,7 +365,7 @@ void Packing::layout_euclidean(int centerCircle)
         qreal beta = atan2(relU.y(), relU.x());
         qDebug() << "Calculated beta" << beta;
         //then the actual argument of v is alpha+beta
-        qreal arg = fmod(alpha+beta, 2 * PI);
+        qreal arg = beta - alpha;
         qDebug() << "Therefore arg(v)=" << arg;
 
         qreal r = w->getRadius() + v->getRadius();
