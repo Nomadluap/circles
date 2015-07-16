@@ -335,7 +335,6 @@ void Packing::layout_euclidean(int centerCircle)
             //if we wrap completely around, then we know that w's full flower
             //has been placed.
             if(nbhrIndex == nbhrOrigin){
-                qDebug() << "Node " << w->getId() << "has a full flower";
                 fullFlower = true;
                 break;
             }
@@ -343,12 +342,16 @@ void Packing::layout_euclidean(int centerCircle)
         //if the full flower is complete, then update the lists and try again
         //with a different node.
         if(fullFlower){
+            qDebug() << "Node" << w->getId() << "has a full flower...";
             placedNodes.removeAll(w);
             floweredNodes.append(w);
+            continue;
         }
         Node *u;
         if(nbhrIndex == 0) u = w->getNeibhours().last();
         else u = w->getNeibhours().at(nbhrIndex-1);
+
+
         //now v becomes this "first unplaced node"
         Node *v = w->getNeibhours().at(nbhrIndex);
         qDebug() << "Node w has id " << w->getId() << ", radius " <<
@@ -364,8 +367,49 @@ void Packing::layout_euclidean(int centerCircle)
         QPointF relU = u->getPosition() - w->getPosition();
         qreal beta = atan2(relU.y(), relU.x());
         qDebug() << "Calculated beta" << beta;
-        //then the actual argument of v is alpha+beta
-        qreal arg = fmod(alpha+beta, 2 * PI);
+
+        //we need to determine if the nodes are currently being laid out in a
+        //clockwise or anticlockwise manner. Thus we need to look at the two
+        //previous unplaced nodes, and look at their relative angles.
+
+        //this only works if w has two or more placed neibhours so far.
+        int placedCount = 0;
+        int isCCW = true;
+        for(Node *n: placedNodes + floweredNodes){
+            if(w->isNeibhour(n)) placedCount++;
+        }
+        if(placedCount >= 2 && w->getNeibhours().length() >= 3){
+            //grab uprime
+            Node *uprime;
+            if(nbhrIndex == 0 && w->getNeibhours().length()){
+                uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
+            }
+            else if(nbhrIndex == 1){
+                uprime = w->getNeibhours().last();
+            }
+            else{
+                uprime = w->getNeibhours().at(nbhrIndex - 2);
+            }
+            //now look at angles of uprime and u
+            QPointF relUPrime = uprime->getPosition() - w->getPosition();
+            qreal betaprime = atan2(relUPrime.y(), relUPrime.x());
+            //difference between angles should be less than PI radians
+            qreal diff = fmod(betaprime - beta + 2*PI, 2*PI);
+            if(diff < PI){
+                //betaprime is "ahead" of beta, so we should continue clockwise
+                isCCW = false;
+                qDebug() << "Placing clockwise";
+            }
+            else{
+                //betaprime is "behind" beta, so continue anticlockwise
+                isCCW = true;
+                qDebug() << "Placing Counterclockwise";
+            }
+        }
+        //then the actual argument of v is beta + alpha or beta - alpha
+        qreal arg;
+        if(isCCW) arg = fmod(beta+alpha+2*PI, 2*PI);
+        else arg = fmod(beta-alpha+2*PI, 2 * PI);
         qDebug() << "Therefore arg(v)=" << arg;
 
         qreal r = w->getRadius() + v->getRadius();
