@@ -410,6 +410,7 @@ void Packing::layout_euclidean(int centerCircle)
         qreal arg;
         if(isCCW) arg = fmod(beta+alpha+2*PI, 2*PI);
         else arg = fmod(beta-alpha+2*PI, 2 * PI);
+
         qDebug() << "Therefore arg(v)=" << arg;
 
         qreal r = w->getRadius() + v->getRadius();
