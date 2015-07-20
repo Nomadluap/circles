@@ -290,6 +290,7 @@ void Packing::layout_euclidean(int centerCircle)
     QList<Node*> placedNodes; //nodes which have been placed but do not have full flowers.
     QList<Node*> floweredNodes; //nodes for which their entire flower has been placed.
     //place the first circle
+    bool foundCenterCircle = false;
     for(auto n: unplacedNodes){ //find the circle that is to be the center circle.
         if (n->getId() == centerCircle){
             qDebug() << "Placing first node #" << n->getId() << " at (0, 0)";
@@ -298,6 +299,21 @@ void Packing::layout_euclidean(int centerCircle)
             unplacedNodes.removeAll(n);
             //place the second node to right of the first node.
             Node *m = n->getNeibhours().first();
+
+            //at least one of m and n need to have a full flower
+            if(!n->hasFullFlower()){
+                int mindex = 1;
+                do{
+                    m = n->getNeibhours().at(mindex);
+                    mindex++;
+                } while(!m->hasFullFlower() && mindex < n->getNeibhours().length());
+                //fail if we didn't find a proper m.
+                if(mindex >= n->getNeibhours().length()){
+                    qDebug() << "Neither M or N has full flower. Fail.";
+                    return;
+                }
+            }
+
             qreal h1 = n->getRadius();
             qreal h2 = m->getRadius();
 
@@ -307,8 +323,14 @@ void Packing::layout_euclidean(int centerCircle)
                         s << ", 0)";
             placedNodes.append(m);
             unplacedNodes.removeAll(m);
+            foundCenterCircle = true;
             break;
         }
+    }
+    //fail if we don't find the specified center circle.
+    if(!foundCenterCircle){
+        qDebug() << "Could not find specified center circle. Fail";
+        return;
     }
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
