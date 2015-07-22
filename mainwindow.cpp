@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
     QList<Node*> nodes;
     for(int i = 0; i < 8; i++){
-        nodes.append(new Node(i, QPointF(0, 0), 0.10));
+        nodes.append(new Node(i, QPointF(0, 0), 0.250));
     }
     for(int i = 1; i < 8; i++){
         nodes.at(i)->addNeibhour(nodes.at(0));
