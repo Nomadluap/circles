@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "PFile.hpp"
 #include "SelectionPacking.hpp"
+#include "Node.hpp"
 
 
 #include <QDebug>
