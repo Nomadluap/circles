@@ -180,6 +180,7 @@ void Packing::layout_hyperbolic(int centerCircle)
     QList<Node*> placedNodes; //nodes which have been placed but do not have full flowers.
     QList<Node*> floweredNodes; //nodes for which their entire flower has been placed.
     //place the first circle
+    bool foundCenterCircle = false;
     for(auto n: unplacedNodes){ //find the circle that is to be the center circle.
         if (n->getId() == centerCircle){
             qDebug() << "Placing first node #" << n->getId() << " at (0, 0)";
@@ -188,6 +189,17 @@ void Packing::layout_hyperbolic(int centerCircle)
             unplacedNodes.removeAll(n);
             //place the second node to right of the first node.
             Node *m = n->getNeibhours().first();
+            if(!n->hasFullFlower()){
+                int mindex = 1;
+                do{
+                    m = n->getNeibhours().at(mindex);
+                    mindex++;
+                } while(!m->hasFullFlower() && mindex < n->getNeibhours().length());
+                if(mindex >= n->getNeibhours().length()){
+                    qDebug() << "Neither M or N has full flower. Fail.";
+                    return;
+                }
+            }
             qreal h1 = n->getRadius();
             qreal h2 = m->getRadius();
             //using the inverse of the log-formula
@@ -199,14 +211,25 @@ void Packing::layout_hyperbolic(int centerCircle)
                         s << ", 0)";
             placedNodes.append(m);
             unplacedNodes.removeAll(m);
+            foundCenterCircle = true;
             break;
         }
+    }
+    //fail if we didn't find the center circle
+    if(!foundCenterCircle){
+        qDebug() << "Could not find specified center circle. Fail.";
+        return;
     }
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
         qDebug() << "--NEXT NODE--";
         //find a placed node that does not have a full flower
-        Node *w = placedNodes.first();
+        Node *w;
+        int wIndex = 0;
+        do{
+            w = placedNodes.at(wIndex);
+            wIndex++;
+        } while(!w->hasFullFlower());
         qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
@@ -260,8 +283,49 @@ void Packing::layout_hyperbolic(int centerCircle)
         //find the argument of u
         qreal beta = atan2(u->getPosition().y(), u->getPosition().x());
         qDebug() << "Calculated beta" << beta;
-        //then the actual argument of v is alpha+beta
-        qreal arg = fmod(alpha+beta, 2 * PI);
+
+        //we need to determine if the nodes are currently being laid out in a
+        //clockwise or anticlockwise manner. Thus we need to look at the two
+        //previous unplaced nodes, and look at their relative angles.
+
+        //this only works if w has two or more placed neibhours so far.
+        int placedCount = 0;
+        int isCCW = true;
+        for(Node *n: placedNodes + floweredNodes){
+            if(w->isNeibhour(n)) placedCount++;
+        }
+        if(placedCount >= 2 && w->getNeibhours().length() >= 3){
+            //grab uprime
+            Node *uprime;
+            if(nbhrIndex == 0 && w->getNeibhours().length()){
+                uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
+            }
+            else if(nbhrIndex == 1){
+                uprime = w->getNeibhours().last();
+            }
+            else{
+                uprime = w->getNeibhours().at(nbhrIndex - 2);
+            }
+            //now look at angles of uprime and u
+            QPointF relUPrime = uprime->getPosition() - w->getPosition();
+            qreal betaprime = atan2(relUPrime.y(), relUPrime.x());
+            //difference between angles should be less than PI radians
+            qreal diff = fmod(betaprime - beta + 2*PI, 2*PI);
+            if(diff < PI){
+                //betaprime is "ahead" of beta, so we should continue clockwise
+                isCCW = false;
+                qDebug() << "Placing clockwise";
+            }
+            else{
+                //betaprime is "behind" beta, so continue anticlockwise
+                isCCW = true;
+                qDebug() << "Placing Counterclockwise";
+            }
+        }
+
+        qreal arg;
+        if(isCCW) arg = fmod(beta+alpha+2*PI, 2*PI);
+        else arg = fmod(beta-alpha+2*PI, 2 * PI);
         qDebug() << "Therefore arg(v)=" << arg;
         //now we plot the position of v, assuming that w is at the origin.
         //find euclidean distance s such that the hyperbolic distance from 0 to

@@ -26,6 +26,8 @@ private slots:
     void setDrawIndicies(bool b);
     void setDrawLinks(bool b);
     void test();
+    void doLayout();
+    void doRepack();
     void setDragMode();
     void setSelectMode();
 private:

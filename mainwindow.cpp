@@ -32,22 +32,23 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->rdSelectionMode, SIGNAL(clicked(bool)), this, SLOT(setSelectMode()));
     connect(ui->rdDragMode, SIGNAL(clicked(bool)), this, SLOT(setDragMode()));
 
-    connect(ui->btnTest, SIGNAL(clicked(bool)), this, SLOT(test()));
+    connect(ui->btnLayout, SIGNAL(clicked(bool)), this, SLOT(doLayout()));
+    connect(ui->btnRepack, SIGNAL(clicked(bool)), this, SLOT(doRepack()));
 
 //    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
     QList<Node*> nodes;
-    for(int i = 0; i < 7; i++){
-        nodes.append(new Node(i, QPointF(0, 0), 0.5));
+    for(int i = 0; i < 8; i++){
+        nodes.append(new Node(i, QPointF(0, 0), 0.10));
     }
-    for(int i = 1; i < 7; i++){
+    for(int i = 1; i < 8; i++){
         nodes.at(i)->addNeibhour(nodes.at(0));
-        nodes.at(i)->addNeibhour(nodes.at((i+1)%7));
+         nodes.at(i)->addNeibhour(nodes.at((i+1)%8));
         nodes.at(i)->setPosition(QPointF(0, 0));
     }
     nodes.last()->addNeibhour(nodes.first());
-    nodes.at(6)->addNeibhour(nodes.at(1));
+    nodes.at(7)->addNeibhour(nodes.at(1));
 
-    p = new Packing(nodes, PackingType::EuclideanPacking);
+    p = new Packing(nodes, PackingType::HyperbolicPacking);
     ui->view->setScene(this->p);
 }
 
@@ -105,8 +106,20 @@ void MainWindow::setDrawLinks(bool b)
 
 void MainWindow::test()
 {
-    int index = ui->spinBox->value();
+
+}
+
+void MainWindow::doLayout()
+{
+    int index = ui->spinCenterCircleID->value();
     p->layout(index);
+}
+
+void MainWindow::doRepack()
+{
+    qreal outerRadius = ui->spinOuterRadius->value();
+    qreal epsilon = ui->spinEpsilon->value();
+    p->repack(epsilon, outerRadius);
 }
 
 void MainWindow::setDragMode()
