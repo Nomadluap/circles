@@ -189,12 +189,14 @@ void Packing::layout_hyperbolic(int centerCircle)
             unplacedNodes.removeAll(n);
             //place the second node to right of the first node.
             Node *m = n->getNeibhours().first();
+
             if(!n->hasFullFlower()){
                 int mindex = 1;
                 do{
                     m = n->getNeibhours().at(mindex);
                     mindex++;
                 } while(!m->hasFullFlower() && mindex < n->getNeibhours().length());
+
                 if(mindex >= n->getNeibhours().length()){
                     qDebug() << "Neither M or N has full flower. Fail.";
                     return;
@@ -254,12 +256,16 @@ void Packing::layout_hyperbolic(int centerCircle)
         if(fullFlower){
             placedNodes.removeAll(w);
             floweredNodes.append(w);
+            continue;
         }
         Node *u;
         if(nbhrIndex == 0) u = w->getNeibhours().last();
         else u = w->getNeibhours().at(nbhrIndex-1);
         //now v becomes this "first unplaced node"
         Node *v = w->getNeibhours().at(nbhrIndex);
+        if(!unplacedNodes.contains(v)){
+            qDebug() << "something went terribly wrong";
+        }
         qDebug() << "Node w has id " << w->getId() << ", radius " <<
                     w->getRadius() << " and position" << w->getPosition();
         qDebug() << "Node u has id " << u->getId() << ", radius " <<
@@ -276,12 +282,12 @@ void Packing::layout_hyperbolic(int centerCircle)
             std::complex<double> result = (z - c)/(1.0 - cbar*z);
             return QPointF(result.real(), result.imag());
         };
-        qDebug() << "phi(w)=" << phi(w->getPosition());
+        qDebug() << "phi(u)=" << phi(u->getPosition());
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w, u, v);
         qDebug() << "Calculated alpha " << alpha;
-        //find the argument of u
-        qreal beta = atan2(u->getPosition().y(), u->getPosition().x());
+        QPointF relU = phi(u->getPosition());
+        qreal beta = atan2(relU.y(), relU.x());
         qDebug() << "Calculated beta" << beta;
 
         //we need to determine if the nodes are currently being laid out in a
@@ -307,7 +313,8 @@ void Packing::layout_hyperbolic(int centerCircle)
                 uprime = w->getNeibhours().at(nbhrIndex - 2);
             }
             //now look at angles of uprime and u
-            QPointF relUPrime = uprime->getPosition() - w->getPosition();
+            //QPointF relUPrime = uprime->getPosition() - w->getPosition();
+            QPointF relUPrime = phi(uprime->getPosition());
             qreal betaprime = atan2(relUPrime.y(), relUPrime.x());
             //difference between angles should be less than PI radians
             qreal diff = fmod(betaprime - beta + 2*PI, 2*PI);
@@ -335,10 +342,13 @@ void Packing::layout_hyperbolic(int centerCircle)
         qDebug() << "s=" << s;
         //now plot the point using sin and cosine
         QPointF pos(s*cos(arg), s*sin(arg));
+        //this is teh position relative to w. Now for
         //set the position of v, remembering to take the isometry into account.
         qDebug() << "pos=" << pos;
         qDebug()  << "phi(pos)=" << phi(pos);
-        v->setPosition(phi(pos));
+        QPointF position = phi(pos);
+        //QPointF position = w->getPosition() + pos;
+        v->setPosition(position);
         //and update the lists
         unplacedNodes.removeAll(v);
         placedNodes.append(v);

@@ -34,19 +34,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->btnLayout, SIGNAL(clicked(bool)), this, SLOT(doLayout()));
     connect(ui->btnRepack, SIGNAL(clicked(bool)), this, SLOT(doRepack()));
+    this->setZoom(ui->spinZoom->value());
 
 //    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
     QList<Node*> nodes;
-    for(int i = 0; i < 8; i++){
-        nodes.append(new Node(i, QPointF(0, 0), 0.10));
+    for(int i = 0; i < 7; i++){
+        nodes.append(new Node(i, QPointF(0, 0), 0.250));
     }
-    for(int i = 1; i < 8; i++){
+    for(int i = 1; i < 7; i++){
         nodes.at(i)->addNeibhour(nodes.at(0));
-         nodes.at(i)->addNeibhour(nodes.at((i+1)%8));
+         nodes.at(i)->addNeibhour(nodes.at((i+1)%7));
         nodes.at(i)->setPosition(QPointF(0, 0));
     }
     nodes.last()->addNeibhour(nodes.first());
-    nodes.at(7)->addNeibhour(nodes.at(1));
+    nodes.at(6)->addNeibhour(nodes.at(1));
 
     p = new Packing(nodes, PackingType::HyperbolicPacking);
     ui->view->setScene(this->p);

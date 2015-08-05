@@ -234,10 +234,6 @@
           </widget>
          </item>
         </layout>
-        <zorder>label_2</zorder>
-        <zorder>label_2</zorder>
-        <zorder>spinCenterCircleID</zorder>
-        <zorder>btnLayout</zorder>
        </widget>
       </item>
       <item>
