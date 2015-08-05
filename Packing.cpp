@@ -3,6 +3,7 @@
 #include <QtDebug>
 #include <cmath>
 #include <complex>
+#include "Boundary.hpp"
 
 #define PI 3.1415926535897932384626433
 

@@ -55,6 +55,7 @@ PFile::PFile(QString filename)
             qreal y = words.at(center_base + 2*i + 1).toDouble() ;
             qDebug() << QString("New Node at %1, %2 with r=%3").arg(x).arg(y).arg(radius);
             nodes.append(new Node(i+1, QPointF(x, y), radius));
+//            nodes.append(new Node(i+1, QPointF(0,0), radius));
         }
         //nodes don't have defined position Generate a blank node.
         else{
