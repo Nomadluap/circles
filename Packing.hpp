@@ -91,7 +91,6 @@ public:
      */
     bool isInterior(Node *n);
     bool isExterior(Node *n);
-    void setExterior(Node *n);
 
 public slots:
     void setDrawCenters(bool d);

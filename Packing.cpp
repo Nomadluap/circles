@@ -647,17 +647,13 @@ QList<Node *> Packing::getNodes()
 
 bool Packing::isInterior(Node *n)
 {
-    return !(this->boundaryNodes.contains(n)) && this->nodes.contains(n);
+    //return !(this->boundaryNodes.contains(n)) && this->nodes.contains(n);
+    return this->nodes.contains(n) && n->hasFullFlower();
 }
 
 bool Packing::isExterior(Node *n)
 {
-    return this->boundaryNodes.contains(n) && this->nodes.contains(n);
-}
-
-void Packing::setExterior(Node *n)
-{
-    if(isInterior(n)) this->boundaryNodes.append(n);
+    return this->nodes.contains(n) && !n->hasFullFlower();
 }
 
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)

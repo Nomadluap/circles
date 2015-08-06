@@ -38,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setZoom(ui->spinZoom->value());
 
 //    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
+
+    /*
     QList<Node*> nodes;
     int s = 9;
     for(int i = 0; i < s; i++){
@@ -53,9 +55,9 @@ MainWindow::MainWindow(QWidget *parent) :
     nodes.at(0)->setRadius(4.0);
 
     p = new Packing(nodes, PackingType::EuclideanPacking);
-    for(int i = 1; i < s; i++){
-        p->setExterior(nodes.at(i));
-    }
+    */
+
+    p = new Packing(Node::generateHexArray(10, 0.05), PackingType::EuclideanPacking);
     ui->view->setScene(this->p);
 
 
