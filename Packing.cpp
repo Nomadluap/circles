@@ -12,8 +12,8 @@
 Packing::Packing(PackingType type)
 {
     this->type = type;
-//    this->boundary = new Boundary();
-//    if(this->boundary != nullptr) this->addItem(boundary);
+    this->boundary = new Boundary();
+    this->addItem(boundary);
 }
 
 Packing::Packing(QList<Node *> nodes, PackingType type):
@@ -85,8 +85,10 @@ void Packing::addNode(Node *n){
 
 void Packing::addNode_fast(Node *n)
 {
-    if(!this->nodes.contains(n)) this->nodes.append(n);
-    this->addCircle(n);
+    if(!this->nodes.contains(n)){
+        this->nodes.append(n);
+        this->addCircle(n);
+    }
 }
 
 
@@ -125,28 +127,37 @@ void Packing::setDrawIndicies(bool d)
 
 void Packing::repack(qreal epsilon, qreal outerRadius)
 {
+    qDebug() << "STARTING REPACK";
     //first set all radii
     for(Node* n: this->nodes){
         n->setRadius(outerRadius);
+        qDebug() << "Setting node #" << n->getId() << "to radius" << outerRadius;
     }
     //compute a list of all inner nodes
     QList<Node*> interior;
     for(Node* n: this->nodes){
-        if(this->isInterior(n)) interior.append(n);
+        if(this->isInterior(n)){
+            interior.append(n);
+            qDebug() << "Node" << n->getId() << "is interior";
+        }
     }
     //Repacking loop
     bool done = false;
     while(!done){
         //recompute radii
         for(Node* n: interior){
+            qDebug() << "\n for node:" << n->getId();
+            qDebug() << "Old radius:" << n->getRadius();
             qreal theta = this->anglesum(n);
+            qDebug() << "angle sum:" << theta;
             qreal delta = fabs(2*PI - theta);
             if(theta < 2*PI){
-                n->setRadius(n->getRadius() * (1 - delta/2.0));
+                n->setRadius(n->getRadius() * (1 - delta/3.0));
             }
             else{
-                n->setRadius(n->getRadius() * (1 + delta/2.0));
+                n->setRadius(n->getRadius() * (1 + delta/3.0));
             }
+            qDebug() << "New radius:" << n->getRadius();
         }
         //check that all radii satisfy the epsilon-condition
         done = true;
@@ -157,6 +168,8 @@ void Packing::repack(qreal epsilon, qreal outerRadius)
             }
         }
     }
+
+    qDebug () << "DONE TEH REPACK";
 }
 
 void Packing::layout(int centerCircle)
@@ -170,6 +183,20 @@ void Packing::layout(int centerCircle)
     for(Node* n: this->nodes){
         this->addCircle(n);
     }
+
+//    for(Circle* c: this->circles){
+//        c->hide();
+//        this->removeItem(c);
+//        this->update(this->sceneRect());
+//        Node* n = c->getNode();
+//        c = new Circle(n, this);
+//        this->addItem(c);
+//    }
+
+//    QGraphicsItem *i = this->addRect(this->sceneRect(), QColor(255,255,255));
+//    this->update(this->sceneRect());
+//    this->removeItem(i);
+//    this->update(this->sceneRect());
     this->recomputeConnectors();
 
 }
@@ -596,7 +623,7 @@ void Packing::recomputeConnectors()
     qDebug() << "clearing existing connectors";
     for(Connector *c: this->connectors){
         this->removeItem(c);
-        if (c != nullptr) delete c;
+        //if (c != nullptr) delete c;
     }
     this->connectors.clear();
     qDebug() << "drawing new connectors";
@@ -621,6 +648,16 @@ QList<Node *> Packing::getNodes()
 bool Packing::isInterior(Node *n)
 {
     return !(this->boundaryNodes.contains(n)) && this->nodes.contains(n);
+}
+
+bool Packing::isExterior(Node *n)
+{
+    return this->boundaryNodes.contains(n) && this->nodes.contains(n);
+}
+
+void Packing::setExterior(Node *n)
+{
+    if(isInterior(n)) this->boundaryNodes.append(n);
 }
 
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)

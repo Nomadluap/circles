@@ -84,6 +84,15 @@ public:
 
     QList<Node*> getNodes();
 
+    /**
+     * @brief Determine if given node is interior to packing.
+     * @param n node
+     * @return true if node is interior to packing. Otherwise False.
+     */
+    bool isInterior(Node *n);
+    bool isExterior(Node *n);
+    void setExterior(Node *n);
+
 public slots:
     void setDrawCenters(bool d);
     void setDrawLinks(bool d);
@@ -135,12 +144,7 @@ protected:
 
 
 
-    /**
-     * @brief Determine if given node is interior to packing.
-     * @param n node
-     * @return true if node is interior to packing. Otherwise False.
-     */
-    bool isInterior(Node* n);
+
 
 
     void drawForeground(QPainter *painter, const QRectF &rect) Q_DECL_OVERRIDE;

@@ -20,8 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->view->setRenderHint(QPainter::Antialiasing, true);
     ui->view->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->view->setInteractive(false);
-    ui->view->setOptimizationFlags(QGraphicsView::DontSavePainterState);
-    ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    //ui->view->setOptimizationFlags(QGraphicsView::DontSavePainterState);
+    ui->view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
     connect(ui->checkCenters, SIGNAL(toggled(bool)), this, SLOT(setDrawCenters(bool)));
@@ -39,19 +39,27 @@ MainWindow::MainWindow(QWidget *parent) :
 
 //    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
     QList<Node*> nodes;
-    for(int i = 0; i < 7; i++){
-        nodes.append(new Node(i, QPointF(0, 0), 0.250));
+    int s = 9;
+    for(int i = 0; i < s; i++){
+        nodes.append(new Node(i, QPointF(0, 0), 0.01));
     }
-    for(int i = 1; i < 7; i++){
+    for(int i = 1; i < s; i++){
         nodes.at(i)->addNeibhour(nodes.at(0));
-         nodes.at(i)->addNeibhour(nodes.at((i+1)%7));
+         nodes.at(i)->addNeibhour(nodes.at((i+1)%s));
         nodes.at(i)->setPosition(QPointF(0, 0));
     }
     nodes.last()->addNeibhour(nodes.first());
-    nodes.at(6)->addNeibhour(nodes.at(1));
+    nodes.at(s-1)->addNeibhour(nodes.at(1));
+    nodes.at(0)->setRadius(4.0);
 
-    p = new Packing(nodes, PackingType::HyperbolicPacking);
+    p = new Packing(nodes, PackingType::EuclideanPacking);
+    for(int i = 1; i < s; i++){
+        p->setExterior(nodes.at(i));
+    }
     ui->view->setScene(this->p);
+
+
+
 }
 
 MainWindow::~MainWindow()
