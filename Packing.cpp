@@ -310,6 +310,14 @@ void Packing::layout_hyperbolic(int centerCircle)
             std::complex<double> result = (z - c)/(1.0 - cbar*z);
             return QPointF(result.real(), result.imag());
         };
+        auto phiinv = [wp](QPointF zz)->QPointF{
+            std::complex<double> c(wp.x(), wp.y());
+            std::complex<double> cbar(wp.x(), -wp.y());
+            std::complex<double> z(zz.x(), zz.y());
+
+            std::complex<double> result = (z + c)/(1.0 + cbar*z);
+            return QPointF(result.real(), result.imag());
+        };
         qDebug() << "phi(u)=" << phi(u->getPosition());
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w, u, v);
@@ -373,8 +381,8 @@ void Packing::layout_hyperbolic(int centerCircle)
         //this is teh position relative to w. Now for
         //set the position of v, remembering to take the isometry into account.
         qDebug() << "pos=" << pos;
-        qDebug()  << "phi(pos)=" << phi(pos);
-        QPointF position = phi(pos);
+        qDebug()  << "phiinv(pos)=" << phiinv(pos);
+        QPointF position = phiinv(pos);
         //QPointF position = w->getPosition() + pos;
         v->setPosition(position);
         //and update the lists

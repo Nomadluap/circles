@@ -37,11 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnRepack, SIGNAL(clicked(bool)), this, SLOT(doRepack()));
     this->setZoom(ui->spinZoom->value());
 
-//    p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
+    //p = new SelectionPacking(Node::generateHexArray(20, 1/20.0), PackingType::EuclideanPacking);
 
-    /*
+
     QList<Node*> nodes;
-    int s = 9;
+    int s = 5;
     for(int i = 0; i < s; i++){
         nodes.append(new Node(i, QPointF(0, 0), 0.01));
     }
@@ -52,12 +52,13 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     nodes.last()->addNeibhour(nodes.first());
     nodes.at(s-1)->addNeibhour(nodes.at(1));
-    nodes.at(0)->setRadius(4.0);
+    nodes.at(0)->setRadius(0.25);
 
-    p = new Packing(nodes, PackingType::EuclideanPacking);
-    */
 
-    p = new Packing(Node::generateHexArray(10, 0.05), PackingType::EuclideanPacking);
+    p = new Packing(nodes, PackingType::HyperbolicPacking);
+
+
+    //p = new Packing(Node::generateHexArray(10, 0.05), PackingType::EuclideanPacking);
     ui->view->setScene(this->p);
 
 
