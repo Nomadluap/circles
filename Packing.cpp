@@ -192,6 +192,7 @@ void Packing::layout(int centerCircle)
         this->layout_hyperbolic(centerCircle);
 
     this->recomputeConnectors();
+    this->update();
 
 }
 
@@ -624,6 +625,7 @@ void Packing::recomputeConnectors()
     qDebug() << "recomputing Connectors...";
     qDebug() << "clearing existing connectors";
     for(Connector *c: this->connectors){
+        c->setVisible(false);
         this->removeItem(c);
         //if (c != nullptr) delete c;
     }
