@@ -19,17 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void setZoom(int zoom);
     void openFile();
-    void setDrawCircles(bool b);
-    void setDrawCenters(bool b);
-    void setDrawIndicies(bool b);
-    void setDrawLinks(bool b);
-    void test();
-    void doLayout();
-    void doRepack();
-    void setDragMode();
-    void setSelectMode();
 private:
     Ui::MainWindow *ui;
     Packing *p;
