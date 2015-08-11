@@ -9,6 +9,29 @@
 
 
 
+Packing::Packing(const Packing *p)
+{
+    //class field copy
+    this->type = p->type;
+    this->boundary = new Boundary;
+    this->addItem(boundary);
+    //deep copy nodes and preserve graph structure
+    //make new nodes
+    for(Node *n: p->nodes){
+        addNode_fast(new Node(n));
+    }
+    //now reestablish the neibhour relations
+    for(int i = 0; i < this->nodes.length(); i++){
+        Node* o = p->nodes.at(i);
+        for(Node* oo: o->getNeibhours()){
+            this->nodes.at(i)->addNeibhour(this->nodes.at(p->nodes.indexOf(oo)));
+        }
+    }
+
+    this->recomputeConnectors();
+
+}
+
 Packing::Packing(PackingType type)
 {
     this->type = type;

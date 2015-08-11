@@ -26,7 +26,11 @@ class Packing : public QGraphicsScene
     Q_OBJECT
 public:
 
-
+    /**
+     * Copy constructor. Nodes are deep-copied.
+     * @param p pointer to packing to be copied.
+     */
+    Packing(const Packing *p);
     /**
      * @brief Create a new, empty Packing object with specified geometry
      * @param type either PackingType::EuclideanPacking or PackingType::HyperbolicPacking

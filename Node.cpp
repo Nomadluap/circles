@@ -1,6 +1,15 @@
 #include "Node.hpp"
 #define PI 3.1415926535897932384626433
 
+Node::Node(const Node *n)
+{
+    this->id = n->id;
+    this->bHasPosition = n->bHasPosition;
+    this->color = n->color;
+    this->radius = n->radius;
+    this->position = n->position;
+}
+
 Node::Node(int id)
 {
     this->id = id;

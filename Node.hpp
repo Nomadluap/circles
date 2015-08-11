@@ -9,7 +9,22 @@
 class Node
 {
 public:
+    /**
+     * Copy constructor. Note that neibhour relationships are not copied.
+     * @param n Node to copy
+     */
+    Node(const Node *n);
+    /**
+     * Construct a Node without position or radius.
+     * @param id unique id of the node
+     */
     Node(int id);
+    /**
+     * Construct a node with a given position and radius.
+     * @param id Unique id of the node
+     * @param position Position of the node
+     * @param radius radius of the node
+     */
     Node(int id, QPointF &position, qreal radius=0);
     ~Node();
 
