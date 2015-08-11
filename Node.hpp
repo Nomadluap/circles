@@ -39,6 +39,7 @@ public:
     bool isNeibhour(Node* node);
     void sortNeibhours();
     QList<Node*> getNeibhours();
+    int getNeibhourCount();
 
     void setPosition(QPointF &position);
     QPointF getPosition();

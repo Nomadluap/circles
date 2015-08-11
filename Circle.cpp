@@ -27,6 +27,14 @@ QRectF Circle::boundingRect() const
 
 void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    //update position to prevent duplicates being drawn or something.
+    if(this->parent->getType() == PackingType::EuclideanPacking){
+        this->setPos(this->node->getPosition());
+    }
+    else{
+        this->setPos(hyp_getEuclideanCenter());
+    }
+
     if(this->parent->getType() == PackingType::EuclideanPacking){
         this->paint_euclidean(painter, option, widget);
     }
@@ -37,6 +45,7 @@ void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 
 void Circle::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event);
     qDebug() << "circle " << this->node->getId() << "got mouse press event";
     if(this->selectionState == SelectionState::Selected){
         this->selectionState = SelectionState::None;

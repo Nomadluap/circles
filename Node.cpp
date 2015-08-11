@@ -147,6 +147,11 @@ QList<Node *> Node::getNeibhours()
     return QList<Node*>(this->neibhours);
 }
 
+int Node::getNeibhourCount()
+{
+    return this->neibhours.length();
+}
+
 void Node::setPosition(QPointF &position)
 {
     this->position = position;

@@ -29,6 +29,8 @@ QRectF Connector::boundingRect() const
 
 void Connector::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(widget);
+    Q_UNUSED(option);
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
     painter->setPen(QPen(Qt::red, 1/lod));
 

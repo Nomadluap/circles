@@ -150,6 +150,7 @@ void Packing::repack(qreal epsilon, qreal outerRadius)
             qDebug() << "Old radius:" << n->getRadius();
             qreal theta = this->anglesum(n);
             qDebug() << "angle sum:" << theta;
+            /* --OLD THETA CODE --
             qreal delta = fabs(2*PI - theta);
             if(theta < 2*PI){
                 n->setRadius(n->getRadius() * (1 - delta/3.0));
@@ -157,7 +158,17 @@ void Packing::repack(qreal epsilon, qreal outerRadius)
             else{
                 n->setRadius(n->getRadius() * (1 + delta/3.0));
             }
+            */
+            //NEW CODE FROM PRACTICUM 3 PAGE 243
+            int k = n->getNeibhourCount();
+            qreal r = n->getRadius();
+            qreal beta = sin(theta / (2.0 * k));
+            qreal delta = sin(PI / qreal(k));
+            qreal rhat = (beta / (1.0 - beta)) * r;
+            qreal p = ((1.0 - delta) / delta) * rhat;
+            n->setRadius(p);
             qDebug() << "New radius:" << n->getRadius();
+
         }
         //check that all radii satisfy the epsilon-condition
         done = true;
@@ -174,29 +185,12 @@ void Packing::repack(qreal epsilon, qreal outerRadius)
 
 void Packing::layout(int centerCircle)
 {
+
     if(this->type == PackingType::EuclideanPacking)
         this->layout_euclidean(centerCircle);
     else if(this->type == PackingType::HyperbolicPacking)
         this->layout_hyperbolic(centerCircle);
 
-    this->purgeCircles();
-    for(Node* n: this->nodes){
-        this->addCircle(n);
-    }
-
-//    for(Circle* c: this->circles){
-//        c->hide();
-//        this->removeItem(c);
-//        this->update(this->sceneRect());
-//        Node* n = c->getNode();
-//        c = new Circle(n, this);
-//        this->addItem(c);
-//    }
-
-//    QGraphicsItem *i = this->addRect(this->sceneRect(), QColor(255,255,255));
-//    this->update(this->sceneRect());
-//    this->removeItem(i);
-//    this->update(this->sceneRect());
     this->recomputeConnectors();
 
 }

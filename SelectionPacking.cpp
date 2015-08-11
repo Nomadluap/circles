@@ -101,6 +101,7 @@ void SelectionPacking::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void SelectionPacking::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    Q_UNUSED(event);
     qDebug() << "Scene got mouse release event";
     this->mouseMode = MouseMode::None;
 }
