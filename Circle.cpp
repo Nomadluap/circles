@@ -144,7 +144,7 @@ void Circle::paint_hyperbolic(QPainter *painter, const QStyleOptionGraphicsItem 
         painter->setFont(font);
         painter->save();
         painter->scale(1.0/lod, 1.0/lod);
-        painter->drawText(cent - eCent + QPointF(4, -4), QString("%1").arg(this->node->getId()));
+        painter->drawText(QPointF(4, -4) + (cent - eCent) * lod, QString("%1").arg(this->node->getId()));
         painter->restore();
     }
 }
