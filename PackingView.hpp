@@ -28,6 +28,7 @@ private slots:
     void setDrawCenters(bool b);
     void setDrawIndicies(bool b);
     void setDrawLinks(bool b);
+    void setDrawBoundary(bool b);
     void test();
     void doLayout();
     void doRepack();

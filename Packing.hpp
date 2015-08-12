@@ -101,6 +101,7 @@ public slots:
     void setDrawLinks(bool d);
     void setDrawCircles(bool d);
     void setDrawIndicies(bool d);
+    void setDrawBoundary(bool d);
 
     /**
      * @brief Compute the radii of the circles that will result in

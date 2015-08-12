@@ -16,13 +16,15 @@ PackingView::PackingView(QWidget *parent) :
     ui->view->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->view->setInteractive(false);
     //ui->view->setOptimizationFlags(QGraphicsView::DontSavePainterState);
-    ui->view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     //create the view object
     connect(ui->checkCenters, SIGNAL(toggled(bool)), this, SLOT(setDrawCenters(bool)));
     connect(ui->checkCircles, SIGNAL(toggled(bool)), this, SLOT(setDrawCircles(bool)));
     connect(ui->checkConnectors, SIGNAL(toggled(bool)), this, SLOT(setDrawLinks(bool)));
     connect(ui->checkIndicies, SIGNAL(toggled(bool)), this, SLOT(setDrawIndicies(bool)));
+    connect(ui->checkBoundary, SIGNAL(toggled(bool)), this, SLOT(setDrawBoundary(bool)));
+
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
     connect(ui->rdSelectionMode, SIGNAL(clicked(bool)), this, SLOT(setSelectMode()));
     connect(ui->rdDragMode, SIGNAL(clicked(bool)), this, SLOT(setDragMode()));
@@ -80,6 +82,11 @@ void PackingView::setDrawIndicies(bool b)
 void PackingView::setDrawLinks(bool b)
 {
     this->packing->setDrawLinks(b);
+}
+
+void PackingView::setDrawBoundary(bool b)
+{
+    this->packing->setDrawBoundary(b);
 }
 
 void PackingView::test()

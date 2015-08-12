@@ -148,6 +148,11 @@ void Packing::setDrawIndicies(bool d)
     this->update();
 }
 
+void Packing::setDrawBoundary(bool d)
+{
+    this->boundary->setVisible(d);
+}
+
 void Packing::repack(qreal epsilon, qreal outerRadius)
 {
     qDebug() << "STARTING REPACK";
