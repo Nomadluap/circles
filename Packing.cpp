@@ -475,7 +475,7 @@ void Packing::layout_euclidean(int centerCircle)
         do{
             w = placedNodes.at(wIndex);
             wIndex++;
-        } while(!w->hasFullFlower());
+        } while(!w->hasFullFlower() && wIndex < placedNodes.length());
         qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
