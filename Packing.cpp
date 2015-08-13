@@ -147,7 +147,7 @@ void Packing::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
             this->selectedCircle = c;
         }
     }
-
+    //pass mouse event on to circle.
     //QGraphicsScene::mousePressEvent(mouseEvent);
     this->update();
 }

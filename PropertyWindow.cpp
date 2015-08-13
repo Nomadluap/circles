@@ -33,7 +33,7 @@ void PropertyWindow::refresh()
     QList<Node*> neibhours = n->getNeibhours();
     ui->txtNeibhours->setPlainText("");
     for(Node* p: neibhours){
-        ui->txtNeibhours->appendPlainText(QString("%1 \n").arg(p->getId()));
+        ui->txtNeibhours->appendPlainText(QString("%1").arg(p->getId()));
     }
 
 }
