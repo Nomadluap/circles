@@ -118,7 +118,37 @@ void Packing::addNode_fast(Node *n)
 void Packing::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
     qDebug() << "scene got mouse press event";
-    QGraphicsScene::mousePressEvent(mouseEvent);
+    //update the property window
+    QPointF pos = mouseEvent->scenePos();
+    QList<QGraphicsItem*> items = this->items(pos);
+    //cycle through the items to find one which is a circle.
+    Node *n = nullptr;
+    Circle *c = nullptr;
+    for(auto item: items){
+        c = dynamic_cast<Circle*>(item);
+        if(c == nullptr) continue;
+        else{
+            n = c->getNode();
+            break;
+        }
+    }
+    if(n != nullptr) emit newNodeSelected(n);
+    //handle circle visual selection
+    if(c != nullptr){
+        if(c == this->selectedCircle){
+            c->setSelectionState(Circle::SelectionState::None);
+            this->selectedCircle = nullptr;
+        }
+        else{
+            if(this->selectedCircle != nullptr){
+                this->selectedCircle->setSelectionState(Circle::SelectionState::None);
+            }
+            c->setSelectionState(Circle::SelectionState::Selected);
+            this->selectedCircle = c;
+        }
+    }
+
+    //QGraphicsScene::mousePressEvent(mouseEvent);
     this->update();
 }
 
