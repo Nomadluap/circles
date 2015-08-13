@@ -33,6 +33,11 @@ PackingView::PackingView(QWidget *parent) :
     connect(ui->btnRepack, SIGNAL(clicked(bool)), this, SLOT(doRepack()));
     this->setZoom(ui->spinZoom->value());
 
+    //set up prpoerty window
+    propWindow = new PropertyWindow(this);
+    propWindow->setModal(false);
+    connect(ui->btnProperties, SIGNAL(clicked(bool)), propWindow, SLOT(show()));
+
 }
 
 PackingView::PackingView(Packing *p, QWidget *parent):
@@ -48,12 +53,16 @@ PackingView::~PackingView()
 
 void PackingView::setPacking(Packing *p)
 {
+
     this->packing = p;
     this->ui->view->setScene(p);
     p->setDrawCenters(true);
     p->setDrawCircles(true);
     p->setDrawIndicies(true);
     p->setDrawLinks(true);
+    connect(packing, SIGNAL(newNodeSelected(Node*)),
+            propWindow, SLOT(setNode(Node*)));
+
 }
 
 void PackingView::setZoom(int zoom)
@@ -119,3 +128,5 @@ void PackingView::setSelectMode()
     ui->view->setDragMode(QGraphicsView::NoDrag);
     ui->view->setInteractive(true);
 }
+
+

@@ -7,6 +7,7 @@ class Packing;
 
 
 #include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <QWidget>
 #include <QObject>
 #include "Node.hpp"
@@ -117,8 +118,8 @@ public slots:
      */
     void layout(int centerCircle);
 
-
-
+signals:
+    void newNodeSelected(Node* n);
 
 protected:
     void layout_hyperbolic(int centerCircle);
@@ -164,6 +165,7 @@ protected:
     QList<Node*> boundaryNodes;
     QList<Circle*> circles;
     QList<Connector*> connectors;
+    Circle *selectedCircle = nullptr;
 
 private:
     Boundary* boundary = nullptr;

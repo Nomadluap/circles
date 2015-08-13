@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     ShapeSelector.cpp \
     SelectionPacking.cpp \
     Boundary.cpp \
-    PackingView.cpp
+    PackingView.cpp \
+    PropertyWindow.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -34,11 +35,13 @@ HEADERS  += mainwindow.h \
     PackingType.hpp \
     SelectionPacking.hpp \
     Boundary.hpp \
-    PackingView.hpp
+    PackingView.hpp \
+    PropertyWindow.hpp
 
 FORMS    += mainwindow.ui \
     ShapeSelector.ui \
-    PackingView.ui
+    PackingView.ui \
+    PropertyWindow.ui
 
 DISTFILES += \
     molecule.p \

@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Packing.hpp"
+#include "PropertyWindow.hpp"
 
 namespace Ui {
 class PackingView;
@@ -38,6 +39,7 @@ private slots:
 private:
     Ui::PackingView *ui;
     Packing *packing;
+    PropertyWindow *propWindow;
 };
 
 #endif // PACKINGVIEW_HPP
