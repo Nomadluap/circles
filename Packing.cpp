@@ -305,6 +305,7 @@ void Packing::layout_hyperbolic(int centerCircle)
     }
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
+        bool nonFullOp = false;
         qDebug() << "--NEXT NODE--";
         //find a placed node that does not have a full flower
         Node *w;
@@ -312,12 +313,25 @@ void Packing::layout_hyperbolic(int centerCircle)
         do{
             w = placedNodes.at(wIndex);
             wIndex++;
-        } while(!w->hasFullFlower());
+        } while(!w->hasFullFlower() && wIndex < placedNodes.length());
+        //if w does not have a full flower at this point, then we need to get creative
+        if(!w->hasFullFlower() && unplacedNodes.contains(w->getNeibhours().first())){
+            qDebug() << "No placed node has full flower. Special operation around"
+                     << w->getId();
+            nonFullOp = true;
+            //return;
+        }
         qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
-        //not an infinite loop since every placed node has at least one placed neibhour.
-        while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        if(nonFullOp){
+            nbhrIndex = w->getNeibhourCount() - 1;
+            while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex--;
+        }
+        else{
+            //not an infinite loop since every placed node has at least one placed neibhour.
+            while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        }
         //now continue going around the nodes until we find the first one that is unplaced
         //we also need to check if the full flower has been placed.
         bool fullFlower = false;
@@ -340,8 +354,14 @@ void Packing::layout_hyperbolic(int centerCircle)
             continue;
         }
         Node *u;
-        if(nbhrIndex == 0) u = w->getNeibhours().last();
-        else u = w->getNeibhours().at(nbhrIndex-1);
+        if(nonFullOp){
+            if(nbhrIndex == w->getNeibhourCount() - 1) u = w->getNeibhours().first();
+            else u = w->getNeibhours().at(nbhrIndex+1);
+        }
+        else{
+            if(nbhrIndex == 0) u = w->getNeibhours().last();
+            else u = w->getNeibhours().at(nbhrIndex-1);
+        }
         //now v becomes this "first unplaced node"
         Node *v = w->getNeibhours().at(nbhrIndex);
         if(!unplacedNodes.contains(v)){
@@ -392,14 +412,27 @@ void Packing::layout_hyperbolic(int centerCircle)
         if(placedCount >= 2 && w->getNeibhours().length() >= 3){
             //grab uprime
             Node *uprime;
-            if(nbhrIndex == 0 && w->getNeibhours().length()){
-                uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
-            }
-            else if(nbhrIndex == 1){
-                uprime = w->getNeibhours().last();
+            if(nonFullOp){
+                if(nbhrIndex == w->getNeibhourCount() - 1){
+                    uprime = w->getNeibhours().at(1);
+                }
+                else if(nbhrIndex == w->getNeibhourCount() - 2){
+                    uprime = w->getNeibhours().at(2);
+                }
+                else{
+                    uprime = w->getNeibhours().at(nbhrIndex + 2);
+                }
             }
             else{
-                uprime = w->getNeibhours().at(nbhrIndex - 2);
+                if(nbhrIndex == 0){
+                    uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
+                }
+                else if(nbhrIndex == 1){
+                    uprime = w->getNeibhours().last();
+                }
+                else{
+                    uprime = w->getNeibhours().at(nbhrIndex - 2);
+                }
             }
             //now look at angles of uprime and u
             //QPointF relUPrime = uprime->getPosition() - w->getPosition();
@@ -497,6 +530,7 @@ void Packing::layout_euclidean(int centerCircle)
     }
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
+        bool nonFullOp = false;
         qDebug() << "--NEXT NODE--";
         //find a placed node that does not have its full flower placed.
         //we require that the w node does in fact have a full flower.
@@ -505,12 +539,26 @@ void Packing::layout_euclidean(int centerCircle)
         do{
             w = placedNodes.at(wIndex);
             wIndex++;
+        //} while(!w->hasFullFlower() && wIndex < placedNodes.length());
         } while(!w->hasFullFlower() && wIndex < placedNodes.length());
+        //if w does not have a full flower at this point, then we need to get creative
+        if(!w->hasFullFlower() && unplacedNodes.contains(w->getNeibhours().first())){
+            qDebug() << "No placed node has full flower. Special operation around"
+                     << w->getId();
+            nonFullOp = true;
+            //return;
+        }
         qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
-        //not an infinite loop since every placed node has at least one placed neibhour.
-        while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        if(nonFullOp){
+            nbhrIndex = w->getNeibhourCount() - 1;
+            while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex--;
+        }
+        else{
+            //not an infinite loop since every placed node has at least one placed neibhour.
+            while(unplacedNodes.contains(w->getNeibhours().at(nbhrIndex))) nbhrIndex++;
+        }
         //now continue going around the nodes until we find the first one that is unplaced
         //we also need to check if the full flower has been placed.
         bool fullFlower = false;
@@ -533,9 +581,14 @@ void Packing::layout_euclidean(int centerCircle)
             continue;
         }
         Node *u;
-        if(nbhrIndex == 0) u = w->getNeibhours().last();
-        else u = w->getNeibhours().at(nbhrIndex-1);
-
+        if(nonFullOp){
+            if(nbhrIndex == w->getNeibhourCount() - 1) u = w->getNeibhours().first();
+            else u = w->getNeibhours().at(nbhrIndex+1);
+        }
+        else{
+            if(nbhrIndex == 0) u = w->getNeibhours().last();
+            else u = w->getNeibhours().at(nbhrIndex-1);
+        }
 
         //now v becomes this "first unplaced node"
         Node *v = w->getNeibhours().at(nbhrIndex);
@@ -566,15 +619,29 @@ void Packing::layout_euclidean(int centerCircle)
         if(placedCount >= 2 && w->getNeibhours().length() >= 3){
             //grab uprime
             Node *uprime;
-            if(nbhrIndex == 0 && w->getNeibhours().length()){
-                uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
-            }
-            else if(nbhrIndex == 1){
-                uprime = w->getNeibhours().last();
+            if(nonFullOp){
+                if(nbhrIndex == w->getNeibhourCount() - 1){
+                    uprime = w->getNeibhours().at(1);
+                }
+                else if(nbhrIndex == w->getNeibhourCount() - 2){
+                    uprime = w->getNeibhours().at(2);
+                }
+                else{
+                    uprime = w->getNeibhours().at(nbhrIndex + 2);
+                }
             }
             else{
-                uprime = w->getNeibhours().at(nbhrIndex - 2);
+                if(nbhrIndex == 0){
+                    uprime = w->getNeibhours().at(w->getNeibhours().length() - 2);
+                }
+                else if(nbhrIndex == 1){
+                    uprime = w->getNeibhours().last();
+                }
+                else{
+                    uprime = w->getNeibhours().at(nbhrIndex - 2);
+                }
             }
+
             //now look at angles of uprime and u
             QPointF relUPrime = uprime->getPosition() - w->getPosition();
             qreal betaprime = atan2(relUPrime.y(), relUPrime.x());
