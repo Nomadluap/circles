@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 #include "Packing.hpp"
 #include "PropertyWindow.hpp"
+#include "PackingType.hpp"
 
 namespace Ui {
 class PackingView;
@@ -35,6 +36,7 @@ private slots:
     void doRepack();
     void setDragMode();
     void setSelectMode();
+    void setPackingType(bool b); //TRUE is euclidean, false hyperbolic
 
 private:
     Ui::PackingView *ui;

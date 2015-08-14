@@ -68,10 +68,13 @@ void Packing::setPackingType(PackingType type)
     while(!circles.isEmpty()){
         circles.removeLast();
     }
+    connectors.clear();
     //and re-add circles for all nodes
     for(Node *n: this->nodes){
         this->addCircle(n);
     }
+    boundary = new Boundary();
+    this->addItem(boundary);
     this->recomputeConnectors();
     this->update();
 }

@@ -25,6 +25,10 @@ PackingView::PackingView(QWidget *parent) :
     connect(ui->checkIndicies, SIGNAL(toggled(bool)), this, SLOT(setDrawIndicies(bool)));
     connect(ui->checkBoundary, SIGNAL(toggled(bool)), this, SLOT(setDrawBoundary(bool)));
 
+    connect(ui->rdEuclidean, SIGNAL(toggled(bool)),
+            this, SLOT(setPackingType(bool)));
+
+
     connect(ui->spinZoom, SIGNAL(valueChanged(int)), this, SLOT(setZoom(int)));
     connect(ui->rdSelectionMode, SIGNAL(clicked(bool)), this, SLOT(setSelectMode()));
     connect(ui->rdDragMode, SIGNAL(clicked(bool)), this, SLOT(setDragMode()));
@@ -53,13 +57,15 @@ PackingView::~PackingView()
 
 void PackingView::setPacking(Packing *p)
 {
-
+    PackingType type = p->getType();
     this->packing = p;
     this->ui->view->setScene(p);
     p->setDrawCenters(true);
     p->setDrawCircles(true);
     p->setDrawIndicies(true);
     p->setDrawLinks(true);
+    if(type == PackingType::EuclideanPacking) ui->rdEuclidean->setChecked(true);
+    else ui->rdHyperbolic->setChecked(true);
     connect(packing, SIGNAL(newNodeSelected(Node*)),
             propWindow, SLOT(setNode(Node*)));
 
@@ -127,6 +133,13 @@ void PackingView::setSelectMode()
 //    ui->view->setDragMode(QGraphicsView::RubberBandDrag);
     ui->view->setDragMode(QGraphicsView::NoDrag);
     ui->view->setInteractive(true);
+}
+
+void PackingView::setPackingType(bool b)
+{
+    qDebug() << "Setting Packing type";
+    if(b) this->packing->setPackingType(PackingType::EuclideanPacking);
+    else this->packing->setPackingType(PackingType::HyperbolicPacking);
 }
 
 
