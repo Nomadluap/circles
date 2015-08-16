@@ -176,7 +176,7 @@
         <item row="0" column="1">
          <widget class="QDoubleSpinBox" name="spinEpsilon">
           <property name="decimals">
-           <number>6</number>
+           <number>8</number>
           </property>
           <property name="maximum">
            <double>10.000000000000000</double>
@@ -254,7 +254,7 @@
         <item row="0" column="1">
          <widget class="QSpinBox" name="spinCenterCircleID">
           <property name="maximum">
-           <number>999</number>
+           <number>32768</number>
           </property>
          </widget>
         </item>

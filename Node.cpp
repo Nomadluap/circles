@@ -186,6 +186,7 @@ void Node::delPosition()
 bool Node::hasFullFlower()
 {
     if(!this->sortedNeibhours) this->sortNeibhours();
+    if(this->getNeibhourCount()<= 2) return false;
     return this->neibhours.first()->isNeibhour(this->neibhours.last());
 }
 
