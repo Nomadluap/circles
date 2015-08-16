@@ -68,6 +68,12 @@ void PackingView::setPacking(Packing *p)
     else ui->rdHyperbolic->setChecked(true);
     connect(packing, SIGNAL(newNodeSelected(Node*)),
             propWindow, SLOT(setNode(Node*)));
+    //reset all checkboxes
+    ui->checkBoundary->setChecked(true);
+    ui->checkCenters->setChecked(true);
+    ui->checkCircles->setChecked(true);
+    ui->checkConnectors->setChecked(true);
+    ui->checkIndicies->setChecked(true);
 
 }
 

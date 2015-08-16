@@ -2,7 +2,7 @@
 #include "ui_ShapeSelector.h"
 
 ShapeSelector::ShapeSelector(QWidget *parent) :
-    QDialog(parent),
+    QWidget(parent),
     ui(new Ui::ShapeSelector)
 {
     ui->setupUi(this);

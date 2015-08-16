@@ -254,6 +254,7 @@ void Packing::layout(int centerCircle)
         this->layout_hyperbolic(centerCircle);
 
     this->recomputeConnectors();
+    this->invalidate();
     this->update();
 
 }

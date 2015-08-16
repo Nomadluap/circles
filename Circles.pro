@@ -19,11 +19,11 @@ SOURCES += main.cpp\
     Circle.cpp \
     PFile.cpp \
     Connector.cpp \
-    ShapeSelector.cpp \
     SelectionPacking.cpp \
     Boundary.cpp \
     PackingView.cpp \
-    PropertyWindow.cpp
+    PropertyWindow.cpp \
+    ShapeSelector.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -31,17 +31,17 @@ HEADERS  += mainwindow.h \
     Circle.hpp \
     PFile.hpp \
     Connector.hpp \
-    ShapeSelector.hpp \
     PackingType.hpp \
     SelectionPacking.hpp \
     Boundary.hpp \
     PackingView.hpp \
-    PropertyWindow.hpp
+    PropertyWindow.hpp \
+    ShapeSelector.hpp
 
 FORMS    += mainwindow.ui \
-    ShapeSelector.ui \
     PackingView.ui \
-    PropertyWindow.ui
+    PropertyWindow.ui \
+    ShapeSelector.ui
 
 DISTFILES += \
     molecule.p \

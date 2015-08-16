@@ -1,13 +1,13 @@
 #ifndef SHAPESELECTOR_HPP
 #define SHAPESELECTOR_HPP
 
-#include <QDialog>
+#include <QWidget>
 
 namespace Ui {
 class ShapeSelector;
 }
 
-class ShapeSelector : public QDialog
+class ShapeSelector : public QWidget
 {
     Q_OBJECT
 
