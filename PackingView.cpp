@@ -5,6 +5,7 @@
 #include <QtMath>
 #include <QWidget>
 #include <QFileDialog>
+#include <QGLWidget>
 
 PackingView::PackingView(QWidget *parent) :
     QWidget(parent),
@@ -12,6 +13,7 @@ PackingView::PackingView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->view->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
     ui->view->setRenderHint(QPainter::Antialiasing, true);
     ui->view->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->view->setInteractive(false);

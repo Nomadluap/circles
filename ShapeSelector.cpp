@@ -5,6 +5,7 @@
 #include <QRectF>
 #include "ui_ShapeSelector.h"
 #include <QMessageBox>
+#include <QGLWidget>
 
 ShapeSelector::ShapeSelector(QWidget *parent) :
     QWidget(parent),
@@ -17,7 +18,7 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     this->packing->setDrawIndicies(false);
     this->packing->setDrawCenters(false);
     this->packing->setDrawBoundary(false);
-
+    ui->view->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
 
     ui->view->setRenderHint(QPainter::Antialiasing, true);
     ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
@@ -97,7 +98,7 @@ void ShapeSelector::circleResize()
 void ShapeSelector::addVertex(QPointF pos)
 {
     this->vertices.append(pos);
-    ui->lstVertices->
+    //ui->lstVertices->
 }
 
 void ShapeSelector::resizeEvent(QResizeEvent *event)
