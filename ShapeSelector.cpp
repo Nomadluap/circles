@@ -12,3 +12,30 @@ ShapeSelector::~ShapeSelector()
 {
     delete ui;
 }
+
+void ShapeSelector::manualAddVertex()
+{
+
+}
+
+void ShapeSelector::deleteSelected()
+{
+
+}
+
+void ShapeSelector::cullPacking()
+{
+
+}
+
+void ShapeSelector::accept()
+{
+
+}
+
+void ShapeSelector::addVertex(QPointF pos)
+{
+
+}
+
+
