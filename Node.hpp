@@ -36,7 +36,9 @@ public:
      * @param radius the radius of each individual circle.
      * @return The generated Node list.
      */
-    static QList<Node*> generateHexArray(int size, qreal radius);
+    static QList<Node*> generateHexArray(const QRectF &area, qreal radius);
+
+    static QList<Node*> generateHexArray(const QPointF &startpos, int w, int h, qreal radius);
 
 
     int getId();

@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Node.hpp"
 #define PI 3.1415926535897932384626433
 
@@ -27,47 +28,107 @@ Node::Node(int id, QPointF &position, qreal radius)
     this->color = QColor(255, 255, 255);
 }
 
-QList<Node *> Node::generateHexArray(int size, qreal radius)
+QList<Node *> Node::generateHexArray(const QRectF &area, qreal radius)
 {
-    //first we must generate a 2d vector of the appropriate size
-    QVector<QVector<Node*> > mat;
-    mat.resize(size);
-    //now fill it with nodes
-    for(int row=0; row < size; row++){
-        for(int col=0; col< size; col++){
-            Node *n = new Node(row*size + col);
-            n->setRadius(radius);
-            qreal xpos = 2 * (row - size/2) * radius + 2 * (col - size/2)*radius*cos(2*PI/3.0);
-            qreal ypos = 2 * (col - size/2) * radius * sin(2 * PI/3.0);
-            n->setPosition(QPointF(xpos, ypos));
-            mat[row].append(n);
-        }
-    }
-    //now set up neibhour relations with those nodes.
-    for(int row=0; row < size; row++){
-        for(int col=0; col< size; col++){
-            Node *n = mat[row][col];
-            if(row >= 1){
-                n->addNeibhour(mat[row-1][col]);
-                if(col >= 1) n->addNeibhour(mat[row-1][col-1]);
-            }
-            if(col <= size-2) n->addNeibhour(mat[row][col+1]);
-            if(col >= 1) n->addNeibhour(mat[row][col-1]);
+    QPointF startpos = area.topLeft();
+    qreal width = area.width();
+    qreal height = area.height();
+    //calculate n and m; n is "width" and m is "height"
+    int n = int(width / radius + 1);
+    int m = int( (height / radius - 1) * 2 / sqrt(3) + 2); //needs to be odd
+    return Node::generateHexArray(startpos, n, m, radius);
 
-            if(row <= size-2){
-                n->addNeibhour(mat[row+1][col]);
-                if(col <= size-2) n->addNeibhour(mat[row+1][col+1]);
+
+}
+
+QList<Node *> Node::generateHexArray(const QPointF &startpos, int w, int h, qreal radius)
+{
+    int n = w;
+    int m = h;
+    if(m % 2 == 0) m++; //ensure m is odd
+    //number of nodes in packing
+    int nodecount = (m+1)/2*n + (m-1)/2*(n-1);
+    //generate node list
+    QList<QList<int> > cplx;
+    for(int i = 0; i < nodecount; i++){
+        cplx.append(QList<int>());
+    }
+    //now generate nbhr relations
+    //corners
+    cplx[0] = {1, n};
+    cplx[n-1] = {2*n-2, n-2};
+    cplx[nodecount-1] = {nodecount-2, nodecount-n-1};
+    cplx[nodecount-n] = {nodecount-2*n+1, nodecount-n+1};
+
+    //top edge
+    for(int i = 1; i < n-1; i++){
+        cplx[i] = {i+1, i+n, i+n-1, i-1};
+    }
+    //bottom edge
+    for(int i = nodecount-n+1; i < nodecount-1; i++){
+        cplx[i] = {i-1, i-n, i-n+1, i+1};
+    }
+    //left edge even (wide) rows
+    for(int i = 0; i < (m+1)/2 - 2; i++){
+        int index = (i+1) * (2*n-1);
+        cplx[index] = {index-n+1, index+1, index+n};
+    }
+    //right edge even(wide) rows
+    for(int i = 0; i < (m+1)/2 - 2; i++){
+        int index = (i+1) * (2*n-1) + n-1;
+        cplx[index] = {index+n-1, index-1, index-n};
+    }
+    //left edge odd (short) rows
+    for(int i = 0; i < (m+1)/2 - 1; i++){
+        int index = n + i*(2*n-1);
+        cplx[index] = {index-n, index-n+1, index+1, index+n, index+n-1};
+    }
+    //right edge odd (short) rows
+    for(int i = 0; i < (m+1)/ 2 - 1; i++){
+        int index = n + i*(2*n-1) + n-2;
+        cplx[index] = {index+n, index+n-1, index-1, index-n, index-n+1};
+    }
+    //interior circles
+    for(int i = 0; i < nodecount; i++){
+        if(cplx[i].isEmpty()){
+            cplx[i] = {i-n, i-n+1, i+1, i+n, i+n-1, i-1, i-n};
+        }
+    }
+    //genereate nodes
+    QList<Node*> nodes;
+    for(int i = 0; i < nodecount; i++){
+        Node* n = new Node(i);
+        n->setRadius(radius);
+        nodes.append(n);
+    }
+    //apply neibhour relations
+    for(int i = 0; i < nodecount; i++){
+        for(int j: cplx[i]){
+            nodes[i]->addNeibhour(nodes[j]);
+        }
+    }
+
+    //set positions
+    for(int row = 0; row < m; row++){
+        if(row % 2 == 0){ //even-numbered row
+            //row/2 even rows and row/2 odd rows
+            int base = (row/2) * n + (row/2) * (n-1);
+            for(int col = 0; col < n; col++){
+                QPointF pos = startpos + QPointF(2 * radius * col, sqrt(3) * row * radius);
+                nodes[base+col]->setPosition(pos);
+            }
+        }
+        else{ //odd numbered rows
+            //one extra even row than before
+            int base = ((row-1)/ 2 + 1) * n + ((row-1)/2) * (n-1);
+            for(int col = 0; col < (n-1); col++){
+                QPointF pos = startpos + QPointF(radius + 2*radius * col, sqrt(3) * row * radius);
+                nodes[base+col]->setPosition(pos);
             }
         }
     }
-    //now add the nodes to a new packing
-    QList<Node*>  l;
-    for(QVector<Node*> row: mat){
-        for(Node* n: row){
-            l.append(n);
-        }
-    }
-    return l;
+
+    return nodes;
 }
 
 int Node::getId()
