@@ -29,15 +29,22 @@ public:
     ~Node();
 
     /**
-     * @brief Generates a list of nodes which form a specified hex-tiling,
-     * suitable for passing to a Selection packing, with arbitrary shapes to
-     *  begin a hyperbolic repacking
-     * @param size the number of circles across to generate
-     * @param radius the radius of each individual circle.
-     * @return The generated Node list.
+     * Generates a hex tiling of circles with specified radius such that circles
+     * are guaranteed to cover at least the specified area
+     * @param area the area to cover
+     * @param radius radius of the circles
+     * @return list of nodes representing the circles created.
      */
     static QList<Node*> generateHexArray(const QRectF &area, qreal radius);
 
+    /**
+     *
+     * @param startpos  the location of the top-left circle
+     * @param w width, in circles, of the circle array
+     * @param h height, in circles, of the circle array. Should be odd.
+     * @param radius the radius of each circle.
+     * @return list of nodes representing the circles created.
+     */
     static QList<Node*> generateHexArray(const QPointF &startpos, int w, int h, qreal radius);
 
 

@@ -536,7 +536,7 @@ void Packing::layout_euclidean(int centerCircle)
     //now continue until all nodes have been placed...
     while(!unplacedNodes.empty()){
         bool nonFullOp = false;
-        qDebug() << "--NEXT NODE--";
+        //qDebug() << "--NEXT NODE--";
         //find a placed node that does not have its full flower placed.
         //we require that the w node does in fact have a full flower.
         Node *w;
@@ -548,12 +548,12 @@ void Packing::layout_euclidean(int centerCircle)
         } while(!w->hasFullFlower() && wIndex < placedNodes.length());
         //if w does not have a full flower at this point, then we need to get creative
         if(!w->hasFullFlower() && unplacedNodes.contains(w->getNeibhours().first())){
-            qDebug() << "No placed node has full flower. Special operation around"
-                     << w->getId();
+//            qDebug() << "No placed node has full flower. Special operation around"
+//                     << w->getId();
             nonFullOp = true;
             //return;
         }
-        qDebug() << "Center node: " << w->getId();
+//        qDebug() << "Center node: " << w->getId();
         //find a nbhr of w which has been placed.
         int nbhrIndex = 0;
         if(nonFullOp){
@@ -580,7 +580,7 @@ void Packing::layout_euclidean(int centerCircle)
         //if the full flower is complete, then update the lists and try again
         //with a different node.
         if(fullFlower){
-            qDebug() << "Node" << w->getId() << "has a full flower...";
+//            qDebug() << "Node" << w->getId() << "has a full flower...";
             placedNodes.removeAll(w);
             floweredNodes.append(w);
             continue;
@@ -597,22 +597,22 @@ void Packing::layout_euclidean(int centerCircle)
 
         //now v becomes this "first unplaced node"
         Node *v = w->getNeibhours().at(nbhrIndex);
-        qDebug() << "Node w has id " << w->getId() << ", radius " <<
-                    w->getRadius() << " and position" << w->getPosition();
-        qDebug() << "Node u has id " << u->getId() << ", radius " <<
-                    u->getRadius() << " and position " << u->getPosition();
-        qDebug() << "Node v has id " << v->getId() << " and radius " <<
-                    v->getRadius();
+//        qDebug() << "Node w has id " << w->getId() << ", radius " <<
+//                    w->getRadius() << " and position" << w->getPosition();
+//        qDebug() << "Node u has id " << u->getId() << ", radius " <<
+//                    u->getRadius() << " and position " << u->getPosition();
+//        qDebug() << "Node v has id " << v->getId() << " and radius " <<
+//                    v->getRadius();
         if(v->getId() == 1){
-            qDebug() << "FOUND IT";
+//            qDebug() << "FOUND IT";
         }
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w, u, v);
-        qDebug() << "Calculated alpha " << alpha;
+//        qDebug() << "Calculated alpha " << alpha;
         //find the argument of u
         QPointF relU = u->getPosition() - w->getPosition();
         qreal beta = atan2(relU.y(), relU.x());
-        qDebug() << "Calculated beta" << beta;
+//        qDebug() << "Calculated beta" << beta;
 
         //we need to determine if the nodes are currently being laid out in a
         //clockwise or anticlockwise manner. Thus we need to look at the two
@@ -658,12 +658,12 @@ void Packing::layout_euclidean(int centerCircle)
             if(diff < PI){
                 //betaprime is "ahead" of beta, so we should continue clockwise
                 isCCW = false;
-                qDebug() << "Placing clockwise";
+//                qDebug() << "Placing clockwise";
             }
             else{
                 //betaprime is "behind" beta, so continue anticlockwise
                 isCCW = true;
-                qDebug() << "Placing Counterclockwise";
+//                qDebug() << "Placing Counterclockwise";
             }
         }
         //then the actual argument of v is beta + alpha or beta - alpha
@@ -671,16 +671,16 @@ void Packing::layout_euclidean(int centerCircle)
         if(isCCW) arg = fmod(beta+alpha+2*PI, 2*PI);
         else arg = fmod(beta-alpha+2*PI, 2 * PI);
 
-        qDebug() << "Therefore arg(v)=" << arg;
+//        qDebug() << "Therefore arg(v)=" << arg;
 
         qreal r = w->getRadius() + v->getRadius();
-        qDebug() << "r=" << r;
+//        qDebug() << "r=" << r;
         //now plot the point using sin and
         //remember that this point is an offset from w.
         QPointF pos(r*cos(arg), r*sin(arg));
         pos += w->getPosition();
         //set the position of v
-        qDebug() << "pos=" << pos;
+//        qDebug() << "pos=" << pos;
         v->setPosition(pos);
         //and update the lists
         unplacedNodes.removeAll(v);

@@ -14,6 +14,8 @@ FixedARGraphicsView::FixedARGraphicsView(QGraphicsScene *scene, QWidget *parent)
     this->sizePolicy().setWidthForHeight(true);
 }
 
+
+
 void FixedARGraphicsView::resizeEvent(QResizeEvent *event)
 {
     Q_UNUSED(event);

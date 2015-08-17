@@ -20,17 +20,19 @@ public:
     ~ShapeSelector();
 
 signals:
-    void cullingAccepted(Packing *p);
+    void packingAccepted(Packing *p);
 
 private slots:
     void manualAddVertex();
     void deleteSelected();
     void cullPacking();
     void accept();
+    void circleResize();
 
 
 private:
     void addVertex(QPointF pos);
+    virtual void resizeEvent(QResizeEvent *event);
 
     Ui::ShapeSelector *ui;
     QList<QPointF> vertices;

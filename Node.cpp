@@ -28,14 +28,19 @@ Node::Node(int id, QPointF &position, qreal radius)
     this->color = QColor(255, 255, 255);
 }
 
+Node::~Node()
+{
+
+}
+
 QList<Node *> Node::generateHexArray(const QRectF &area, qreal radius)
 {
     QPointF startpos = area.topLeft();
     qreal width = area.width();
     qreal height = area.height();
     //calculate n and m; n is "width" and m is "height"
-    int n = int(width / radius + 1);
-    int m = int( (height / radius - 1) * 2 / sqrt(3) + 2); //needs to be odd
+    int n = int(width / (2*radius) + 1);
+    int m = int( (height / (2*radius) - 1) * 2 / sqrt(3) + 2)+1; //needs to be odd
     return Node::generateHexArray(startpos, n, m, radius);
 
 

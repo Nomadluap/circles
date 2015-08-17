@@ -20,7 +20,7 @@
    <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Shape Selector</string>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
@@ -159,24 +159,24 @@
          <item>
           <widget class="QPushButton" name="btnAppend">
            <property name="enabled">
-            <bool>false</bool>
+            <bool>true</bool>
            </property>
            <property name="text">
             <string>Append</string>
            </property>
           </widget>
          </item>
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>Cull Packing to Shape</string>
-           </property>
-          </widget>
-         </item>
         </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Cull Packing to Shape</string>
+        </property>
        </widget>
       </item>
       <item>
