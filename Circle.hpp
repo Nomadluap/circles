@@ -4,6 +4,7 @@
 class Circle;
 #include <QGraphicsItem>
 #include <QWidget>
+#include <QPainterPath>
 #include "Node.hpp"
 #include "Packing.hpp"
 
@@ -19,6 +20,7 @@ public:
     Circle(Node *n, Packing *p);
 
     QRectF	boundingRect() const Q_DECL_OVERRIDE;
+    QPainterPath shape() const Q_DECL_OVERRIDE;
     void paint(QPainter * painter, const QStyleOptionGraphicsItem * option, QWidget * widget = nullptr) Q_DECL_OVERRIDE;
 
     SelectionState getSelectionState();

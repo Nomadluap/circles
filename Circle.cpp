@@ -1,6 +1,7 @@
 #include "Packing.hpp"
 #include "Circle.hpp"
 #include <QtWidgets>
+#include <QPainterPath>
 #include <cmath>
 Circle::Circle(Node *n, Packing *p)
 {
@@ -23,6 +24,13 @@ QRectF Circle::boundingRect() const
     else{
         return this->boundingRect_hyperbolic();
     }
+}
+
+QPainterPath Circle::shape() const
+{
+    QPainterPath path;
+    path.addEllipse(this->boundingRect());
+    return path;
 }
 
 void Circle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

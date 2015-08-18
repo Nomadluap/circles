@@ -186,6 +186,11 @@ void Node::delNeibhour(Node *node)
     this->sortedNeibhours = false;
 }
 
+void Node::purgeNeibhours()
+{
+    for(Node* n: this->neibhours) this->delNeibhour(n);
+}
+
 bool Node::isNeibhour(Node *node)
 {
     return this->neibhours.contains(node) && node->neibhours.contains(this);

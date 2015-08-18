@@ -24,7 +24,7 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="FixedARGraphicsView" name="view">
+    <widget class="ShapeSelectorGraphicsView" name="view">
      <property name="sizePolicy">
       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
@@ -170,7 +170,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="btnCull">
         <property name="enabled">
          <bool>false</bool>
         </property>
@@ -216,9 +216,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>FixedARGraphicsView</class>
+   <class>ShapeSelectorGraphicsView</class>
    <extends>QGraphicsView</extends>
-   <header>FixedARGraphicsView.hpp</header>
+   <header>ShapeSelectorGraphicsView.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

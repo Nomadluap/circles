@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     PackingView.cpp \
     PropertyWindow.cpp \
     ShapeSelector.cpp \
-    FixedARGraphicsView.cpp
+    ShapeSelectorGraphicsView.cpp \
+    SelectionVertex.cpp
 
 HEADERS  += mainwindow.h \
     Node.hpp \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     PackingView.hpp \
     PropertyWindow.hpp \
     ShapeSelector.hpp \
-    FixedARGraphicsView.hpp
+    ShapeSelectorGraphicsView.hpp \
+    SelectionVertex.hpp
 
 FORMS    += mainwindow.ui \
     PackingView.ui \

@@ -78,6 +78,13 @@ public:
      */
     void addNode_fast(Node *n);
 
+    void delNode(Node* n);
+
+    /**
+     * ***MUST CALL REFRESHCIRCLES AFTER RUNNING***
+     * @param n
+     */
+    void delNode_fast(Node* n);
 
     virtual void mousePressEvent(QGraphicsSceneMouseEvent * mouseEvent) Q_DECL_OVERRIDE;
 
@@ -96,6 +103,11 @@ public:
      */
     bool isInterior(Node *n);
     bool isExterior(Node *n);
+
+    /**
+     *  Re-creates all circles in teh packing
+     */
+    void refreshCircles();
 
 public slots:
     void setDrawCenters(bool d);
@@ -147,17 +159,12 @@ protected:
     void addCircle(Node *n);
     void purgeCircles();
 
-
-
-
-
-
     void drawForeground(QPainter *painter, const QRectF &rect) Q_DECL_OVERRIDE;
 
-    bool drawCenters=true;
-    bool drawLinks=true;
+    bool drawCenters=false;
+    bool drawLinks=false;
     bool drawCircles=true;
-    bool drawIndicies=true;
+    bool drawIndicies=false;
 
     PackingType type;
 

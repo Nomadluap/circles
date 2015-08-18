@@ -62,20 +62,21 @@ void PackingView::setPacking(Packing *p)
     PackingType type = p->getType();
     this->packing = p;
     this->ui->view->setScene(p);
-    p->setDrawCenters(true);
+    p->setDrawCenters(false);
     p->setDrawCircles(true);
-    p->setDrawIndicies(true);
-    p->setDrawLinks(true);
+    p->setDrawIndicies(false);
+    p->setDrawLinks(false);
+    p->setDrawBoundary(false);
     if(type == PackingType::EuclideanPacking) ui->rdEuclidean->setChecked(true);
     else ui->rdHyperbolic->setChecked(true);
     connect(packing, SIGNAL(newNodeSelected(Node*)),
             propWindow, SLOT(setNode(Node*)));
     //reset all checkboxes
-    ui->checkBoundary->setChecked(true);
-    ui->checkCenters->setChecked(true);
+    ui->checkBoundary->setChecked(false);
+    ui->checkCenters->setChecked(false);
     ui->checkCircles->setChecked(true);
-    ui->checkConnectors->setChecked(true);
-    ui->checkIndicies->setChecked(true);
+    ui->checkConnectors->setChecked(false);
+    ui->checkIndicies->setChecked(false);
 
 }
 

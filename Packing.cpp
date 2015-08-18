@@ -16,6 +16,7 @@ Packing::Packing(const Packing *p)
     this->type = p->type;
     this->boundary = new Boundary;
     this->addItem(boundary);
+    this->boundary->setVisible(false);
     //deep copy nodes and preserve graph structure
     //make new nodes
     for(Node *n: p->nodes){
@@ -74,8 +75,9 @@ void Packing::setPackingType(PackingType type)
     for(Node *n: this->nodes){
         this->addCircle(n);
     }
-    boundary = new Boundary();
+    this->boundary = new Boundary();
     this->addItem(boundary);
+    this->boundary->setVisible(false);
     this->recomputeConnectors();
     this->update();
 }
@@ -116,6 +118,22 @@ void Packing::addNode_fast(Node *n)
         this->nodes.append(n);
         this->addCircle(n);
     }
+}
+
+void Packing::delNode(Node *n)
+{
+    this->delNode_fast(n);
+    for(Node* j: this->nodes) this->addCircle(j);
+    this->recomputeConnectors();
+
+}
+
+void Packing::delNode_fast(Node *n)
+{
+    if(!this->nodes.contains(n)) return;
+    this->purgeCircles();
+    n->purgeNeibhours();
+    this->nodes.removeAll(n);
 }
 
 
@@ -748,6 +766,7 @@ void Packing::addCircle(Node *n)
 void Packing::purgeCircles()
 {
     for(Circle* c: this->circles){
+        c->setVisible(false);
         this->removeItem(c);
     }
     this->circles.clear();
@@ -763,8 +782,8 @@ void Packing::recomputeConnectors()
         //if (c != nullptr) delete c;
     }
     this->connectors.clear();
-    qDebug() << "drawing new connectors";
     if(this->getDrawLinks()){
+        qDebug() << "drawing new connectors";
         for(Node *n1: this->nodes){
             for (Node *n2: n1->getNeibhours()){
                 if(n2->getId() < n1->getId()) continue;
@@ -791,6 +810,15 @@ bool Packing::isInterior(Node *n)
 bool Packing::isExterior(Node *n)
 {
     return this->nodes.contains(n) && !n->hasFullFlower();
+}
+
+void Packing::refreshCircles()
+{
+    this->purgeCircles();
+    for(Node* n: this->nodes){
+        this->addCircle(n);
+    }
+    this->recomputeConnectors();
 }
 
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)

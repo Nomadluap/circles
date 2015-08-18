@@ -60,6 +60,7 @@ public:
     //neibhours must maintain reflexivity.
     void addNeibhour(Node* node);
     void delNeibhour(Node* node);
+    void purgeNeibhours();
     bool isNeibhour(Node* node);
     void sortNeibhours();
     QList<Node*> getNeibhours();

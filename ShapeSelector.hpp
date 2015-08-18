@@ -6,6 +6,9 @@
 #include <QList>
 #include <QPointF>
 #include "Packing.hpp"
+#include "SelectionVertex.hpp"
+#include <QGraphicsPolygonItem>
+#include <QPolygonF>
 
 namespace Ui {
 class ShapeSelector;
@@ -14,7 +17,6 @@ class ShapeSelector;
 class ShapeSelector : public QWidget
 {
     Q_OBJECT
-
 public:
     explicit ShapeSelector(QWidget *parent = 0);
     ~ShapeSelector();
@@ -28,15 +30,19 @@ private slots:
     void cullPacking();
     void accept();
     void circleResize();
-
+    void addVertex(QPointF pos);
 
 private:
-    void addVertex(QPointF pos);
     virtual void resizeEvent(QResizeEvent *event);
 
+    void setupPolygon();
+
     Ui::ShapeSelector *ui;
-    QList<QPointF> vertices;
+    QList<SelectionVertex *> vertices;
     Packing *packing;
+    QGraphicsPolygonItem *polygon = nullptr;
+
+
 };
 
 #endif // SHAPESELECTOR_HPP
