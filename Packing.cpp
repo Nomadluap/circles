@@ -26,10 +26,12 @@ Packing::Packing(const Packing *p)
     for(int i = 0; i < this->nodes.length(); i++){
         Node* o = p->nodes.at(i);
         for(Node* oo: o->getNeibhours()){
-            this->nodes.at(i)->addNeibhour(this->nodes.at(p->nodes.indexOf(oo)));
+            int j = p->nodes.indexOf(oo);
+            if(j == -1) continue;
+            this->nodes.at(i)->addNeibhour(this->nodes.at(j));
         }
     }
-
+    this->centerCircleID = p->centerCircleID;
     this->recomputeConnectors();
 
 }
@@ -819,6 +821,13 @@ void Packing::refreshCircles()
         this->addCircle(n);
     }
     this->recomputeConnectors();
+}
+
+void Packing::resetIds()
+{
+    for(int i = 0; i < this->nodes.length(); i++){
+        nodes[i]->setId(i);
+    }
 }
 
 void Packing::drawForeground(QPainter *painter, const QRectF &rect)

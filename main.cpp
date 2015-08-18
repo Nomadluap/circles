@@ -6,9 +6,9 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MainWindow w;
-    //w.show();
-    ShapeSelector s;
-    s.show();
+    w.show();
+//    ShapeSelector s;
+//    s.show();
 
     return a.exec();
 }

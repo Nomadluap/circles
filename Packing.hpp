@@ -109,6 +109,13 @@ public:
      */
     void refreshCircles();
 
+    /**
+     * Reset the ids of all nodes so that they lie in the range [0, n].
+     */
+    void resetIds();
+
+    int centerCircleID = -1;
+
 public slots:
     void setDrawCenters(bool d);
     void setDrawLinks(bool d);

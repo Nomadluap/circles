@@ -20,12 +20,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
 
-
     //nodes = Node::generateHexArray(QPointF(0, 0), 10, 10, 0.05);
     auto nodes = Node::generateHexArray(QRectF(-1.5, -1.5, 3.0, 3.0), 0.1);
     p = new Packing(nodes, PackingType::EuclideanPacking);
     ui->view->setPacking(p);
 
+    //connections
+    connect(ui->actionSelectShape, &QAction::triggered, this, &MainWindow::openShapeSelector);
 
 
 }
@@ -48,5 +49,28 @@ void MainWindow::openFile()
         p = f.generatePacking();
         ui->view->setPacking(p);
     }
+}
+
+void MainWindow::openShapeSelector()
+{
+    this->shapeSelector = new ShapeSelector();
+    this->shapeSelector->show();
+    ui->actionSelectShape->setEnabled(false);
+    connect(shapeSelector, &ShapeSelector::finished, this, &MainWindow::shapeSelectorClosed);
+    connect(shapeSelector, &ShapeSelector::packingAccepted, this, &MainWindow::processShapeSelectorPacking);
+    shapeSelector->show();
+
+}
+
+void MainWindow::shapeSelectorClosed()
+{
+    disconnect(this->shapeSelector);
+    ui->actionSelectShape->setEnabled(true);
+}
+
+void MainWindow::processShapeSelectorPacking(Packing *p)
+{
+    this->raise();
+    ui->view->setPacking(p);
 }
 

@@ -2,6 +2,7 @@
 #define SHAPESELECTOR_HPP
 
 #include <QWidget>
+#include <QDialog>
 #include <QResizeEvent>
 #include <QList>
 #include <QPointF>
@@ -14,7 +15,7 @@ namespace Ui {
 class ShapeSelector;
 }
 
-class ShapeSelector : public QWidget
+class ShapeSelector : public QDialog
 {
     Q_OBJECT
 public:
@@ -34,6 +35,8 @@ private slots:
 
 private:
     virtual void resizeEvent(QResizeEvent *event);
+
+    QPointF getCenter();
 
     void setupPolygon();
 

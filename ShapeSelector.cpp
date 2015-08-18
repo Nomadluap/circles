@@ -11,11 +11,12 @@
 #include <typeinfo>
 
 ShapeSelector::ShapeSelector(QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::ShapeSelector)
 {
     ui->setupUi(this);
-    QList<Node*> nodes = Node::generateHexArray(QRectF(-0.5, -0.5, 2.0, 2.0), 0.05);
+    this->setModal(false);
+    QList<Node*> nodes = Node::generateHexArray(QRectF(-0.1, -0.1, 1.2, 1.2), 0.05);
     this->packing = new Packing(nodes, PackingType::EuclideanPacking);
     this->packing->setDrawLinks(false);
     this->packing->setDrawIndicies(false);
@@ -38,10 +39,11 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
 
     //connections
     connect(ui->btnRadiusSet, &QPushButton::clicked, this, &ShapeSelector::circleResize);
-    connect(ui->btnCancel, &QPushButton::clicked, this, &ShapeSelector::close);
+    connect(ui->btnCancel, &QPushButton::clicked, this, &ShapeSelector::reject);
     connect(ui->btnAppend, &QPushButton::clicked, this, &ShapeSelector::manualAddVertex);
     connect(ui->view, &ShapeSelectorGraphicsView::gotClick, this, &ShapeSelector::addVertex);
     connect(ui->btnCull, &QPushButton::clicked, this, &ShapeSelector::cullPacking);
+    connect(ui->btnAccept, &QPushButton::clicked, this, &ShapeSelector::accept);
 
 }
 
@@ -86,19 +88,47 @@ void ShapeSelector::cullPacking()
     QList<Node *> nodes = this->packing->getNodes();
     //look at each node's position to deterimine if its center lies in the poly
     for(Node* n: nodes){
+        qDebug() << "Looking at node" << n->getId() << "pos" << n->getPosition();
         if(!this->polygon->contains(n->getPosition())){
             //remove teh node from the packing
             this->packing->delNode_fast(n);
+            nodes.removeOne(n);
+        }
+        else{
+            qDebug() << "node is in the polygon";
+        }
+    }
+    for(Node* n: nodes){
+        if(n->getNeibhourCount() == 1){
+            this->packing->delNode_fast(n);
+            nodes.removeOne(n);
         }
     }
     this->packing->refreshCircles();
+    this->packing->resetIds();
     this->packing->update();
     qDebug() << "Culling complete";
+    ui->btnAccept->setEnabled(true);
+
+
+    //find the node at the center
+    int center = -1;
+    Circle *c = nullptr;
+    for(auto i: this->packing->items(this->getCenter())){
+        c = dynamic_cast<Circle *>(i);
+        if (c != nullptr) break;
+    }
+    if(c != nullptr){
+        center = c->getNode()->getId();
+        qDebug() << "Center circle is " << center;
+        this->packing->centerCircleID = center;
+    }
 }
 
 void ShapeSelector::accept()
 {
-
+    Packing *p = new Packing(this->packing);
+    emit packingAccepted(p);
 }
 
 void ShapeSelector::circleResize()
@@ -107,7 +137,7 @@ void ShapeSelector::circleResize()
    //destroy nodes
    for(Node* n: this->packing->getNodes()) delete n;
    delete this->packing;
-   QList<Node*> nodes = Node::generateHexArray(QRectF(-0.5, -0.5, 2.0, 2.0), r);
+   QList<Node*> nodes = Node::generateHexArray(QRectF(-0.1, -0.1, 1.2, 1.2), r);
    this->packing = new Packing(nodes, PackingType::EuclideanPacking);
    this->packing->setDrawLinks(false);
    this->packing->setDrawIndicies(false);
@@ -162,6 +192,15 @@ void ShapeSelector::resizeEvent(QResizeEvent *event)
     qreal yscale = ui->view->size().height();
     ui->view->scale(xscale*0.995, yscale*0.995);
     //ui->view->scale(xscale*0.0, yscale*0.0);
+}
+
+QPointF ShapeSelector::getCenter()
+{
+    QPointF sum;
+    for(SelectionVertex *a: this->vertices) sum += a->pos();
+    sum /= this->vertices.length();
+    qDebug() << "Got center at " << sum;
+    return sum;
 }
 
 void ShapeSelector::setupPolygon()

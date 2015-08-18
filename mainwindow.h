@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QGraphicsScene>
 #include "Packing.hpp"
+#include "ShapeSelector.hpp"
 
 
 namespace Ui {
@@ -20,9 +21,13 @@ public:
     ~MainWindow();
 private slots:
     void openFile();
+    void openShapeSelector();
+    void shapeSelectorClosed();
+    void processShapeSelectorPacking(Packing *p);
 private:
     Ui::MainWindow *ui;
     Packing *p;
+    ShapeSelector *shapeSelector = nullptr;
 
 };
 

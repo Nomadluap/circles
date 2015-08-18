@@ -49,6 +49,7 @@
    </attribute>
    <addaction name="actionOpen"/>
    <addaction name="actionQuit"/>
+   <addaction name="actionSelectShape"/>
   </widget>
   <action name="actionOpen">
    <property name="text">
@@ -64,6 +65,17 @@
    </property>
    <property name="shortcut">
     <string>Q</string>
+   </property>
+  </action>
+  <action name="actionSelectShape">
+   <property name="text">
+    <string>Select Shape</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the shape selector dialog to select a shape.</string>
+   </property>
+   <property name="shortcut">
+    <string>S</string>
    </property>
   </action>
  </widget>

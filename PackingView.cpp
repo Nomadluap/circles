@@ -77,6 +77,7 @@ void PackingView::setPacking(Packing *p)
     ui->checkCircles->setChecked(true);
     ui->checkConnectors->setChecked(false);
     ui->checkIndicies->setChecked(false);
+    if(p->centerCircleID != -1) ui->spinCenterCircleID->setValue(p->centerCircleID);
 
 }
 
