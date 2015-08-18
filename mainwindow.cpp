@@ -56,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //nodes = Node::generateHexArray(QPointF(0, 0), 10, 10, 0.05);
-    nodes = Node::generateHexArray(QRectF(-1.5, -1.5, 3.0, 3.0), 0.05);
+    nodes = Node::generateHexArray(QRectF(-1.5, -1.5, 3.0, 3.0), 0.1);
     p = new Packing(nodes, PackingType::EuclideanPacking);
 
     ui->view->setPacking(p);
