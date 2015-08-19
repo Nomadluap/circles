@@ -14,6 +14,9 @@ Above is a screenshot of Circles in action, performing a repack of the 'owl' pac
 - Toggable view of circles, center marks, indicies, tangency lines, and disc boundary
 - Properties explorer to show properties of any circle
 
+##Building
+This program was built on Windows using QT5.4 **with OpenGL** for MSVC2013, 32 bit. This program may not compile on earlier compilers since it uses many C++11/14 features. 
 
+Compatibility with other QT-compatible compilers is not guaranteed, but should work just fine.
 
 This program is still a work in progress.
