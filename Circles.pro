@@ -47,7 +47,4 @@ FORMS    += \
     ui/ShapeSelector.ui \
     ui/MainWindow.ui
 
-DISTFILES += \
-    molecule.p \
-    Owl.p
 
