@@ -86,26 +86,35 @@ void ShapeSelector::cullPacking()
     qDebug() << "Culling the packing...";
     //first get a list of nodes
     QList<Node *> nodes = this->packing->getNodes();
+    QList<Node *> removedNodes;
     //look at each node's position to deterimine if its center lies in the poly
     for(Node* n: nodes){
         qDebug() << "Looking at node" << n->getId() << "pos" << n->getPosition();
         if(!this->polygon->contains(n->getPosition())){
             //remove teh node from the packing
             this->packing->delNode_fast(n);
-            nodes.removeOne(n);
+            removedNodes.append(n);
+            qDebug() << "Removing:" << n->getId();
         }
         else{
-            qDebug() << "node is in the polygon";
+            qDebug() << "keeping:" << n->getId();
         }
     }
+    for(Node* n: removedNodes){
+        nodes.removeAll(n);
+    }
+    removedNodes.clear();
     for(Node* n: nodes){
         if(n->getNeibhourCount() == 1){
             this->packing->delNode_fast(n);
-            nodes.removeOne(n);
+            removedNodes.append(n);
         }
     }
+    for(Node* n: removedNodes){
+        nodes.removeAll(n);
+    }
     this->packing->refreshCircles();
-    this->packing->resetIds();
+    //this->packing->resetIds();
     this->packing->update();
     qDebug() << "Culling complete";
     ui->btnAccept->setEnabled(true);
