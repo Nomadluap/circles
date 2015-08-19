@@ -13,6 +13,7 @@ Above is a screenshot of Circles in action, performing a repack of the 'owl' pac
 - Support reading of p-files generated with [Ken Stephenson's CirclePack tool](http://www.math.utk.edu/~kens/CirclePack/)
 - Toggable view of circles, center marks, indicies, tangency lines, and disc boundary
 - Properties explorer to show properties of any circle
+- Supports extraction of geometric shapes from hexagon-tilings for repacking
 
 ##Building
 This program was built on Windows using QT5.4 **with OpenGL** for MSVC2013, 32 bit. This program may not compile on earlier compilers since it uses many C++11/14 features. 
