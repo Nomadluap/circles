@@ -218,7 +218,7 @@
   <customwidget>
    <class>ShapeSelectorGraphicsView</class>
    <extends>QGraphicsView</extends>
-   <header>ShapeSelectorGraphicsView.hpp</header>
+   <header>graphics/ShapeSelectorGraphicsView.hpp</header>
   </customwidget>
  </customwidgets>
  <resources/>

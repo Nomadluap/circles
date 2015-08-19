@@ -1,14 +1,16 @@
 #include "ShapeSelector.hpp"
-#include "Node.hpp"
-#include "Packing.hpp"
+#include "ui_ShapeSelector.h"
+#include <typeinfo>
 #include <QList>
 #include <QRectF>
-#include "ui_ShapeSelector.h"
 #include <QMessageBox>
 #include <QGLWidget>
 #include <QDebug>
 #include <QGraphicsEllipseItem>
-#include <typeinfo>
+#include "../Node.hpp"
+#include "../graphics/Packing.hpp"
+
+
 
 ShapeSelector::ShapeSelector(QWidget *parent) :
     QDialog(parent),

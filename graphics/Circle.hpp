@@ -1,11 +1,11 @@
-#ifndef CIRCLE_HPP
-#define CIRCLE_HPP
+#ifndef GRAPHICS_CIRCLE_HPP
+#define GRAPHICS_CIRCLE_HPP
 
 class Circle;
 #include <QGraphicsItem>
 #include <QWidget>
 #include <QPainterPath>
-#include "Node.hpp"
+#include "../Node.hpp"
 #include "Packing.hpp"
 
 /**
@@ -62,4 +62,4 @@ private:
     SelectionState selectionState = SelectionState::None;
 };
 
-#endif // CIRCLE_HPP
+#endif // GRAPHICS_CIRCLE_HPP

@@ -1,11 +1,11 @@
-#ifndef CONNECTOR_HPP
-#define CONNECTOR_HPP
+#ifndef GRAPHICS_CONNECTOR_HPP
+#define GRAPHICS_CONNECTOR_HPP
 
 class Connector;
 
 #include <QWidget>
 #include <QGraphicsItem>
-#include "Node.hpp"
+#include "../Node.hpp"
 
 class Connector : public QGraphicsItem
 {
@@ -20,4 +20,4 @@ private:
     QPointF midpoint;
 };
 
-#endif // CONNECTOR_HPP
+#endif // GRAPHICS_CONNECTOR_HPP

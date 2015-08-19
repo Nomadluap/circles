@@ -1,8 +1,9 @@
-#include "Packing.hpp"
 #include "Circle.hpp"
+#include <cmath>
 #include <QtWidgets>
 #include <QPainterPath>
-#include <cmath>
+#include "Packing.hpp"
+
 Circle::Circle(Node *n, Packing *p)
 {
     this->setFlag(ItemIsSelectable);

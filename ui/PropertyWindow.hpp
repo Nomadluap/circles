@@ -33,4 +33,4 @@ private:
     Node *n = nullptr;
 };
 
-#endif // PROPERTYWINDOW_HPP
+#endif // UI_PROPERTYWINDOW_HPP

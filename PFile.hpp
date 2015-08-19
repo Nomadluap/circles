@@ -2,9 +2,8 @@
 #define PFILE_HPP
 
 #include <QWidget>
-
 #include "Node.hpp"
-#include "Packing.hpp"
+#include "graphics/Packing.hpp"
 
 class PFile
 {

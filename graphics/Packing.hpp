@@ -1,21 +1,24 @@
-#ifndef PACKING_HPP
-#define PACKING_HPP
+#ifndef GRAPHICS_PACKING_HPP
+#define GRAPHICS_PACKING_HPP
 
-//to prevent cyclic imports.
+//forward declaration to prevent cyclic imports
 class Packing;
-
-
 
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QWidget>
 #include <QObject>
-#include "Node.hpp"
+#include "../Node.hpp"
 #include "Circle.hpp"
 #include "Connector.hpp"
-#include "PackingType.hpp"
 #include "Boundary.hpp"
 
+/**
+ * @brief The PackingType enum defines the geometries available to a Packing.
+ * A packing may either be euclidean, on the cartesian plane, or hyperbolic,
+ * on the poincare disc.
+ */
+enum class PackingType{ EuclideanPacking, HyperbolicPacking};
 
 /**
  * @brief The Packing class is an abstract class which defines a circle packing.
@@ -188,4 +191,4 @@ private:
 
 };
 
-#endif // PACKING_HPP
+#endif // GRAPHICS_PACKING_HPP

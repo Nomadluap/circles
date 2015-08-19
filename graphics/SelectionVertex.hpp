@@ -1,5 +1,5 @@
-#ifndef SELECTIONVERTEX_HPP
-#define SELECTIONVERTEX_HPP
+#ifndef GRAPHICS_SELECTIONVERTEX_HPP
+#define GRAPHICS_SELECTIONVERTEX_HPP
 
 #include <QObject>
 #include <QWidget>
@@ -22,4 +22,4 @@ private:
     QColor color;
 };
 
-#endif // SELECTIONVERTEX_HPP
+#endif // GRAPHICS_SELECTIONVERTEX_HPP

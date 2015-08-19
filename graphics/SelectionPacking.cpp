@@ -1,6 +1,6 @@
 #include "SelectionPacking.hpp"
 #include <typeinfo>
-#include <QtDebug>
+#include <QDebug>
 
 
 SelectionPacking::SelectionPacking(PackingType type):

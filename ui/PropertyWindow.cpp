@@ -1,6 +1,6 @@
 #include "PropertyWindow.hpp"
 #include "ui_PropertyWindow.h"
-#include <qDebug>
+#include <QDebug>
 
 PropertyWindow::PropertyWindow(QWidget *parent) :
     QDialog(parent),

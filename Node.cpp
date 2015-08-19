@@ -1,5 +1,6 @@
-#include <cmath>
 #include "Node.hpp"
+#include <cmath>
+
 #define PI 3.1415926535897932384626433
 
 Node::Node(const Node *n)

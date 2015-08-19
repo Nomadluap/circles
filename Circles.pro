@@ -12,39 +12,40 @@ TARGET = Circles
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     Node.cpp \
-    Packing.cpp \
-    Circle.cpp \
+    graphics/Packing.cpp \
+    graphics/Circle.cpp \
     PFile.cpp \
-    Connector.cpp \
-    SelectionPacking.cpp \
-    Boundary.cpp \
-    PackingView.cpp \
-    PropertyWindow.cpp \
-    ShapeSelector.cpp \
-    ShapeSelectorGraphicsView.cpp \
-    SelectionVertex.cpp
+    graphics/Connector.cpp \
+    graphics/SelectionPacking.cpp \
+    graphics/Boundary.cpp \
+    ui/PackingView.cpp \
+    ui/PropertyWindow.cpp \
+    ui/ShapeSelector.cpp \
+    graphics/ShapeSelectorGraphicsView.cpp \
+    graphics/SelectionVertex.cpp \
+    ui/MainWindow.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     Node.hpp \
-    Packing.hpp \
-    Circle.hpp \
+    graphics/Packing.hpp \
+    graphics/Circle.hpp \
     PFile.hpp \
-    Connector.hpp \
-    PackingType.hpp \
-    SelectionPacking.hpp \
-    Boundary.hpp \
-    PackingView.hpp \
-    PropertyWindow.hpp \
-    ShapeSelector.hpp \
-    ShapeSelectorGraphicsView.hpp \
-    SelectionVertex.hpp
+    graphics/Connector.hpp \
+    graphics/SelectionPacking.hpp \
+    graphics/Boundary.hpp \
+    ui/PackingView.hpp \
+    ui/PropertyWindow.hpp \
+    ui/ShapeSelector.hpp \
+    graphics/ShapeSelectorGraphicsView.hpp \
+    graphics/SelectionVertex.hpp \
+    ui/MainWindow.hpp
 
-FORMS    += mainwindow.ui \
-    PackingView.ui \
-    PropertyWindow.ui \
-    ShapeSelector.ui
+FORMS    += \
+    ui/PackingView.ui \
+    ui/PropertyWindow.ui \
+    ui/ShapeSelector.ui \
+    ui/MainWindow.ui
 
 DISTFILES += \
     molecule.p \

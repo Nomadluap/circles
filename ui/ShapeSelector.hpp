@@ -6,10 +6,10 @@
 #include <QResizeEvent>
 #include <QList>
 #include <QPointF>
-#include "Packing.hpp"
-#include "SelectionVertex.hpp"
 #include <QGraphicsPolygonItem>
 #include <QPolygonF>
+#include "../graphics/Packing.hpp"
+#include "../graphics/SelectionVertex.hpp"
 
 namespace Ui {
 class ShapeSelector;
@@ -48,4 +48,4 @@ private:
 
 };
 
-#endif // SHAPESELECTOR_HPP
+#endif // UI_SHAPESELECTOR_HPP

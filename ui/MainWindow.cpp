@@ -1,15 +1,14 @@
-#include "mainwindow.h"
+#include "MainWindow.hpp"
 #include "ui_mainwindow.h"
-#include "PFile.hpp"
-#include "SelectionPacking.hpp"
-#include "Node.hpp"
-#include "PackingView.hpp"
-
-
 #include <QDebug>
 #include <QtMath>
 #include <QWidget>
 #include <QFileDialog>
+#include "../PFile.hpp"
+#include "../graphics/SelectionPacking.hpp"
+#include "../Node.hpp"
+#include "PackingView.hpp"
+
 #define PI 3.141592653589793238463
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -20,7 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionOpen, SIGNAL(triggered(bool)), this, SLOT(openFile()));
 
-    //nodes = Node::generateHexArray(QPointF(0, 0), 10, 10, 0.05);
     auto nodes = Node::generateHexArray(QRectF(-1.5, -1.5, 3.0, 3.0), 0.1);
     p = new Packing(nodes, PackingType::EuclideanPacking);
     ui->view->setPacking(p);

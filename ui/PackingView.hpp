@@ -4,9 +4,8 @@
 #include <QWidget>
 #include <QWidget>
 #include <QGraphicsScene>
-#include "Packing.hpp"
+#include "../graphics/Packing.hpp"
 #include "PropertyWindow.hpp"
-#include "PackingType.hpp"
 
 namespace Ui {
 class PackingView;
@@ -44,4 +43,4 @@ private:
     PropertyWindow *propWindow;
 };
 
-#endif // PACKINGVIEW_HPP
+#endif // UI_PACKINGVIEW_HPP

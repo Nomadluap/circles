@@ -4,9 +4,8 @@
 #include <QMainWindow>
 #include <QWidget>
 #include <QGraphicsScene>
-#include "Packing.hpp"
+#include "../graphics/Packing.hpp"
 #include "ShapeSelector.hpp"
-
 
 namespace Ui {
 class MainWindow;
@@ -31,4 +30,4 @@ private:
 
 };
 
-#endif // MAINWINDOW_H
+#endif // UI_MAINWINDOW_H

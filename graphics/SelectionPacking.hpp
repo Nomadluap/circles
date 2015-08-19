@@ -1,12 +1,11 @@
-#ifndef SELECTIONPACKING_HPP
-#define SELECTIONPACKING_HPP
+#ifndef GRAPHICS_SELECTIONPACKING_HPP
+#define GRAPHICS_SELECTIONPACKING_HPP
 
 #include <QWidget>
-#include "Packing.hpp"
-#include "PackingType.hpp"
-#include "Circle.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
+#include "Packing.hpp"
+#include "Circle.hpp"
 
 class SelectionPacking : public Packing
 {
@@ -39,4 +38,4 @@ private:
 
 };
 
-#endif // SELECTIONPACKING_HPP
+#endif // GRAPHICS_SELECTIONPACKING_HPP

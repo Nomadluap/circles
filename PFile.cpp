@@ -4,7 +4,6 @@
 #include <QMessageBox>
 #include <QStringList>
 #include <QRegExp>
-
 #include <QDebug>
 
 PFile::PFile(QString filename)
@@ -24,13 +23,9 @@ PFile::PFile(QString filename)
 
     //now we have to find the index of the markers.
     int num_nodes = words.at(words.indexOf(QRegExp("NODECOUNT:"))+1).toInt();
-//    qDebug() << "Number of nodes: " << num_nodes;
     int flowers_base = words.indexOf(QRegExp("FLOWERS:")) + 1;
-//    qDebug() << "flowers_base: " << flowers_base;
     int radii_base = words.indexOf(QRegExp("RADII:")) + 1;
-//    qDebug() << "radii_base: " << radii_base;
     int center_base = words.indexOf(QRegExp("CENTERS:")) + 1;
-//    qDebug() << "center_base" << center_base;
     int geometry_base = words.indexOf(QRegExp("GEOMETRY:"));
 
     if(words.at(geometry_base+1).toLower() == "hyperbolic"){
@@ -53,14 +48,11 @@ PFile::PFile(QString filename)
             qreal radius = words.at(radii_base + i).toDouble();
             qreal x = words.at(center_base + 2*i).toDouble();
             qreal y = words.at(center_base + 2*i + 1).toDouble() ;
-//            qDebug() << QString("New Node at %1, %2 with r=%3").arg(x).arg(y).arg(radius);
             nodes.append(new Node(i+1, QPointF(x, y), radius));
-//            nodes.append(new Node(i+1, QPointF(0,0), radius));
         }
         //nodes don't have defined position Generate a blank node.
         else{
             nodes.append(new Node(i+1));
-//            qDebug() << "New node";
         }
     }
     //now generate neibhour information from flowers data
@@ -68,13 +60,11 @@ PFile::PFile(QString filename)
     for(int i = 0; i < num_nodes; i++){
         //read number of neibhours to expect
         int neibhours = words.at(flowers_base + prev_offset + 1).toInt() + 1;
-//        qDebug() << "Node " << i+1 << " has " << neibhours << " neibhours";
         //create all connections
         for(int n = 0; n < neibhours; n++){
             //this node connects to the following nodes
             int nodeIndex = words.at(flowers_base + prev_offset + 2 + n).toInt() - 1;
             nodes.at(i)->addNeibhour(nodes.at(nodeIndex));
-//            qDebug() << "neibhouring nodes: " << i+1 << " and " << nodeIndex+1;
         }
         //now advance prev_offset
         prev_offset += neibhours + 2;

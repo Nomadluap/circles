@@ -1,6 +1,6 @@
 #include "Boundary.hpp"
 #include "QtWidgets"
-#include "cmath"
+#include <cmath>
 #define PI 3.141592654
 
 Boundary::Boundary()
@@ -15,6 +15,8 @@ QRectF Boundary::boundingRect() const
 
 void Boundary::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
     painter->setPen(QPen(Qt::green, 1.0/lod ));
 
