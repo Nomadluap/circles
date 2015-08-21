@@ -28,8 +28,9 @@ signals:
 private slots:
     void manualAddVertex();
     void deleteSelected();
+    void selectionChanged(int row);
     void cullPacking();
-    void accept();
+    void acceptPacking();
     void circleResize();
     void addVertex(QPointF pos);
 
@@ -39,11 +40,13 @@ private:
     QPointF getCenter();
 
     void setupPolygon();
+    void redefinePolygon();
 
     Ui::ShapeSelector *ui;
     QList<SelectionVertex *> vertices;
     Packing *packing;
     QGraphicsPolygonItem *polygon = nullptr;
+    int selectedRow = -1;
 
 
 };

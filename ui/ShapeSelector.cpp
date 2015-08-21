@@ -45,7 +45,9 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     connect(ui->btnAppend, &QPushButton::clicked, this, &ShapeSelector::manualAddVertex);
     connect(ui->view, &ShapeSelectorGraphicsView::gotClick, this, &ShapeSelector::addVertex);
     connect(ui->btnCull, &QPushButton::clicked, this, &ShapeSelector::cullPacking);
-    connect(ui->btnAccept, &QPushButton::clicked, this, &ShapeSelector::accept);
+    connect(ui->btnAccept, &QPushButton::clicked, this, &ShapeSelector::acceptPacking);
+    connect(ui->btnDelete, &QPushButton::clicked, this, &ShapeSelector::deleteSelected);
+    connect(ui->lstVertices, &QListWidget::currentRowChanged, this, &ShapeSelector::selectionChanged);
 
 }
 
@@ -75,11 +77,28 @@ void ShapeSelector::manualAddVertex()
     }
     this->addVertex(QPointF(x, y));
     ui->txtVertex->clear();
-
 }
 
 void ShapeSelector::deleteSelected()
 {
+    //make sure a row is actually selected
+    if(this->selectedRow < 0) return; //-1 means no selection
+
+    SelectionVertex *v = this->vertices.at(selectedRow);
+    v->setVisible(false);
+    this->packing->removeItem(v); //destroys v
+    this->vertices.removeOne(v);
+    this->redefinePolygon();
+    //and remove the item from the list
+    ui->lstVertices->takeItem(this->selectedRow);
+
+
+
+}
+
+void ShapeSelector::selectionChanged(int row)
+{
+    this->selectedRow = row;
 
 }
 
@@ -136,7 +155,7 @@ void ShapeSelector::cullPacking()
     }
 }
 
-void ShapeSelector::accept()
+void ShapeSelector::acceptPacking()
 {
     Packing *p = new Packing(this->packing);
     emit packingAccepted(p);
@@ -181,18 +200,8 @@ void ShapeSelector::addVertex(QPointF pos)
     QString label = QString("%1,\t %2").arg(pos.x()).arg(pos.y());
     ui->lstVertices->addItem(label);
     ui->view->invalidateScene();
-    //if we have at least three vertices, then we can now also allow culling
-    if(this->vertices.length() >= 3){
-        qDebug() << "showing the polygon";
-        ui->btnCull->setEnabled(true);
-        //construct a QPolygon using the vertices
-        QPolygonF p;
-        for(auto v: this->vertices) p.append(v->pos());
-        p.append(this->vertices.first()->pos());
-        this->polygon->setPolygon(p);
-        this->polygon->setZValue(this->packing->items().first()->zValue() + 1);
-        this->polygon->setVisible(true);
-    }
+    this->redefinePolygon();
+
 }
 
 void ShapeSelector::resizeEvent(QResizeEvent *event)
@@ -228,6 +237,25 @@ void ShapeSelector::setupPolygon()
     QBrush b(Qt::SolidPattern);
     b.setColor(QColor(255, 0, 0, 68));
     this->polygon->setBrush(b);
+}
+
+void ShapeSelector::redefinePolygon()
+{
+    //if we have at least three vertices, then we can now also allow culling
+    if(this->vertices.length() >= 3){
+        qDebug() << "showing the polygon";
+        ui->btnCull->setEnabled(true);
+        //construct a QPolygon using the vertices
+        QPolygonF p;
+        for(auto v: this->vertices) p.append(v->pos());
+        p.append(this->vertices.first()->pos());
+        this->polygon->setPolygon(p);
+        this->polygon->setZValue(this->packing->items().first()->zValue() + 1);
+        this->polygon->setVisible(true);
+    }
+    else{
+        this->polygon->setVisible(false);
+    }
 }
 
 
