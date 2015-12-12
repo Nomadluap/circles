@@ -16,7 +16,7 @@ Above is a screenshot of Circles in action, performing a repack of the 'owl' pac
 - Supports extraction of geometric shapes from hexagon-tilings for repacking
 
 ##Building
-This program was built on Windows using QT5.4 **with OpenGL** for MSVC2013, 32 bit. This program may not compile on earlier compilers since it uses many C++11/14 features. 
+This program was built and tested with QT 5.5.1 using the MINGW4.9.2 32-bit kit on Windows. Compilation shoudl also succeed with the msvc2013 kit, or any kit that supports C++14 features.
 
 Compatibility with other QT-compatible compilers is not guaranteed, but should work just fine.
 
