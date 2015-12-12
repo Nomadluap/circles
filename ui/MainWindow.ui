@@ -84,7 +84,7 @@
   <customwidget>
    <class>PackingView</class>
    <extends>QWidget</extends>
-   <header>PackingView.hpp</header>
+   <header>ui/PackingView.hpp</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

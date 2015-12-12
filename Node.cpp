@@ -20,7 +20,7 @@ Node::Node(int id)
     this->radius = 0.0;
 }
 
-Node::Node(int id, QPointF &position, qreal radius)
+Node::Node(int id, const QPointF &position, qreal radius)
 {
     this->id = id;
     this->position = position;
@@ -233,7 +233,7 @@ int Node::getNeibhourCount()
     return this->neibhours.length();
 }
 
-void Node::setPosition(QPointF &position)
+void Node::setPosition(const QPointF &position)
 {
     this->position = position;
     this->bHasPosition = true;

@@ -272,7 +272,7 @@ void Packing::layout_hyperbolic(int centerCircle)
     QList<Node*> floweredNodes; //nodes for which their entire flower has been placed.
     //place the first circle
     bool foundCenterCircle = false;
-    for(auto n: unplacedNodes){ //find the circle that is to be the center circle.
+    for(Node* n: unplacedNodes){ //find the circle that is to be the center circle.
         if (n->getId() == centerCircle){
             qDebug() << "Placing first node #" << n->getId() << " at (0, 0)";
             n->setPosition(QPointF(0, 0));
