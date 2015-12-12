@@ -25,7 +25,7 @@ public:
      * @param position Position of the node
      * @param radius radius of the node
      */
-    Node(int id, QPointF &position, qreal radius=0);
+    Node(int id, const QPointF &position, qreal radius=0);
     ~Node();
 
     /**
@@ -66,7 +66,7 @@ public:
     QList<Node*> getNeibhours();
     int getNeibhourCount();
 
-    void setPosition(QPointF &position);
+    void setPosition(const QPointF &position);
     QPointF getPosition();
     bool hasPosition();
     void delPosition();
