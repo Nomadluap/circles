@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     ui/ShapeSelector.cpp \
     graphics/ShapeSelectorGraphicsView.cpp \
     graphics/SelectionVertex.cpp \
-    ui/MainWindow.cpp
+    ui/MainWindow.cpp \
+    Graph.cpp
 
 HEADERS  += \
     Node.hpp \
@@ -40,7 +41,8 @@ HEADERS  += \
     ui/ShapeSelector.hpp \
     graphics/ShapeSelectorGraphicsView.hpp \
     graphics/SelectionVertex.hpp \
-    ui/MainWindow.hpp
+    ui/MainWindow.hpp \
+    Graph.hpp
 
 FORMS    += \
     ui/PackingView.ui \
