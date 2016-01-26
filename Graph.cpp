@@ -86,6 +86,13 @@ std::unique_ptr<QList<Node> > Circles::Graph::getNodes()
 
 std::unique_ptr<QList<Edge> > Circles::Graph::getEdges()
 {
-    //TODO: implement this.
+    // iterate over each node. Take all nodes with order greater. Form Edge.
+    auto edges = std::make_unique<QList<Edge> >();
+    for(Node x: this->edges->keys()){
+        for(Node y: this->edges->value(x)){
+            if( x < y) edges->append(QPair<int, int>(x, y));
+        }
+    }
+    return edges;
 }
 
