@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui widgets opengl
-QMAKE_CXXFLAGS += -std=c++14
+QMAKE_CXXFLAGS += -std=c++14 -Wall -Werror -Wextra -pedantic
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
