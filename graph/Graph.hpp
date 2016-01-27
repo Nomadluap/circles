@@ -4,10 +4,13 @@
 #include <QHash>
 #include <QSet>
 #include <memory>
+#include <graph/Edge.hpp>
 
 namespace Circles{
+
+    namespace Graph{
+
     //typedefs to simplify the language.
-    typedef QPair<int, int> Edge;
     typedef int Node;
 
     /**
@@ -29,6 +32,7 @@ namespace Circles{
          * @param y indexc of the other end of the edge.
          */
         void addEdge(Node x, Node y);
+        void addEdge(Edge e);
 
         /**
          * Removes an edge from the graph, if it exists.
@@ -63,6 +67,7 @@ namespace Circles{
         std::unique_ptr<QSet<Node> > boundaryNodes;
     };
 
+    }
 }
 
 #endif // GRAPH_HPP

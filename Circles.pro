@@ -26,7 +26,13 @@ SOURCES += main.cpp\
     graphics/ShapeSelectorGraphicsView.cpp \
     graphics/SelectionVertex.cpp \
     ui/MainWindow.cpp \
-    Graph.cpp
+    graph/Edge.cpp \
+    graph/Graph.cpp \
+    packing/Packing.cpp \
+    packing/Circle.cpp \
+    packing/EuclidCircle.cpp \
+    packing/HyperCircle.cpp \
+    packing/EuclidPacking.cpp
 
 HEADERS  += \
     Node.hpp \
@@ -42,7 +48,13 @@ HEADERS  += \
     graphics/ShapeSelectorGraphicsView.hpp \
     graphics/SelectionVertex.hpp \
     ui/MainWindow.hpp \
-    Graph.hpp
+    graph/Edge.hpp \
+    graph/Graph.hpp \
+    packing/Packing.hpp \
+    packing/Circle.hpp \
+    packing/EuclidCircle.hpp \
+    packing/HyperCircle.hpp \
+    packing/EuclidPacking.hpp
 
 FORMS    += \
     ui/PackingView.ui \

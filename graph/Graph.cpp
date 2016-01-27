@@ -1,7 +1,7 @@
 #include "Graph.hpp"
-using namespace Circles;
+using namespace Circles::Graph;
 
-Circles::Graph::Graph(): // default constructor
+Circles::Graph::Graph::Graph(): // default constructor
     edges(new QHash<Node, QSet<Node> >()),
     boundaryNodes(new QSet<Node>())
 {
@@ -9,28 +9,28 @@ Circles::Graph::Graph(): // default constructor
 
 }
 
-Circles::Graph::Graph(const Graph& other): // copy constructor
+Circles::Graph::Graph::Graph(const Graph& other): // copy constructor
     edges(new QHash<Node, QSet<Node> >(*other.edges)),
     boundaryNodes(new QSet<Node>(*other.boundaryNodes))
 {
     //nothing here either boss.
 }
 
-Circles::Graph::Graph(Graph&& other): // move constructor
+Circles::Graph::Graph::Graph(Graph&& other): // move constructor
     edges(std::move(other.edges)),
     boundaryNodes(std::move(other.boundaryNodes))
 {
     //nothing to do here.
 }
 
-Graph& Circles::Graph::operator=(const Graph& other) // copy assignment
+Graph& Circles::Graph::Graph::operator=(const Graph& other) // copy assignment
 {
     edges = std::make_unique<QHash<Node, QSet<Node> > >(*other.edges);
     boundaryNodes = std::make_unique<QSet<Node> >(*other.boundaryNodes);
     return *this;
 }
 
-Graph& Circles::Graph::operator=(Graph&& other) // move assignment
+Graph& Circles::Graph::Graph::operator=(Graph&& other) // move assignment
 {
     edges = std::move(other.edges);
     boundaryNodes = std::move(other.boundaryNodes);
@@ -38,7 +38,7 @@ Graph& Circles::Graph::operator=(Graph&& other) // move assignment
 }
 
 
-void Circles::Graph::addEdge(Node x, Node y)
+void Circles::Graph::Graph::addEdge(Node x, Node y)
 {
     if(x == y) return; // no self-edges allowed.
 
@@ -56,7 +56,12 @@ void Circles::Graph::addEdge(Node x, Node y)
 
 }
 
-void Circles::Graph::removeEdge(Node x, Node y)
+void Graph::addEdge(Edge e)
+{
+    this->addEdge(e.getX(), e.getY());
+}
+
+void Circles::Graph::Graph::removeEdge(Node x, Node y)
 {
     if(!this->hasEdge(x, y)) return;
 
@@ -71,28 +76,28 @@ void Circles::Graph::removeEdge(Node x, Node y)
 
 }
 
-bool Circles::Graph::hasEdge(Node x, Node y)
+bool Circles::Graph::Graph::hasEdge(Node x, Node y)
 {
     if(!this->edges->contains(x) || !this->edges->contains(y)) return false; // edge does not exist since nodes do not exist.
     else if(!this->edges->value(x).contains(y) || !this->edges->value(y).contains(x)) return false; // edge not defined.
     else return true; //otherwise teh edge exists.
 }
 
-std::unique_ptr<QList<Node> > Circles::Graph::getNodes()
+std::unique_ptr<QList<Node> > Circles::Graph::Graph::getNodes()
 {
     auto nodes = std::make_unique<QList<Node> >(this->edges->keys());
     return nodes;
 }
 
-std::unique_ptr<QList<Edge> > Circles::Graph::getEdges()
+std::unique_ptr<QList<Edge> > Circles::Graph::Graph::getEdges()
 {
     // iterate over each node. Take all nodes with order greater. Form Edge.
-    auto edges = std::make_unique<QList<Edge> >();
+    QList<Edge>* edgelist = new QList<Edge>();
     for(Node x: this->edges->keys()){
         for(Node y: this->edges->value(x)){
-            if( x < y) edges->append(QPair<int, int>(x, y));
+            if( x < y) edgelist->append(Edge(x, y));
         }
     }
-    return edges;
+    return std::unique_ptr<QList<Edge> >(edgelist);
 }
 
