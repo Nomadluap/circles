@@ -35,6 +35,9 @@ namespace Circles{
          */
         EuclidPacking(std::shared_ptr<Graph::Graph> g,  const QList<Circle*>& circles);
 
+        /**
+         * Copy reference to node as well as deep-copy of circles.
+         */
         EuclidPacking(const EuclidPacking& other);
 
         EuclidPacking(EuclidPacking&& other);

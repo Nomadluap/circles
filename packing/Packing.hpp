@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <QList>
+#include <QMap>
 #include <graph/Graph.hpp>
 #include <packing/Circle.hpp>
 using namespace Circles;
@@ -41,6 +42,25 @@ namespace Circles{
          */
         virtual qreal angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const = 0;
 
+        /**
+         * Get a reference to the underlying graph of the packing.
+         * @return const reference to graph object underlying the packing.
+         */
+        const Graph::Graph& graph() const;
+
+        /**
+         * Get a list of all circles in the packing, addressable by their indicies.
+         * @return Qhash of index -> circle elements for the packing.
+         */
+        QMap<int, Circle *> circles() const;
+
+        /**
+         * Get a circle based on its index.
+         * @param index index of the circle
+         * @return const reference to circle with specified index.
+         */
+        const Circle* circle(int index) const;
+
 
     protected:
 
@@ -54,7 +74,7 @@ namespace Circles{
 
         std::shared_ptr<Graph::Graph> _graph;
         // since Circles are ordered, we can sort this list for easy lookups.
-        QList<std::unique_ptr<Circle> > _circles;
+        QMap<int, std::unique_ptr<Circle> > _circles;
     };
     }
 }
