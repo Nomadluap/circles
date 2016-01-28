@@ -1,7 +1,10 @@
 include(../defaults.pri)
 TEMPLATE = app
 
-SOURCES += main.cpp
+QT += testlib
+
+SOURCES += \
+    testqstring.cpp
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../src/release/ -lcircles
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../src/debug/ -lcircles

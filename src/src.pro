@@ -21,3 +21,5 @@ HEADERS += \
     packing/EuclidPacking.hpp \
     packing/HyperCircle.hpp \
     packing/Packing.hpp
+
+DISTFILES +=

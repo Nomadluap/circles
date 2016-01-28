@@ -1,7 +1,7 @@
 #include "EuclidPacking.hpp"
 
-Circles::Packing::EuclidPacking::EuclidPacking()
-{
+//Circles::Packing::EuclidPacking::EuclidPacking()
+//{
 
-}
+//}
 
