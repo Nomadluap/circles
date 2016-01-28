@@ -6,6 +6,9 @@
 namespace Circles{
     namespace Packing{
 
+    /**
+     * Abstract base class for EuclidCircle and HyperCircle
+     */
     class Circle
     {
     public:
