@@ -1,0 +1,126 @@
+\hypertarget{class_circle}{}\section{Circle Class Reference}
+\label{class_circle}\index{Circle@{Circle}}
+
+
+The \hyperlink{class_circle}{Circle} class represents an abstract circle. A circle may exist in either a hyperbolic or euclidean geometry.  
+
+
+
+
+{\ttfamily \#include $<$Circle.\+hpp$>$}
+
+Inheritance diagram for Circle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_circle}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140}{Selection\+State} \{ \hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140a6adf97f83acf6453d4a6a4b1070f3754}{Selection\+State\+::\+None}, 
+\hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140a91b442d385b54e1418d81adc34871053}{Selection\+State\+::\+Selected}, 
+\hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140a667b9fee30643bd8533437714aff2f69}{Selection\+State\+::\+Surrounded}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_circle_a868970e092a93d7b9f33e665a3f22380}{Circle} (\hyperlink{class_node}{Node} $\ast$n, \hyperlink{class_packing}{Packing} $\ast$p)
+\item 
+Q\+Rect\+F \hyperlink{class_circle_a00aab04a8e096d14a5a56ae1eb620275}{bounding\+Rect} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+Q\+Painter\+Path \hyperlink{class_circle_a841007c456f5bc7be91b5901a7630ce3}{shape} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{class_circle_a3adfe40ef373defa3e427072f00cc0a2}{paint} (Q\+Painter $\ast$painter, const Q\+Style\+Option\+Graphics\+Item $\ast$option, Q\+Widget $\ast$widget=nullptr) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+\hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140}{Selection\+State} \hyperlink{class_circle_af5a48f5fc296b4b84056febe3ce17a75}{get\+Selection\+State} ()
+\item 
+void \hyperlink{class_circle_a3a3ac6da7ed29a19f45c869b10be7a91}{set\+Selection\+State} (\hyperlink{class_circle_abaea7f437ac8e5519b3a69bce0848140}{Selection\+State} s)
+\item 
+\hyperlink{class_node}{Node} $\ast$ \hyperlink{class_circle_a22131e1f54de4142ed23e55902c2402c}{get\+Node} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_circle}{Circle} class represents an abstract circle. A circle may exist in either a hyperbolic or euclidean geometry. 
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_circle_abaea7f437ac8e5519b3a69bce0848140}{}\index{Circle@{Circle}!Selection\+State@{Selection\+State}}
+\index{Selection\+State@{Selection\+State}!Circle@{Circle}}
+\subsubsection[{Selection\+State}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Circle\+::\+Selection\+State}\hspace{0.3cm}{\ttfamily [strong]}}\label{class_circle_abaea7f437ac8e5519b3a69bce0848140}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{None@{None}!Circle@{Circle}}\index{Circle@{Circle}!None@{None}}\item[{\em 
+\hypertarget{class_circle_abaea7f437ac8e5519b3a69bce0848140a6adf97f83acf6453d4a6a4b1070f3754}{}None\label{class_circle_abaea7f437ac8e5519b3a69bce0848140a6adf97f83acf6453d4a6a4b1070f3754}
+}]\index{Selected@{Selected}!Circle@{Circle}}\index{Circle@{Circle}!Selected@{Selected}}\item[{\em 
+\hypertarget{class_circle_abaea7f437ac8e5519b3a69bce0848140a91b442d385b54e1418d81adc34871053}{}Selected\label{class_circle_abaea7f437ac8e5519b3a69bce0848140a91b442d385b54e1418d81adc34871053}
+}]\index{Surrounded@{Surrounded}!Circle@{Circle}}\index{Circle@{Circle}!Surrounded@{Surrounded}}\item[{\em 
+\hypertarget{class_circle_abaea7f437ac8e5519b3a69bce0848140a667b9fee30643bd8533437714aff2f69}{}Surrounded\label{class_circle_abaea7f437ac8e5519b3a69bce0848140a667b9fee30643bd8533437714aff2f69}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_circle_a868970e092a93d7b9f33e665a3f22380}{}\index{Circle@{Circle}!Circle@{Circle}}
+\index{Circle@{Circle}!Circle@{Circle}}
+\subsubsection[{Circle(\+Node $\ast$n, Packing $\ast$p)}]{\setlength{\rightskip}{0pt plus 5cm}Circle\+::\+Circle (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n, }
+\item[{{\bf Packing} $\ast$}]{p}
+\end{DoxyParamCaption}
+)}\label{class_circle_a868970e092a93d7b9f33e665a3f22380}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_circle_a00aab04a8e096d14a5a56ae1eb620275}{}\index{Circle@{Circle}!bounding\+Rect@{bounding\+Rect}}
+\index{bounding\+Rect@{bounding\+Rect}!Circle@{Circle}}
+\subsubsection[{bounding\+Rect() const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Rect\+F Circle\+::bounding\+Rect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circle_a00aab04a8e096d14a5a56ae1eb620275}
+\hypertarget{class_circle_a22131e1f54de4142ed23e55902c2402c}{}\index{Circle@{Circle}!get\+Node@{get\+Node}}
+\index{get\+Node@{get\+Node}!Circle@{Circle}}
+\subsubsection[{get\+Node()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Node} $\ast$ Circle\+::get\+Node (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circle_a22131e1f54de4142ed23e55902c2402c}
+\hypertarget{class_circle_af5a48f5fc296b4b84056febe3ce17a75}{}\index{Circle@{Circle}!get\+Selection\+State@{get\+Selection\+State}}
+\index{get\+Selection\+State@{get\+Selection\+State}!Circle@{Circle}}
+\subsubsection[{get\+Selection\+State()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Circle\+::\+Selection\+State} Circle\+::get\+Selection\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circle_af5a48f5fc296b4b84056febe3ce17a75}
+\hypertarget{class_circle_a3adfe40ef373defa3e427072f00cc0a2}{}\index{Circle@{Circle}!paint@{paint}}
+\index{paint@{paint}!Circle@{Circle}}
+\subsubsection[{paint(\+Q\+Painter $\ast$painter, const Q\+Style\+Option\+Graphics\+Item $\ast$option, Q\+Widget $\ast$widget=nullptr) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Circle\+::paint (
+\begin{DoxyParamCaption}
+\item[{Q\+Painter $\ast$}]{painter, }
+\item[{const Q\+Style\+Option\+Graphics\+Item $\ast$}]{option, }
+\item[{Q\+Widget $\ast$}]{widget = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+)}\label{class_circle_a3adfe40ef373defa3e427072f00cc0a2}
+\hypertarget{class_circle_a3a3ac6da7ed29a19f45c869b10be7a91}{}\index{Circle@{Circle}!set\+Selection\+State@{set\+Selection\+State}}
+\index{set\+Selection\+State@{set\+Selection\+State}!Circle@{Circle}}
+\subsubsection[{set\+Selection\+State(\+Selection\+State s)}]{\setlength{\rightskip}{0pt plus 5cm}void Circle\+::set\+Selection\+State (
+\begin{DoxyParamCaption}
+\item[{{\bf Circle\+::\+Selection\+State}}]{s}
+\end{DoxyParamCaption}
+)}\label{class_circle_a3a3ac6da7ed29a19f45c869b10be7a91}
+\hypertarget{class_circle_a841007c456f5bc7be91b5901a7630ce3}{}\index{Circle@{Circle}!shape@{shape}}
+\index{shape@{shape}!Circle@{Circle}}
+\subsubsection[{shape() const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Painter\+Path Circle\+::shape (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circle_a841007c456f5bc7be91b5901a7630ce3}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+graphics/\hyperlink{graphics_2_circle_8hpp}{Circle.\+hpp}\item 
+graphics/\hyperlink{graphics_2_circle_8cpp}{Circle.\+cpp}\end{DoxyCompactItemize}

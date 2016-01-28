@@ -1,0 +1,236 @@
+\hypertarget{class_circles_1_1_graph_1_1_graph}{}\section{Circles\+:\+:Graph\+:\+:Graph Class Reference}
+\label{class_circles_1_1_graph_1_1_graph}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+
+
+{\ttfamily \#include $<$Graph.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_circles_1_1_graph_1_1_graph_a95707c8bcb3a2726554f46e53e3ed81c}{Graph} ()
+\item 
+\hyperlink{class_circles_1_1_graph_1_1_graph_af168837b8090fde8bec04ad7655f7198}{Graph} (const \hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \&other)
+\item 
+\hyperlink{class_circles_1_1_graph_1_1_graph_a4e3802ce745621050d878577cc0aa3f4}{Graph} (\hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \&\&other)
+\item 
+\hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \& \hyperlink{class_circles_1_1_graph_1_1_graph_ae60d35a5fa5840a19e26cfd907a04c46}{operator=} (const \hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \&other)
+\item 
+\hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \& \hyperlink{class_circles_1_1_graph_1_1_graph_a04ed0665e13e73f64217b1d4be604cbc}{operator=} (\hyperlink{class_circles_1_1_graph_1_1_graph}{Graph} \&\&other)
+\item 
+void \hyperlink{class_circles_1_1_graph_1_1_graph_a82638c54c3a88927f2cd25eef5b9d3ed}{add\+Edge} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} x, \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} y)
+\item 
+void \hyperlink{class_circles_1_1_graph_1_1_graph_a32639ee46ddea3aac13fd2d14c975b8e}{add\+Edge} (\hyperlink{class_circles_1_1_graph_1_1_edge}{Edge} e)
+\item 
+void \hyperlink{class_circles_1_1_graph_1_1_graph_a239c35f73a0d73d1281f38f447aeb66a}{remove\+Edge} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} x, \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} y)
+\item 
+bool \hyperlink{class_circles_1_1_graph_1_1_graph_a55aa662170f9aff4e5daad2632b18801}{has\+Edge} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} x, \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} y) const 
+\item 
+bool \hyperlink{class_circles_1_1_graph_1_1_graph_ab867cc2c06fb7625e8225f7ea16696a3}{has\+Full\+Flower} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} n)
+\item 
+bool \hyperlink{class_circles_1_1_graph_1_1_graph_aba67c754b516f960cb66aeb229a05cb2}{is\+Boundary} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} n)
+\item 
+std\+::unique\+\_\+ptr$<$ Q\+List$<$ \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} $>$ $>$ \hyperlink{class_circles_1_1_graph_1_1_graph_a6e3b6554943c973fecd2f7e8244f86bb}{get\+Nodes} () const 
+\item 
+std\+::unique\+\_\+ptr$<$ Q\+List$<$ \hyperlink{class_circles_1_1_graph_1_1_edge}{Edge} $>$ $>$ \hyperlink{class_circles_1_1_graph_1_1_graph_adb0a409de3b4c11758fa7a0de35b9ae7}{get\+Edges} () const 
+\item 
+Q\+List$<$ \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} $>$ \& \hyperlink{class_circles_1_1_graph_1_1_graph_a990cfc808909eaba08c991e1113ac88c}{neighbours} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} i) const 
+\item 
+Q\+List$<$ \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} $>$ \& \hyperlink{class_circles_1_1_graph_1_1_graph_ac60eea4288fccbc6127d8f05fe8eaadf}{sorted\+Neighbours} (\hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} n)
+\item 
+Q\+List$<$ \hyperlink{namespace_circles_1_1_graph_afab3817d1ee8e2074e82866c27a1058b}{Node} $>$ \hyperlink{class_circles_1_1_graph_1_1_graph_aea2f709b91c57039e247fe5a78ea7dac}{boundary} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a mathematical graph. The graph also stores information about the boundary nodes and edges. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a95707c8bcb3a2726554f46e53e3ed81c}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{Graph()}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Graph\+::\+Graph\+::\+Graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a95707c8bcb3a2726554f46e53e3ed81c}
+\hypertarget{class_circles_1_1_graph_1_1_graph_af168837b8090fde8bec04ad7655f7198}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{Graph(const Graph \&other)}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Graph\+::\+Graph\+::\+Graph (
+\begin{DoxyParamCaption}
+\item[{const {\bf Graph} \&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_af168837b8090fde8bec04ad7655f7198}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a4e3802ce745621050d878577cc0aa3f4}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{Graph(\+Graph \&\&other)}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Graph\+::\+Graph\+::\+Graph (
+\begin{DoxyParamCaption}
+\item[{{\bf Graph} \&\&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a4e3802ce745621050d878577cc0aa3f4}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a82638c54c3a88927f2cd25eef5b9d3ed}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!add\+Edge@{add\+Edge}}
+\index{add\+Edge@{add\+Edge}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{add\+Edge(\+Node x, Node y)}]{\setlength{\rightskip}{0pt plus 5cm}void Circles\+::\+Graph\+::\+Graph\+::add\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{x, }
+\item[{{\bf Node}}]{y}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a82638c54c3a88927f2cd25eef5b9d3ed}
+Add an edge to the graph. Note that edges are symmetric. eg. A\+B == B\+A 
+\begin{DoxyParams}{Parameters}
+{\em x} & index of one end of the edge \\
+\hline
+{\em y} & indexc of the other end of the edge. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a32639ee46ddea3aac13fd2d14c975b8e}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!add\+Edge@{add\+Edge}}
+\index{add\+Edge@{add\+Edge}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{add\+Edge(\+Edge e)}]{\setlength{\rightskip}{0pt plus 5cm}void Graph\+::add\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Edge}}]{e}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a32639ee46ddea3aac13fd2d14c975b8e}
+\hypertarget{class_circles_1_1_graph_1_1_graph_aea2f709b91c57039e247fe5a78ea7dac}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!boundary@{boundary}}
+\index{boundary@{boundary}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{boundary()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ {\bf Node} $>$ Graph\+::boundary (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_aea2f709b91c57039e247fe5a78ea7dac}
+Get a sorted list of nodes that make up the boundary of the graph. \begin{DoxyReturn}{Returns}
+sorted list of nodes. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_adb0a409de3b4c11758fa7a0de35b9ae7}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!get\+Edges@{get\+Edges}}
+\index{get\+Edges@{get\+Edges}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{get\+Edges() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::unique\+\_\+ptr$<$ Q\+List$<$ {\bf Edge} $>$ $>$ Circles\+::\+Graph\+::\+Graph\+::get\+Edges (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_graph_1_1_graph_adb0a409de3b4c11758fa7a0de35b9ae7}
+Get a set of all edges in the graph. The pairs returned will always have the lowest-\/order node index first. \begin{DoxyReturn}{Returns}
+A set of node pairs representing the edges of the graph. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a6e3b6554943c973fecd2f7e8244f86bb}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!get\+Nodes@{get\+Nodes}}
+\index{get\+Nodes@{get\+Nodes}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{get\+Nodes() const }]{\setlength{\rightskip}{0pt plus 5cm}std\+::unique\+\_\+ptr$<$ Q\+List$<$ {\bf Node} $>$ $>$ Circles\+::\+Graph\+::\+Graph\+::get\+Nodes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_graph_1_1_graph_a6e3b6554943c973fecd2f7e8244f86bb}
+Get the set of nodes that are present in the graph. \begin{DoxyReturn}{Returns}
+Set of the nodes present in the graph 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a55aa662170f9aff4e5daad2632b18801}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!has\+Edge@{has\+Edge}}
+\index{has\+Edge@{has\+Edge}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{has\+Edge(\+Node x, Node y) const }]{\setlength{\rightskip}{0pt plus 5cm}bool Circles\+::\+Graph\+::\+Graph\+::has\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{x, }
+\item[{{\bf Node}}]{y}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_graph_1_1_graph_a55aa662170f9aff4e5daad2632b18801}
+Deterimine if the graph contains the edge between two nodes. 
+\begin{DoxyParams}{Parameters}
+{\em x} & the first node \\
+\hline
+{\em y} & the second node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the edge is contained in the graph, otherwise false. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_ab867cc2c06fb7625e8225f7ea16696a3}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!has\+Full\+Flower@{has\+Full\+Flower}}
+\index{has\+Full\+Flower@{has\+Full\+Flower}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{has\+Full\+Flower(\+Node n)}]{\setlength{\rightskip}{0pt plus 5cm}bool Graph\+::has\+Full\+Flower (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{n}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_ab867cc2c06fb7625e8225f7ea16696a3}
+Determine if a specified node has a full flower, ie. if the neighbours of the node form a ring around it. 
+\begin{DoxyParams}{Parameters}
+{\em n} & node to query \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the node has a full flower, otherwise False. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_aba67c754b516f960cb66aeb229a05cb2}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!is\+Boundary@{is\+Boundary}}
+\index{is\+Boundary@{is\+Boundary}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{is\+Boundary(\+Node n)}]{\setlength{\rightskip}{0pt plus 5cm}bool Graph\+::is\+Boundary (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{n}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_aba67c754b516f960cb66aeb229a05cb2}
+Deterimine if a node is in the boundary of the graph. 
+\begin{DoxyParams}{Parameters}
+{\em n} & The node to query \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the node is in the boundary, otherwise false. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a990cfc808909eaba08c991e1113ac88c}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!neighbours@{neighbours}}
+\index{neighbours@{neighbours}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{neighbours(\+Node i) const }]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ {\bf Node} $>$ \& Circles\+::\+Graph\+::\+Graph\+::neighbours (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{i}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_graph_1_1_graph_a990cfc808909eaba08c991e1113ac88c}
+Get the set of nodes which are adjacent to the specified node. Does not require sorting of the nodes lst. 
+\begin{DoxyParams}{Parameters}
+{\em i} & \hyperlink{class_node}{Node} to query \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Set of nodes which are ajacent to the specified node. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_graph_1_1_graph_ae60d35a5fa5840a19e26cfd907a04c46}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!operator=@{operator=}}
+\index{operator=@{operator=}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{operator=(const Graph \&other)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Graph} \& Circles\+::\+Graph\+::\+Graph\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Graph} \&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_ae60d35a5fa5840a19e26cfd907a04c46}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a04ed0665e13e73f64217b1d4be604cbc}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!operator=@{operator=}}
+\index{operator=@{operator=}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{operator=(\+Graph \&\&other)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Graph} \& Circles\+::\+Graph\+::\+Graph\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Graph} \&\&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a04ed0665e13e73f64217b1d4be604cbc}
+\hypertarget{class_circles_1_1_graph_1_1_graph_a239c35f73a0d73d1281f38f447aeb66a}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!remove\+Edge@{remove\+Edge}}
+\index{remove\+Edge@{remove\+Edge}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{remove\+Edge(\+Node x, Node y)}]{\setlength{\rightskip}{0pt plus 5cm}void Circles\+::\+Graph\+::\+Graph\+::remove\+Edge (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{x, }
+\item[{{\bf Node}}]{y}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_a239c35f73a0d73d1281f38f447aeb66a}
+Removes an edge from the graph, if it exists. 
+\begin{DoxyParams}{Parameters}
+{\em x} & index of first node which defines edge \\
+\hline
+{\em y} & index of second node which defines edge \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_circles_1_1_graph_1_1_graph_ac60eea4288fccbc6127d8f05fe8eaadf}{}\index{Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}!sorted\+Neighbours@{sorted\+Neighbours}}
+\index{sorted\+Neighbours@{sorted\+Neighbours}!Circles\+::\+Graph\+::\+Graph@{Circles\+::\+Graph\+::\+Graph}}
+\subsubsection[{sorted\+Neighbours(\+Node n)}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ {\bf Node} $>$ Graph\+::sorted\+Neighbours (
+\begin{DoxyParamCaption}
+\item[{{\bf Node}}]{n}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_graph_1_1_graph_ac60eea4288fccbc6127d8f05fe8eaadf}
+Attempt to get a list of the ajacent nodes of a specified node such that two nodes ajacent in the list are also ajacent in the graph. 
+\begin{DoxyParams}{Parameters}
+{\em i} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The sorted list, if it exists. Otherwise return an empty list. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+graph/\hyperlink{_graph_8hpp}{Graph.\+hpp}\item 
+graph/\hyperlink{_graph_8cpp}{Graph.\+cpp}\end{DoxyCompactItemize}

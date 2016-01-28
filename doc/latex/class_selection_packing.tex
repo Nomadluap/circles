@@ -1,0 +1,151 @@
+\hypertarget{class_selection_packing}{}\section{Selection\+Packing Class Reference}
+\label{class_selection_packing}\index{Selection\+Packing@{Selection\+Packing}}
+
+
+{\ttfamily \#include $<$Selection\+Packing.\+hpp$>$}
+
+Inheritance diagram for Selection\+Packing\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_selection_packing}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241}{Mouse\+Mode} \{ \hyperlink{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a6adf97f83acf6453d4a6a4b1070f3754}{Mouse\+Mode\+::\+None}, 
+\hyperlink{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241aec211f7c20af43e742bf2570c3cb84f9}{Mouse\+Mode\+::\+Add}, 
+\hyperlink{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a1d9baf077ee87921f57a8fe42d510b65}{Mouse\+Mode\+::\+Subtract}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_selection_packing_a02c377676ebd303632c41b0e60725bf4}{Selection\+Packing} (\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type}=\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9aa4066bbe6791ed6bbfe12f55a60ed152}{Packing\+Type\+::\+Euclidean\+Packing})
+\item 
+\hyperlink{class_selection_packing_a22e56f099a555fb00e4726e9b019be60}{Selection\+Packing} (Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ \hyperlink{class_packing_afee4e76e75aea147685840e19c714d08}{nodes}, \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type}=\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9af44d305ffa405b64040c7d4bc16953f9}{Packing\+Type\+::\+Hyperbolic\+Packing})
+\item 
+bool \hyperlink{class_selection_packing_a0a3dd7c75b32c883914c660042d3ed0b}{add\+To\+Selection} (\hyperlink{class_circle}{Circle} $\ast$c)
+\begin{DoxyCompactList}\small\item\em Attempts to add a circle c to the collection of selected circles If a previous circle is in the selection and the new circle is not ajacent to that circle, then the circle will not be added. \end{DoxyCompactList}\item 
+void \hyperlink{class_selection_packing_ae29608e25fcfa2bfd485c8adfc941a46}{remove\+From\+Selection} (\hyperlink{class_circle}{Circle} $\ast$c)
+\item 
+bool \hyperlink{class_selection_packing_a9568899d6773f596e7d679f2a50bfc8d}{is\+In\+Selection} (\hyperlink{class_circle}{Circle} $\ast$c)
+\item 
+void \hyperlink{class_selection_packing_a04d54c3f7efbc412756f0b775d8aef8e}{clear\+Selection} ()
+\item 
+void \hyperlink{class_selection_packing_a424e907d2394d6b7d5941a10f6119cbc}{mouse\+Press\+Event} (Q\+Graphics\+Scene\+Mouse\+Event $\ast$mouse\+Event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{class_selection_packing_a7da53f29f45ccb15816b74033e307f1e}{mouse\+Move\+Event} (Q\+Graphics\+Scene\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{class_selection_packing_ac8acca567094473a7957e634c75293f3}{mouse\+Release\+Event} (Q\+Graphics\+Scene\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Member Enumeration Documentation}
+\hypertarget{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241}{}\index{Selection\+Packing@{Selection\+Packing}!Mouse\+Mode@{Mouse\+Mode}}
+\index{Mouse\+Mode@{Mouse\+Mode}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{Mouse\+Mode}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf Selection\+Packing\+::\+Mouse\+Mode}\hspace{0.3cm}{\ttfamily [strong]}}\label{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241}
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{None@{None}!Selection\+Packing@{Selection\+Packing}}\index{Selection\+Packing@{Selection\+Packing}!None@{None}}\item[{\em 
+\hypertarget{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a6adf97f83acf6453d4a6a4b1070f3754}{}None\label{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a6adf97f83acf6453d4a6a4b1070f3754}
+}]\index{Add@{Add}!Selection\+Packing@{Selection\+Packing}}\index{Selection\+Packing@{Selection\+Packing}!Add@{Add}}\item[{\em 
+\hypertarget{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241aec211f7c20af43e742bf2570c3cb84f9}{}Add\label{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241aec211f7c20af43e742bf2570c3cb84f9}
+}]\index{Subtract@{Subtract}!Selection\+Packing@{Selection\+Packing}}\index{Selection\+Packing@{Selection\+Packing}!Subtract@{Subtract}}\item[{\em 
+\hypertarget{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a1d9baf077ee87921f57a8fe42d510b65}{}Subtract\label{class_selection_packing_a34fc2fbb6a758004b3b19d7c73997241a1d9baf077ee87921f57a8fe42d510b65}
+}]\end{description}
+\end{Desc}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_selection_packing_a02c377676ebd303632c41b0e60725bf4}{}\index{Selection\+Packing@{Selection\+Packing}!Selection\+Packing@{Selection\+Packing}}
+\index{Selection\+Packing@{Selection\+Packing}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{Selection\+Packing(\+Packing\+Type type=\+Packing\+Type\+::\+Euclidean\+Packing)}]{\setlength{\rightskip}{0pt plus 5cm}Selection\+Packing\+::\+Selection\+Packing (
+\begin{DoxyParamCaption}
+\item[{{\bf Packing\+Type}}]{type = {\ttfamily {\bf Packing\+Type\+::\+Euclidean\+Packing}}}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a02c377676ebd303632c41b0e60725bf4}
+\hypertarget{class_selection_packing_a22e56f099a555fb00e4726e9b019be60}{}\index{Selection\+Packing@{Selection\+Packing}!Selection\+Packing@{Selection\+Packing}}
+\index{Selection\+Packing@{Selection\+Packing}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{Selection\+Packing(\+Q\+List$<$ Node $\ast$ $>$ nodes, Packing\+Type type=\+Packing\+Type\+::\+Hyperbolic\+Packing)}]{\setlength{\rightskip}{0pt plus 5cm}Selection\+Packing\+::\+Selection\+Packing (
+\begin{DoxyParamCaption}
+\item[{Q\+List$<$ {\bf Node} $\ast$ $>$}]{nodes, }
+\item[{{\bf Packing\+Type}}]{type = {\ttfamily {\bf Packing\+Type\+::\+Hyperbolic\+Packing}}}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a22e56f099a555fb00e4726e9b019be60}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_selection_packing_a0a3dd7c75b32c883914c660042d3ed0b}{}\index{Selection\+Packing@{Selection\+Packing}!add\+To\+Selection@{add\+To\+Selection}}
+\index{add\+To\+Selection@{add\+To\+Selection}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{add\+To\+Selection(\+Circle $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}bool Selection\+Packing\+::add\+To\+Selection (
+\begin{DoxyParamCaption}
+\item[{{\bf Circle} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a0a3dd7c75b32c883914c660042d3ed0b}
+
+
+Attempts to add a circle c to the collection of selected circles If a previous circle is in the selection and the new circle is not ajacent to that circle, then the circle will not be added. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{class_selection_packing_a04d54c3f7efbc412756f0b775d8aef8e}{}\index{Selection\+Packing@{Selection\+Packing}!clear\+Selection@{clear\+Selection}}
+\index{clear\+Selection@{clear\+Selection}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{clear\+Selection()}]{\setlength{\rightskip}{0pt plus 5cm}void Selection\+Packing\+::clear\+Selection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a04d54c3f7efbc412756f0b775d8aef8e}
+\hypertarget{class_selection_packing_a9568899d6773f596e7d679f2a50bfc8d}{}\index{Selection\+Packing@{Selection\+Packing}!is\+In\+Selection@{is\+In\+Selection}}
+\index{is\+In\+Selection@{is\+In\+Selection}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{is\+In\+Selection(\+Circle $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}bool Selection\+Packing\+::is\+In\+Selection (
+\begin{DoxyParamCaption}
+\item[{{\bf Circle} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a9568899d6773f596e7d679f2a50bfc8d}
+\hypertarget{class_selection_packing_a7da53f29f45ccb15816b74033e307f1e}{}\index{Selection\+Packing@{Selection\+Packing}!mouse\+Move\+Event@{mouse\+Move\+Event}}
+\index{mouse\+Move\+Event@{mouse\+Move\+Event}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{mouse\+Move\+Event(\+Q\+Graphics\+Scene\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Selection\+Packing\+::mouse\+Move\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Graphics\+Scene\+Mouse\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_a7da53f29f45ccb15816b74033e307f1e}
+\hypertarget{class_selection_packing_a424e907d2394d6b7d5941a10f6119cbc}{}\index{Selection\+Packing@{Selection\+Packing}!mouse\+Press\+Event@{mouse\+Press\+Event}}
+\index{mouse\+Press\+Event@{mouse\+Press\+Event}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{mouse\+Press\+Event(\+Q\+Graphics\+Scene\+Mouse\+Event $\ast$mouse\+Event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Selection\+Packing\+::mouse\+Press\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Graphics\+Scene\+Mouse\+Event $\ast$}]{mouse\+Event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_selection_packing_a424e907d2394d6b7d5941a10f6119cbc}
+
+
+Reimplemented from \hyperlink{class_packing_a6e130881196259c6594dd4bb2e96da4f}{Packing}.
+
+\hypertarget{class_selection_packing_ac8acca567094473a7957e634c75293f3}{}\index{Selection\+Packing@{Selection\+Packing}!mouse\+Release\+Event@{mouse\+Release\+Event}}
+\index{mouse\+Release\+Event@{mouse\+Release\+Event}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{mouse\+Release\+Event(\+Q\+Graphics\+Scene\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Selection\+Packing\+::mouse\+Release\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Graphics\+Scene\+Mouse\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_ac8acca567094473a7957e634c75293f3}
+\hypertarget{class_selection_packing_ae29608e25fcfa2bfd485c8adfc941a46}{}\index{Selection\+Packing@{Selection\+Packing}!remove\+From\+Selection@{remove\+From\+Selection}}
+\index{remove\+From\+Selection@{remove\+From\+Selection}!Selection\+Packing@{Selection\+Packing}}
+\subsubsection[{remove\+From\+Selection(\+Circle $\ast$c)}]{\setlength{\rightskip}{0pt plus 5cm}void Selection\+Packing\+::remove\+From\+Selection (
+\begin{DoxyParamCaption}
+\item[{{\bf Circle} $\ast$}]{c}
+\end{DoxyParamCaption}
+)}\label{class_selection_packing_ae29608e25fcfa2bfd485c8adfc941a46}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+graphics/\hyperlink{_selection_packing_8hpp}{Selection\+Packing.\+hpp}\item 
+graphics/\hyperlink{_selection_packing_8cpp}{Selection\+Packing.\+cpp}\end{DoxyCompactItemize}

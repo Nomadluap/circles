@@ -1,0 +1,160 @@
+\hypertarget{class_circles_1_1_packing_1_1_packing}{}\section{Circles\+:\+:Packing\+:\+:Packing Class Reference}
+\label{class_circles_1_1_packing_1_1_packing}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+
+
+{\ttfamily \#include $<$Packing.\+hpp$>$}
+
+Inheritance diagram for Circles\+:\+:Packing\+:\+:Packing\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_circles_1_1_packing_1_1_packing}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_circles_1_1_packing_1_1_packing_a368eba2c988e6d42f6b9b41a17126121}{repack} (qreal epsilon, qreal outer\+Radius)=0
+\item 
+virtual void \hyperlink{class_circles_1_1_packing_1_1_packing_aad695ed5f3341f75ea7b2b4135203a7f}{layout} (int center\+Node)=0
+\item 
+virtual qreal \hyperlink{class_circles_1_1_packing_1_1_packing_a41991c2ef4010416fb382ae4e180e7ee}{angle} (const Q\+Point\+F \&p, const Q\+Point\+F \&p1, const Q\+Point\+F \&p2) const  =0
+\item 
+const \hyperlink{class_circles_1_1_graph_1_1_graph}{Graph\+::\+Graph} \& \hyperlink{class_circles_1_1_packing_1_1_packing_ab1da9320813d23d0b24e3ad67dcd6b03}{graph} () const 
+\item 
+Q\+Map$<$ int, \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} $\ast$ $>$ \hyperlink{class_circles_1_1_packing_1_1_packing_a6dec25e7a0fc0fee6e1f3fb7856a7867}{circles} () const 
+\item 
+const \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} $\ast$ \hyperlink{class_circles_1_1_packing_1_1_packing_ab4c423f23c7859f6c6fc93b0b2f2462c}{circle} (int index) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+qreal \hyperlink{class_circles_1_1_packing_1_1_packing_ae517dffd81c8526daf4d68dc556edb7a}{anglesum} (const \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} \&c) const 
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \hyperlink{class_circles_1_1_graph_1_1_graph}{Graph\+::\+Graph} $>$ \hyperlink{class_circles_1_1_packing_1_1_packing_aafdbbfa163315d47de5805b7eb55c549}{\+\_\+graph}
+\item 
+Q\+Map$<$ int, std\+::unique\+\_\+ptr$<$ \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} $>$ $>$ \hyperlink{class_circles_1_1_packing_1_1_packing_a34a1ece667f3111c1eb434ee7660b31a}{\+\_\+circles}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Abstract base class of the \hyperlink{class_circles_1_1_packing_1_1_euclid_packing}{Euclid\+Packing} and the Hyper\+Packing, which represent a circle packing over a specific \hyperlink{namespace_circles_1_1_graph}{Graph}.
+
+\hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} packings consist of a number of circles which lie tangent to eachother. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_packing_a41991c2ef4010416fb382ae4e180e7ee}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!angle@{angle}}
+\index{angle@{angle}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{angle(const Q\+Point\+F \&p, const Q\+Point\+F \&p1, const Q\+Point\+F \&p2) const  =0}]{\setlength{\rightskip}{0pt plus 5cm}virtual qreal Circles\+::\+Packing\+::\+Packing\+::angle (
+\begin{DoxyParamCaption}
+\item[{const Q\+Point\+F \&}]{p, }
+\item[{const Q\+Point\+F \&}]{p1, }
+\item[{const Q\+Point\+F \&}]{p2}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_packing_a41991c2ef4010416fb382ae4e180e7ee}
+Compute the angle $<$p,p1,p2 in the local space of the packing. 
+\begin{DoxyParams}{Parameters}
+{\em point} & which represents the vertex point. \\
+\hline
+{\em point} & which defines one ray of the angle. \\
+\hline
+{\em point} & which defines the other ray of the angle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The angle formed by the points, in radians in range \mbox{[}0, pi\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_packing_ae517dffd81c8526daf4d68dc556edb7a}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!anglesum@{anglesum}}
+\index{anglesum@{anglesum}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{anglesum(const Circle \&c) const }]{\setlength{\rightskip}{0pt plus 5cm}qreal Packing\+::anglesum (
+\begin{DoxyParamCaption}
+\item[{const {\bf Circle} \&}]{c}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_packing_ae517dffd81c8526daf4d68dc556edb7a}
+Compute the sum of the angles formed by a circle and its neighbours. 
+\begin{DoxyParams}{Parameters}
+{\em c} & the circle to consider. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+sum of angles in radians, in range \mbox{[}0, 2pi\mbox{]} 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_packing_ab4c423f23c7859f6c6fc93b0b2f2462c}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!circle@{circle}}
+\index{circle@{circle}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{circle(int index) const }]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Circle} $\ast$ Packing\+::circle (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_packing_1_1_packing_ab4c423f23c7859f6c6fc93b0b2f2462c}
+Get a circle based on its index. 
+\begin{DoxyParams}{Parameters}
+{\em index} & index of the circle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+const reference to circle with specified index. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_packing_a6dec25e7a0fc0fee6e1f3fb7856a7867}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!circles@{circles}}
+\index{circles@{circles}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{circles() const }]{\setlength{\rightskip}{0pt plus 5cm}Q\+Map$<$ int, {\bf Circle} $\ast$ $>$ Packing\+::circles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_packing_1_1_packing_a6dec25e7a0fc0fee6e1f3fb7856a7867}
+Get a list of all circles in the packing, addressable by their indicies. \begin{DoxyReturn}{Returns}
+Qhash of index -\/$>$ circle elements for the packing. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_packing_ab1da9320813d23d0b24e3ad67dcd6b03}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!graph@{graph}}
+\index{graph@{graph}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{graph() const }]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Graph\+::\+Graph} \& Packing\+::graph (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_packing_1_1_packing_ab1da9320813d23d0b24e3ad67dcd6b03}
+Get a reference to the underlying graph of the packing. \begin{DoxyReturn}{Returns}
+const reference to graph object underlying the packing. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_packing_aad695ed5f3341f75ea7b2b4135203a7f}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!layout@{layout}}
+\index{layout@{layout}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{layout(int center\+Node)=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Circles\+::\+Packing\+::\+Packing\+::layout (
+\begin{DoxyParamCaption}
+\item[{int}]{center\+Node}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_packing_aad695ed5f3341f75ea7b2b4135203a7f}
+Lay out the circles such that neighbouring circles are tangent to one another. 
+\begin{DoxyParams}{Parameters}
+{\em center\+Node} & index of the circle to place at the center of the packing. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_circles_1_1_packing_1_1_packing_a368eba2c988e6d42f6b9b41a17126121}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!repack@{repack}}
+\index{repack@{repack}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{repack(qreal epsilon, qreal outer\+Radius)=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Circles\+::\+Packing\+::\+Packing\+::repack (
+\begin{DoxyParamCaption}
+\item[{qreal}]{epsilon, }
+\item[{qreal}]{outer\+Radius}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_packing_a368eba2c988e6d42f6b9b41a17126121}
+Set boundary circles to be of a specified radius and then modify other circles to form a proper packing. 
+\begin{DoxyParams}{Parameters}
+{\em epsilon} & tolerance value when determining angle sum \\
+\hline
+{\em outer\+Radius} & Radius of the boundary circles. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_packing_a34a1ece667f3111c1eb434ee7660b31a}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!\+\_\+circles@{\+\_\+circles}}
+\index{\+\_\+circles@{\+\_\+circles}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{\+\_\+circles}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Map$<$int, std\+::unique\+\_\+ptr$<${\bf Circle}$>$ $>$ Circles\+::\+Packing\+::\+Packing\+::\+\_\+circles\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_packing_a34a1ece667f3111c1eb434ee7660b31a}
+\hypertarget{class_circles_1_1_packing_1_1_packing_aafdbbfa163315d47de5805b7eb55c549}{}\index{Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}!\+\_\+graph@{\+\_\+graph}}
+\index{\+\_\+graph@{\+\_\+graph}!Circles\+::\+Packing\+::\+Packing@{Circles\+::\+Packing\+::\+Packing}}
+\subsubsection[{\+\_\+graph}]{\setlength{\rightskip}{0pt plus 5cm}std\+::shared\+\_\+ptr$<${\bf Graph\+::\+Graph}$>$ Circles\+::\+Packing\+::\+Packing\+::\+\_\+graph\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_packing_aafdbbfa163315d47de5805b7eb55c549}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+packing/\hyperlink{packing_2_packing_8hpp}{Packing.\+hpp}\item 
+packing/\hyperlink{packing_2_packing_8cpp}{Packing.\+cpp}\end{DoxyCompactItemize}

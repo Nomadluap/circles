@@ -83,7 +83,7 @@ namespace Circles{
          * @param i Node to query
          * @return  Set of nodes which are ajacent to the specified node.
          */
-        QSet<Node>& neighbours(Node i) const;
+        QList<Node>& neighbours(Node i) const;
 
         /**
          * Attempt to get a list of the ajacent nodes of a specified node such that two nodes ajacent in the list
@@ -97,7 +97,7 @@ namespace Circles{
          * Get a sorted list of nodes that make up the boundary of the graph.
          * @return sorted list of nodes.
          */
-        QList<Node>& boundary();
+        QList<Node> boundary();
 
 
     private:

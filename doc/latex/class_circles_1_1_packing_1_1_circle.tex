@@ -1,0 +1,212 @@
+\hypertarget{class_circles_1_1_packing_1_1_circle}{}\section{Circles\+:\+:Packing\+:\+:Circle Class Reference}
+\label{class_circles_1_1_packing_1_1_circle}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+
+
+{\ttfamily \#include $<$Circle.\+hpp$>$}
+
+Inheritance diagram for Circles\+:\+:Packing\+:\+:Circle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_circles_1_1_packing_1_1_circle}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_circles_1_1_packing_1_1_circle_ad1ecfcfc7bf34529c6a6d6c448bf70fe}{Circle} ()
+\item 
+int \hyperlink{class_circles_1_1_packing_1_1_circle_a426d2e69ceadbbf0d119fd117102a8a9}{index} () const 
+\item 
+void \hyperlink{class_circles_1_1_packing_1_1_circle_a0377f9826d119b9cbbe7abb142a66f54}{set\+Index} (int \hyperlink{class_circles_1_1_packing_1_1_circle_a426d2e69ceadbbf0d119fd117102a8a9}{index})
+\item 
+virtual Q\+Point\+F \hyperlink{class_circles_1_1_packing_1_1_circle_a2241ee34969d0c0266948cf1f23fa23a}{center} () const  =0
+\item 
+virtual qreal \hyperlink{class_circles_1_1_packing_1_1_circle_a3e34226854bcbcbd9e462e1e4fe54005}{radius} () const  =0
+\item 
+virtual Q\+Point\+F \hyperlink{class_circles_1_1_packing_1_1_circle_a8f410a32d3d9421231512f86fb0d564e}{proj\+Center} () const  =0
+\item 
+virtual qreal \hyperlink{class_circles_1_1_packing_1_1_circle_a70b927c4a58d1fe7c7576f351ce45784}{proj\+Radius} () const  =0
+\item 
+virtual void \hyperlink{class_circles_1_1_packing_1_1_circle_a7ed2112528b874aa2cb58854eb844b7c}{set\+Radius} (qreal r)=0
+\item 
+virtual bool \hyperlink{class_circles_1_1_packing_1_1_circle_a335f807f081d7f97fdea6e6d84cbc46e}{set\+Center} (Q\+Point\+F c)=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_circles_1_1_packing_1_1_circle_aaaa8e4949e8c12f7411b8f1eb9fa329c}{\+\_\+index}
+\item 
+qreal \hyperlink{class_circles_1_1_packing_1_1_circle_a357d2e553896a5838f871c2befcd4a5b}{\+\_\+radius}
+\item 
+Q\+Point\+F \hyperlink{class_circles_1_1_packing_1_1_circle_a8ea6a935ace6935eb5f5f96646f36a62}{\+\_\+center}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_circles_1_1_packing_1_1_circle_afe0b35e1a1ca89b62921b17d7400a053}{operator$<$} (const \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} \&lhs, const \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle} \&rhs)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_circle_ad1ecfcfc7bf34529c6a6d6c448bf70fe}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!Circle@{Circle}}
+\index{Circle@{Circle}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{Circle()}]{\setlength{\rightskip}{0pt plus 5cm}Circle\+::\+Circle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_circle_ad1ecfcfc7bf34529c6a6d6c448bf70fe}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_circle_a2241ee34969d0c0266948cf1f23fa23a}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!center@{center}}
+\index{center@{center}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{center() const  =0}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\+Point\+F Circles\+::\+Packing\+::\+Circle\+::center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a2241ee34969d0c0266948cf1f23fa23a}
+The center of the circle in it\textquotesingle{}s local space. \begin{DoxyReturn}{Returns}
+The point of the center of the circle in local coordinates. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_a51297723cfb8adac038a706dabbbb1e7}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_circle_a426d2e69ceadbbf0d119fd117102a8a9}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!index@{index}}
+\index{index@{index}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{index() const }]{\setlength{\rightskip}{0pt plus 5cm}int Circle\+::index (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_circles_1_1_packing_1_1_circle_a426d2e69ceadbbf0d119fd117102a8a9}
+Get the index of the graph node associated with this \hyperlink{class_circles_1_1_packing_1_1_circle}{Circle}. \begin{DoxyReturn}{Returns}
+index of the graph node. 
+\end{DoxyReturn}
+\hypertarget{class_circles_1_1_packing_1_1_circle_a8f410a32d3d9421231512f86fb0d564e}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!proj\+Center@{proj\+Center}}
+\index{proj\+Center@{proj\+Center}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{proj\+Center() const  =0}]{\setlength{\rightskip}{0pt plus 5cm}virtual Q\+Point\+F Circles\+::\+Packing\+::\+Circle\+::proj\+Center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a8f410a32d3d9421231512f86fb0d564e}
+The center of the circle when projected into euclidean space (ie as it is on the monitor). For circles that exist in Euclidean space, this will be equal to its \hyperlink{class_circles_1_1_packing_1_1_circle_a2241ee34969d0c0266948cf1f23fa23a}{center()} \begin{DoxyReturn}{Returns}
+the projected center of the circle. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_a4a00caa714bc479d2b7d777c7cf41b19}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a4444a4bab157bee09e7dddf89b026d18}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_circle_a70b927c4a58d1fe7c7576f351ce45784}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!proj\+Radius@{proj\+Radius}}
+\index{proj\+Radius@{proj\+Radius}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{proj\+Radius() const  =0}]{\setlength{\rightskip}{0pt plus 5cm}virtual qreal Circles\+::\+Packing\+::\+Circle\+::proj\+Radius (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a70b927c4a58d1fe7c7576f351ce45784}
+The radius of the circle when projected into euclidean space (ie as it is on the monitor). For circles that exist in Euclidean space, this will be equal to its \hyperlink{class_circles_1_1_packing_1_1_circle_a3e34226854bcbcbd9e462e1e4fe54005}{radius()}. \begin{DoxyReturn}{Returns}
+the projected radius of the circle. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_aee965a2f67ebf52e9cf88b2eb6f53b9f}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a3c22ce28f6ede8bba1346523a3800c3b}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_circle_a3e34226854bcbcbd9e462e1e4fe54005}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!radius@{radius}}
+\index{radius@{radius}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{radius() const  =0}]{\setlength{\rightskip}{0pt plus 5cm}virtual qreal Circles\+::\+Packing\+::\+Circle\+::radius (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a3e34226854bcbcbd9e462e1e4fe54005}
+The radius of the circle in its local space. \begin{DoxyReturn}{Returns}
+radius of the circle in its local space. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_a6d841473a2de1967aea00933f31400ed}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_circle_a335f807f081d7f97fdea6e6d84cbc46e}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!set\+Center@{set\+Center}}
+\index{set\+Center@{set\+Center}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{set\+Center(\+Q\+Point\+F c)=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool Circles\+::\+Packing\+::\+Circle\+::set\+Center (
+\begin{DoxyParamCaption}
+\item[{Q\+Point\+F}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a335f807f081d7f97fdea6e6d84cbc46e}
+Attempt to set the center of the circle. 
+\begin{DoxyParams}{Parameters}
+{\em c} & the center to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the center was set correctly. False otherwise. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_a5c4e09db77fee96d649d3faba1ee0a76}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a9186f704f10ecfb53a1ca2dba148c092}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_circle_a0377f9826d119b9cbbe7abb142a66f54}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!set\+Index@{set\+Index}}
+\index{set\+Index@{set\+Index}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{set\+Index(int index)}]{\setlength{\rightskip}{0pt plus 5cm}void Circle\+::set\+Index (
+\begin{DoxyParamCaption}
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_circle_a0377f9826d119b9cbbe7abb142a66f54}
+Set the index of this circle 
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the associated node in the graph. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_circles_1_1_packing_1_1_circle_a7ed2112528b874aa2cb58854eb844b7c}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!set\+Radius@{set\+Radius}}
+\index{set\+Radius@{set\+Radius}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{set\+Radius(qreal r)=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Circles\+::\+Packing\+::\+Circle\+::set\+Radius (
+\begin{DoxyParamCaption}
+\item[{qreal}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_circles_1_1_packing_1_1_circle_a7ed2112528b874aa2cb58854eb844b7c}
+Set the radius of the circle to the specified value. 
+\begin{DoxyParams}{Parameters}
+{\em r} & The new radius of the circle. (in local space) \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{class_circles_1_1_packing_1_1_hyper_circle_a615257ea4d789aae5641fafca8c49047}{Circles\+::\+Packing\+::\+Hyper\+Circle}, and \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a648a838ba8dd501dbe10e8304349dbb4}{Circles\+::\+Packing\+::\+Euclid\+Circle}.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_circle_afe0b35e1a1ca89b62921b17d7400a053}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{operator$<$}]{\setlength{\rightskip}{0pt plus 5cm}bool operator$<$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf Circle} \&}]{lhs, }
+\item[{const {\bf Circle} \&}]{rhs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}\label{class_circles_1_1_packing_1_1_circle_afe0b35e1a1ca89b62921b17d7400a053}
+Order comparison for sorting in lists, etc. 
+\begin{DoxyParams}{Parameters}
+{\em lhs} & \\
+\hline
+{\em rhs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_circle_a8ea6a935ace6935eb5f5f96646f36a62}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!\+\_\+center@{\+\_\+center}}
+\index{\+\_\+center@{\+\_\+center}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{\+\_\+center}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Point\+F Circles\+::\+Packing\+::\+Circle\+::\+\_\+center\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_circle_a8ea6a935ace6935eb5f5f96646f36a62}
+\hypertarget{class_circles_1_1_packing_1_1_circle_aaaa8e4949e8c12f7411b8f1eb9fa329c}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!\+\_\+index@{\+\_\+index}}
+\index{\+\_\+index@{\+\_\+index}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{\+\_\+index}]{\setlength{\rightskip}{0pt plus 5cm}int Circles\+::\+Packing\+::\+Circle\+::\+\_\+index\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_circle_aaaa8e4949e8c12f7411b8f1eb9fa329c}
+\hypertarget{class_circles_1_1_packing_1_1_circle_a357d2e553896a5838f871c2befcd4a5b}{}\index{Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}!\+\_\+radius@{\+\_\+radius}}
+\index{\+\_\+radius@{\+\_\+radius}!Circles\+::\+Packing\+::\+Circle@{Circles\+::\+Packing\+::\+Circle}}
+\subsubsection[{\+\_\+radius}]{\setlength{\rightskip}{0pt plus 5cm}qreal Circles\+::\+Packing\+::\+Circle\+::\+\_\+radius\hspace{0.3cm}{\ttfamily [protected]}}\label{class_circles_1_1_packing_1_1_circle_a357d2e553896a5838f871c2befcd4a5b}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+packing/\hyperlink{packing_2_circle_8hpp}{Circle.\+hpp}\item 
+packing/\hyperlink{packing_2_circle_8cpp}{Circle.\+cpp}\end{DoxyCompactItemize}

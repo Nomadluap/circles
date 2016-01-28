@@ -1,0 +1,591 @@
+\hypertarget{class_packing}{}\section{Packing Class Reference}
+\label{class_packing}\index{Packing@{Packing}}
+
+
+The \hyperlink{class_packing}{Packing} class is an abstract class which defines a circle packing. A circle packing may be either euclidean or hyperbolic, as found in Euclidean\+Packing and Hyperbolic\+Packing.  
+
+
+
+
+{\ttfamily \#include $<$Packing.\+hpp$>$}
+
+Inheritance diagram for Packing\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_packing}
+\end{center}
+\end{figure}
+\subsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_packing_a3c5bdaac16b7f59c966bfa3e2572bfec}{set\+Draw\+Centers} (bool d)
+\item 
+void \hyperlink{class_packing_a8d95224738fdcfe7c27886c75a21a888}{set\+Draw\+Links} (bool d)
+\item 
+void \hyperlink{class_packing_adb39ee29cf54d899d2c7f3d924aca3e7}{set\+Draw\+Circles} (bool d)
+\item 
+void \hyperlink{class_packing_ae204c78072c0397bd55bb0d762258507}{set\+Draw\+Indicies} (bool d)
+\item 
+void \hyperlink{class_packing_a38f38eef21a2e8277a98c4d12f68f4e3}{set\+Draw\+Boundary} (bool d)
+\item 
+void \hyperlink{class_packing_a1a1ad296a875c5fe6463366296b389d4}{repack} (qreal epsilon, qreal outer\+Radius)
+\begin{DoxyCompactList}\small\item\em Compute the radii of the circles that will result in an actual packing. \end{DoxyCompactList}\item 
+void \hyperlink{class_packing_adc779649742314f9c9eaee0f43b1000a}{layout} (int center\+Circle)
+\begin{DoxyCompactList}\small\item\em lay-\/out circles once radii have been computed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_packing_a6c641c5342b0a9f0cdf6a5286da1faef}{new\+Node\+Selected} (\hyperlink{class_node}{Node} $\ast$n)
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_packing_afc2e978d83701a4f45cf4c3a397d669d}{Packing} (const \hyperlink{class_packing}{Packing} $\ast$p)
+\item 
+\hyperlink{class_packing_ac182cdb0765b020bb5289d0980cf1fd6}{Packing} (\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type}=\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9aa4066bbe6791ed6bbfe12f55a60ed152}{Packing\+Type\+::\+Euclidean\+Packing})
+\begin{DoxyCompactList}\small\item\em Create a new, empty \hyperlink{class_packing}{Packing} object with specified geometry. \end{DoxyCompactList}\item 
+\hyperlink{class_packing_a4091c1456760961dee4d94ed5f440ac4}{Packing} (Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ \hyperlink{class_packing_afee4e76e75aea147685840e19c714d08}{nodes}, \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type}=\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9aa4066bbe6791ed6bbfe12f55a60ed152}{Packing\+Type\+::\+Euclidean\+Packing})
+\begin{DoxyCompactList}\small\item\em Generate a packing containing the specified nodes. \end{DoxyCompactList}\item 
+\hyperlink{class_packing_ad67852c54df83e034b441389846d6c7c}{$\sim$\+Packing} ()
+\item 
+void \hyperlink{class_packing_a3ba83f90994302b47fc61dde4bec6246}{set\+Packing\+Type} (\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type})
+\begin{DoxyCompactList}\small\item\em set\+Packing\+Type sets the geometry of the packing \end{DoxyCompactList}\item 
+\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a083a0344f87747cd162508a46a2d1e5f}{get\+Type} ()
+\begin{DoxyCompactList}\small\item\em get\+Type \end{DoxyCompactList}\item 
+bool \hyperlink{class_packing_a7939fca53f87260b846b21dc792804ee}{get\+Draw\+Centers} ()
+\item 
+bool \hyperlink{class_packing_add444b4756b90ad386a1034a488058c1}{get\+Draw\+Links} ()
+\item 
+bool \hyperlink{class_packing_a74bf80fb8b944df51b5afbdc3b3ebe24}{get\+Draw\+Circles} ()
+\item 
+bool \hyperlink{class_packing_a7763554b3b773d4a5b0f1a84eb7522f1}{get\+Draw\+Indicies} ()
+\item 
+void \hyperlink{class_packing_a9d660a5c187d9fe98b727f0c32e311cd}{add\+Node} (\hyperlink{class_node}{Node} $\ast$n)
+\begin{DoxyCompactList}\small\item\em add\+Node Adds a node to the packing. \end{DoxyCompactList}\item 
+void \hyperlink{class_packing_a978572ce633b6caca911f83f39057d9c}{add\+Node\+\_\+fast} (\hyperlink{class_node}{Node} $\ast$n)
+\begin{DoxyCompactList}\small\item\em Add a node without re-\/computing connectors. You must manually call recompute\+\_\+connectors() after adding all nodes. \end{DoxyCompactList}\item 
+void \hyperlink{class_packing_afae173eda1f69d397c81eb74f7d73015}{del\+Node} (\hyperlink{class_node}{Node} $\ast$n)
+\item 
+void \hyperlink{class_packing_a91ea592eea6af38942733d6b44933317}{del\+Node\+\_\+fast} (\hyperlink{class_node}{Node} $\ast$n)
+\item 
+virtual void \hyperlink{class_packing_a6e130881196259c6594dd4bb2e96da4f}{mouse\+Press\+Event} (Q\+Graphics\+Scene\+Mouse\+Event $\ast$mouse\+Event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{class_packing_a005bd28470da94b6902d4717048e4557}{recompute\+Connectors} ()
+\begin{DoxyCompactList}\small\item\em recompute\+Connectors re-\/computes the coordinates of the connectors between circle-\/centers. \end{DoxyCompactList}\item 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ \hyperlink{class_packing_ac33b0c147d075d5b155b73dda0889a23}{get\+Nodes} ()
+\item 
+bool \hyperlink{class_packing_a06aed07c07ada5b34cc70907546b1e85}{is\+Interior} (\hyperlink{class_node}{Node} $\ast$n)
+\begin{DoxyCompactList}\small\item\em Determine if given node is interior to packing. \end{DoxyCompactList}\item 
+bool \hyperlink{class_packing_af3ac42b45e52b131f2c780db20ee3a57}{is\+Exterior} (\hyperlink{class_node}{Node} $\ast$n)
+\item 
+void \hyperlink{class_packing_abdb0298e456838212aae5341b395a8ef}{refresh\+Circles} ()
+\item 
+void \hyperlink{class_packing_a3e863b6fcd3e53f8d476a30885bc7eb2}{reset\+Ids} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_packing_ad3ad2425f1ee067444ce424702bb3976}{center\+Circle\+I\+D} = -\/1
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_packing_a2cf517a5c828f7fb0399e25eb196f193}{layout\+\_\+hyperbolic} (int center\+Circle)
+\item 
+void \hyperlink{class_packing_a083f64ff591c652b1dfd9b0543fb95b4}{layout\+\_\+euclidean} (int center\+Circle)
+\item 
+qreal \hyperlink{class_packing_a81020dc1688f59fcf2a0b67ff04a0c41}{angle} (\hyperlink{class_node}{Node} $\ast$r, \hyperlink{class_node}{Node} $\ast$ra, \hyperlink{class_node}{Node} $\ast$rb)
+\begin{DoxyCompactList}\small\item\em Compute the angle formed by the tangent circles of 3 nodes. \end{DoxyCompactList}\item 
+qreal \hyperlink{class_packing_a65436a9a927a45fe1e2cb517a06d2725}{angle\+\_\+euclidean} (\hyperlink{class_node}{Node} $\ast$r, \hyperlink{class_node}{Node} $\ast$ra, \hyperlink{class_node}{Node} $\ast$rb)
+\item 
+qreal \hyperlink{class_packing_a1d34d6a5cfd944dbd3a8f3ca931c5017}{angle\+\_\+hyperbolic} (\hyperlink{class_node}{Node} $\ast$r, \hyperlink{class_node}{Node} $\ast$ra, \hyperlink{class_node}{Node} $\ast$rb)
+\item 
+qreal \hyperlink{class_packing_a8042d10207d65261a1c66e50467082cc}{anglesum} (\hyperlink{class_node}{Node} $\ast$r)
+\begin{DoxyCompactList}\small\item\em returns sum of all angles formed with ajacent nodes \end{DoxyCompactList}\item 
+void \hyperlink{class_packing_a25fb2ac12aa7ef3965304ed9e047dc37}{add\+Circle} (\hyperlink{class_node}{Node} $\ast$n)
+\item 
+void \hyperlink{class_packing_a89dcb1adeeeef440403a8f3738175980}{purge\+Circles} ()
+\item 
+void \hyperlink{class_packing_a108400e1db70bf6083d5ba4d543eec85}{draw\+Foreground} (Q\+Painter $\ast$painter, const Q\+Rect\+F \&rect) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_packing_a147cc720a45cfe1a2ba9cb6a7572ea3c}{draw\+Centers} =false
+\item 
+bool \hyperlink{class_packing_a4280a02b5e8abf0a2ede10d9336d4656}{draw\+Links} =false
+\item 
+bool \hyperlink{class_packing_ad747edc67473a43bd84e883f236cc541}{draw\+Circles} =true
+\item 
+bool \hyperlink{class_packing_addbff5291338fd9db7b30643f162e5fd}{draw\+Indicies} =false
+\item 
+\hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9}{Packing\+Type} \hyperlink{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{type}
+\item 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ \hyperlink{class_packing_afee4e76e75aea147685840e19c714d08}{nodes}
+\item 
+Q\+List$<$ \hyperlink{class_node}{Node} $\ast$ $>$ \hyperlink{class_packing_a5b34c744eb2032be00bee06064fbb9d6}{boundary\+Nodes}
+\item 
+Q\+List$<$ \hyperlink{class_circle}{Circle} $\ast$ $>$ \hyperlink{class_packing_a60d1a498ccedd7c939ec9fb7e681fbaa}{circles}
+\item 
+Q\+List$<$ \hyperlink{class_connector}{Connector} $\ast$ $>$ \hyperlink{class_packing_aaad204ad5222b559bc1515308eb2a275}{connectors}
+\item 
+\hyperlink{class_circle}{Circle} $\ast$ \hyperlink{class_packing_a95c44cf9bb1c33f5b4292b970dfe58d8}{selected\+Circle} = nullptr
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The \hyperlink{class_packing}{Packing} class is an abstract class which defines a circle packing. A circle packing may be either euclidean or hyperbolic, as found in Euclidean\+Packing and Hyperbolic\+Packing. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_packing_afc2e978d83701a4f45cf4c3a397d669d}{}\index{Packing@{Packing}!Packing@{Packing}}
+\index{Packing@{Packing}!Packing@{Packing}}
+\subsubsection[{Packing(const Packing $\ast$p)}]{\setlength{\rightskip}{0pt plus 5cm}Packing\+::\+Packing (
+\begin{DoxyParamCaption}
+\item[{const {\bf Packing} $\ast$}]{p}
+\end{DoxyParamCaption}
+)}\label{class_packing_afc2e978d83701a4f45cf4c3a397d669d}
+Copy constructor. Nodes are deep-\/copied. 
+\begin{DoxyParams}{Parameters}
+{\em p} & pointer to packing to be copied. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_ac182cdb0765b020bb5289d0980cf1fd6}{}\index{Packing@{Packing}!Packing@{Packing}}
+\index{Packing@{Packing}!Packing@{Packing}}
+\subsubsection[{Packing(\+Packing\+Type type=\+Packing\+Type\+::\+Euclidean\+Packing)}]{\setlength{\rightskip}{0pt plus 5cm}Packing\+::\+Packing (
+\begin{DoxyParamCaption}
+\item[{{\bf Packing\+Type}}]{type = {\ttfamily {\bf Packing\+Type\+::\+Euclidean\+Packing}}}
+\end{DoxyParamCaption}
+)}\label{class_packing_ac182cdb0765b020bb5289d0980cf1fd6}
+
+
+Create a new, empty \hyperlink{class_packing}{Packing} object with specified geometry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & either \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9aa4066bbe6791ed6bbfe12f55a60ed152}{Packing\+Type\+::\+Euclidean\+Packing} or \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9af44d305ffa405b64040c7d4bc16953f9}{Packing\+Type\+::\+Hyperbolic\+Packing} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a4091c1456760961dee4d94ed5f440ac4}{}\index{Packing@{Packing}!Packing@{Packing}}
+\index{Packing@{Packing}!Packing@{Packing}}
+\subsubsection[{Packing(\+Q\+List$<$ Node $\ast$ $>$ nodes, Packing\+Type type=\+Packing\+Type\+::\+Euclidean\+Packing)}]{\setlength{\rightskip}{0pt plus 5cm}Packing\+::\+Packing (
+\begin{DoxyParamCaption}
+\item[{Q\+List$<$ {\bf Node} $\ast$ $>$}]{nodes, }
+\item[{{\bf Packing\+Type}}]{type = {\ttfamily {\bf Packing\+Type\+::\+Euclidean\+Packing}}}
+\end{DoxyParamCaption}
+)}\label{class_packing_a4091c1456760961dee4d94ed5f440ac4}
+
+
+Generate a packing containing the specified nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nodes} & \\
+\hline
+{\em type} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_ad67852c54df83e034b441389846d6c7c}{}\index{Packing@{Packing}!````~Packing@{$\sim$\+Packing}}
+\index{````~Packing@{$\sim$\+Packing}!Packing@{Packing}}
+\subsubsection[{$\sim$\+Packing()}]{\setlength{\rightskip}{0pt plus 5cm}Packing\+::$\sim$\+Packing (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_ad67852c54df83e034b441389846d6c7c}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_packing_a25fb2ac12aa7ef3965304ed9e047dc37}{}\index{Packing@{Packing}!add\+Circle@{add\+Circle}}
+\index{add\+Circle@{add\+Circle}!Packing@{Packing}}
+\subsubsection[{add\+Circle(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::add\+Circle (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a25fb2ac12aa7ef3965304ed9e047dc37}
+\hypertarget{class_packing_a9d660a5c187d9fe98b727f0c32e311cd}{}\index{Packing@{Packing}!add\+Node@{add\+Node}}
+\index{add\+Node@{add\+Node}!Packing@{Packing}}
+\subsubsection[{add\+Node(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::add\+Node (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_a9d660a5c187d9fe98b727f0c32e311cd}
+
+
+add\+Node Adds a node to the packing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & node to add. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a978572ce633b6caca911f83f39057d9c}{}\index{Packing@{Packing}!add\+Node\+\_\+fast@{add\+Node\+\_\+fast}}
+\index{add\+Node\+\_\+fast@{add\+Node\+\_\+fast}!Packing@{Packing}}
+\subsubsection[{add\+Node\+\_\+fast(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::add\+Node\+\_\+fast (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_a978572ce633b6caca911f83f39057d9c}
+
+
+Add a node without re-\/computing connectors. You must manually call recompute\+\_\+connectors() after adding all nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & node to add \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a81020dc1688f59fcf2a0b67ff04a0c41}{}\index{Packing@{Packing}!angle@{angle}}
+\index{angle@{angle}!Packing@{Packing}}
+\subsubsection[{angle(\+Node $\ast$r, Node $\ast$ra, Node $\ast$rb)}]{\setlength{\rightskip}{0pt plus 5cm}qreal Packing\+::angle (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{r, }
+\item[{{\bf Node} $\ast$}]{ra, }
+\item[{{\bf Node} $\ast$}]{rb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a81020dc1688f59fcf2a0b67ff04a0c41}
+
+
+Compute the angle formed by the tangent circles of 3 nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & the center node of the angle \\
+\hline
+{\em ra} & one leg of the angle \\
+\hline
+{\em rb} & one leg of the angle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the angle formed, in radians. 
+\end{DoxyReturn}
+\hypertarget{class_packing_a65436a9a927a45fe1e2cb517a06d2725}{}\index{Packing@{Packing}!angle\+\_\+euclidean@{angle\+\_\+euclidean}}
+\index{angle\+\_\+euclidean@{angle\+\_\+euclidean}!Packing@{Packing}}
+\subsubsection[{angle\+\_\+euclidean(\+Node $\ast$r, Node $\ast$ra, Node $\ast$rb)}]{\setlength{\rightskip}{0pt plus 5cm}qreal Packing\+::angle\+\_\+euclidean (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{r, }
+\item[{{\bf Node} $\ast$}]{ra, }
+\item[{{\bf Node} $\ast$}]{rb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a65436a9a927a45fe1e2cb517a06d2725}
+\hypertarget{class_packing_a1d34d6a5cfd944dbd3a8f3ca931c5017}{}\index{Packing@{Packing}!angle\+\_\+hyperbolic@{angle\+\_\+hyperbolic}}
+\index{angle\+\_\+hyperbolic@{angle\+\_\+hyperbolic}!Packing@{Packing}}
+\subsubsection[{angle\+\_\+hyperbolic(\+Node $\ast$r, Node $\ast$ra, Node $\ast$rb)}]{\setlength{\rightskip}{0pt plus 5cm}qreal Packing\+::angle\+\_\+hyperbolic (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{r, }
+\item[{{\bf Node} $\ast$}]{ra, }
+\item[{{\bf Node} $\ast$}]{rb}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a1d34d6a5cfd944dbd3a8f3ca931c5017}
+\hypertarget{class_packing_a8042d10207d65261a1c66e50467082cc}{}\index{Packing@{Packing}!anglesum@{anglesum}}
+\index{anglesum@{anglesum}!Packing@{Packing}}
+\subsubsection[{anglesum(\+Node $\ast$r)}]{\setlength{\rightskip}{0pt plus 5cm}qreal Packing\+::anglesum (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a8042d10207d65261a1c66e50467082cc}
+
+
+returns sum of all angles formed with ajacent nodes 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+angle sum 
+\end{DoxyReturn}
+\hypertarget{class_packing_afae173eda1f69d397c81eb74f7d73015}{}\index{Packing@{Packing}!del\+Node@{del\+Node}}
+\index{del\+Node@{del\+Node}!Packing@{Packing}}
+\subsubsection[{del\+Node(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::del\+Node (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_afae173eda1f69d397c81eb74f7d73015}
+\hypertarget{class_packing_a91ea592eea6af38942733d6b44933317}{}\index{Packing@{Packing}!del\+Node\+\_\+fast@{del\+Node\+\_\+fast}}
+\index{del\+Node\+\_\+fast@{del\+Node\+\_\+fast}!Packing@{Packing}}
+\subsubsection[{del\+Node\+\_\+fast(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::del\+Node\+\_\+fast (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_a91ea592eea6af38942733d6b44933317}
+$\ast$$\ast$$\ast$\+M\+U\+S\+T C\+A\+L\+L R\+E\+F\+R\+E\+S\+H\+C\+I\+R\+C\+L\+E\+S A\+F\+T\+E\+R R\+U\+N\+N\+I\+N\+G$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}{Parameters}
+{\em n} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a108400e1db70bf6083d5ba4d543eec85}{}\index{Packing@{Packing}!draw\+Foreground@{draw\+Foreground}}
+\index{draw\+Foreground@{draw\+Foreground}!Packing@{Packing}}
+\subsubsection[{draw\+Foreground(\+Q\+Painter $\ast$painter, const Q\+Rect\+F \&rect) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::draw\+Foreground (
+\begin{DoxyParamCaption}
+\item[{Q\+Painter $\ast$}]{painter, }
+\item[{const Q\+Rect\+F \&}]{rect}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a108400e1db70bf6083d5ba4d543eec85}
+\hypertarget{class_packing_a7939fca53f87260b846b21dc792804ee}{}\index{Packing@{Packing}!get\+Draw\+Centers@{get\+Draw\+Centers}}
+\index{get\+Draw\+Centers@{get\+Draw\+Centers}!Packing@{Packing}}
+\subsubsection[{get\+Draw\+Centers()}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::get\+Draw\+Centers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a7939fca53f87260b846b21dc792804ee}
+\hypertarget{class_packing_a74bf80fb8b944df51b5afbdc3b3ebe24}{}\index{Packing@{Packing}!get\+Draw\+Circles@{get\+Draw\+Circles}}
+\index{get\+Draw\+Circles@{get\+Draw\+Circles}!Packing@{Packing}}
+\subsubsection[{get\+Draw\+Circles()}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::get\+Draw\+Circles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a74bf80fb8b944df51b5afbdc3b3ebe24}
+\hypertarget{class_packing_a7763554b3b773d4a5b0f1a84eb7522f1}{}\index{Packing@{Packing}!get\+Draw\+Indicies@{get\+Draw\+Indicies}}
+\index{get\+Draw\+Indicies@{get\+Draw\+Indicies}!Packing@{Packing}}
+\subsubsection[{get\+Draw\+Indicies()}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::get\+Draw\+Indicies (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a7763554b3b773d4a5b0f1a84eb7522f1}
+\hypertarget{class_packing_add444b4756b90ad386a1034a488058c1}{}\index{Packing@{Packing}!get\+Draw\+Links@{get\+Draw\+Links}}
+\index{get\+Draw\+Links@{get\+Draw\+Links}!Packing@{Packing}}
+\subsubsection[{get\+Draw\+Links()}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::get\+Draw\+Links (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_add444b4756b90ad386a1034a488058c1}
+\hypertarget{class_packing_ac33b0c147d075d5b155b73dda0889a23}{}\index{Packing@{Packing}!get\+Nodes@{get\+Nodes}}
+\index{get\+Nodes@{get\+Nodes}!Packing@{Packing}}
+\subsubsection[{get\+Nodes()}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<$ {\bf Node} $\ast$ $>$ Packing\+::get\+Nodes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_ac33b0c147d075d5b155b73dda0889a23}
+\hypertarget{class_packing_a083a0344f87747cd162508a46a2d1e5f}{}\index{Packing@{Packing}!get\+Type@{get\+Type}}
+\index{get\+Type@{get\+Type}!Packing@{Packing}}
+\subsubsection[{get\+Type()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Packing\+Type} Packing\+::get\+Type (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a083a0344f87747cd162508a46a2d1e5f}
+
+
+get\+Type 
+
+\begin{DoxyReturn}{Returns}
+geometry of the packing. 
+\end{DoxyReturn}
+\hypertarget{class_packing_af3ac42b45e52b131f2c780db20ee3a57}{}\index{Packing@{Packing}!is\+Exterior@{is\+Exterior}}
+\index{is\+Exterior@{is\+Exterior}!Packing@{Packing}}
+\subsubsection[{is\+Exterior(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::is\+Exterior (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_af3ac42b45e52b131f2c780db20ee3a57}
+\hypertarget{class_packing_a06aed07c07ada5b34cc70907546b1e85}{}\index{Packing@{Packing}!is\+Interior@{is\+Interior}}
+\index{is\+Interior@{is\+Interior}!Packing@{Packing}}
+\subsubsection[{is\+Interior(\+Node $\ast$n)}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::is\+Interior (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)}\label{class_packing_a06aed07c07ada5b34cc70907546b1e85}
+
+
+Determine if given node is interior to packing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if node is interior to packing. Otherwise False. 
+\end{DoxyReturn}
+\hypertarget{class_packing_adc779649742314f9c9eaee0f43b1000a}{}\index{Packing@{Packing}!layout@{layout}}
+\index{layout@{layout}!Packing@{Packing}}
+\subsubsection[{layout}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::layout (
+\begin{DoxyParamCaption}
+\item[{int}]{center\+Circle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_adc779649742314f9c9eaee0f43b1000a}
+
+
+lay-\/out circles once radii have been computed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em center\+Circle} & index of circle to place at center of plane/disc \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a083f64ff591c652b1dfd9b0543fb95b4}{}\index{Packing@{Packing}!layout\+\_\+euclidean@{layout\+\_\+euclidean}}
+\index{layout\+\_\+euclidean@{layout\+\_\+euclidean}!Packing@{Packing}}
+\subsubsection[{layout\+\_\+euclidean(int center\+Circle)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::layout\+\_\+euclidean (
+\begin{DoxyParamCaption}
+\item[{int}]{center\+Circle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a083f64ff591c652b1dfd9b0543fb95b4}
+\hypertarget{class_packing_a2cf517a5c828f7fb0399e25eb196f193}{}\index{Packing@{Packing}!layout\+\_\+hyperbolic@{layout\+\_\+hyperbolic}}
+\index{layout\+\_\+hyperbolic@{layout\+\_\+hyperbolic}!Packing@{Packing}}
+\subsubsection[{layout\+\_\+hyperbolic(int center\+Circle)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::layout\+\_\+hyperbolic (
+\begin{DoxyParamCaption}
+\item[{int}]{center\+Circle}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a2cf517a5c828f7fb0399e25eb196f193}
+\hypertarget{class_packing_a6e130881196259c6594dd4bb2e96da4f}{}\index{Packing@{Packing}!mouse\+Press\+Event@{mouse\+Press\+Event}}
+\index{mouse\+Press\+Event@{mouse\+Press\+Event}!Packing@{Packing}}
+\subsubsection[{mouse\+Press\+Event(\+Q\+Graphics\+Scene\+Mouse\+Event $\ast$mouse\+Event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::mouse\+Press\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Graphics\+Scene\+Mouse\+Event $\ast$}]{mouse\+Event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_packing_a6e130881196259c6594dd4bb2e96da4f}
+
+
+Reimplemented in \hyperlink{class_selection_packing_a424e907d2394d6b7d5941a10f6119cbc}{Selection\+Packing}.
+
+\hypertarget{class_packing_a6c641c5342b0a9f0cdf6a5286da1faef}{}\index{Packing@{Packing}!new\+Node\+Selected@{new\+Node\+Selected}}
+\index{new\+Node\+Selected@{new\+Node\+Selected}!Packing@{Packing}}
+\subsubsection[{new\+Node\+Selected}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::new\+Node\+Selected (
+\begin{DoxyParamCaption}
+\item[{{\bf Node} $\ast$}]{n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_packing_a6c641c5342b0a9f0cdf6a5286da1faef}
+\hypertarget{class_packing_a89dcb1adeeeef440403a8f3738175980}{}\index{Packing@{Packing}!purge\+Circles@{purge\+Circles}}
+\index{purge\+Circles@{purge\+Circles}!Packing@{Packing}}
+\subsubsection[{purge\+Circles()}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::purge\+Circles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a89dcb1adeeeef440403a8f3738175980}
+\hypertarget{class_packing_a005bd28470da94b6902d4717048e4557}{}\index{Packing@{Packing}!recompute\+Connectors@{recompute\+Connectors}}
+\index{recompute\+Connectors@{recompute\+Connectors}!Packing@{Packing}}
+\subsubsection[{recompute\+Connectors()}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::recompute\+Connectors (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a005bd28470da94b6902d4717048e4557}
+
+
+recompute\+Connectors re-\/computes the coordinates of the connectors between circle-\/centers. 
+
+\hypertarget{class_packing_abdb0298e456838212aae5341b395a8ef}{}\index{Packing@{Packing}!refresh\+Circles@{refresh\+Circles}}
+\index{refresh\+Circles@{refresh\+Circles}!Packing@{Packing}}
+\subsubsection[{refresh\+Circles()}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::refresh\+Circles (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_abdb0298e456838212aae5341b395a8ef}
+Re-\/creates all circles in teh packing \hypertarget{class_packing_a1a1ad296a875c5fe6463366296b389d4}{}\index{Packing@{Packing}!repack@{repack}}
+\index{repack@{repack}!Packing@{Packing}}
+\subsubsection[{repack}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::repack (
+\begin{DoxyParamCaption}
+\item[{qreal}]{epsilon, }
+\item[{qreal}]{outer\+Radius}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_a1a1ad296a875c5fe6463366296b389d4}
+
+
+Compute the radii of the circles that will result in an actual packing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em epsilon} & epsilon value to determine completeness. Small. \\
+\hline
+{\em outer\+Radius} & Radius of boundary circles. Large. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_packing_a3e863b6fcd3e53f8d476a30885bc7eb2}{}\index{Packing@{Packing}!reset\+Ids@{reset\+Ids}}
+\index{reset\+Ids@{reset\+Ids}!Packing@{Packing}}
+\subsubsection[{reset\+Ids()}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::reset\+Ids (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_packing_a3e863b6fcd3e53f8d476a30885bc7eb2}
+Reset the ids of all nodes so that they lie in the range \mbox{[}0, n\mbox{]}. \hypertarget{class_packing_a38f38eef21a2e8277a98c4d12f68f4e3}{}\index{Packing@{Packing}!set\+Draw\+Boundary@{set\+Draw\+Boundary}}
+\index{set\+Draw\+Boundary@{set\+Draw\+Boundary}!Packing@{Packing}}
+\subsubsection[{set\+Draw\+Boundary}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Draw\+Boundary (
+\begin{DoxyParamCaption}
+\item[{bool}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_a38f38eef21a2e8277a98c4d12f68f4e3}
+\hypertarget{class_packing_a3c5bdaac16b7f59c966bfa3e2572bfec}{}\index{Packing@{Packing}!set\+Draw\+Centers@{set\+Draw\+Centers}}
+\index{set\+Draw\+Centers@{set\+Draw\+Centers}!Packing@{Packing}}
+\subsubsection[{set\+Draw\+Centers}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Draw\+Centers (
+\begin{DoxyParamCaption}
+\item[{bool}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_a3c5bdaac16b7f59c966bfa3e2572bfec}
+\hypertarget{class_packing_adb39ee29cf54d899d2c7f3d924aca3e7}{}\index{Packing@{Packing}!set\+Draw\+Circles@{set\+Draw\+Circles}}
+\index{set\+Draw\+Circles@{set\+Draw\+Circles}!Packing@{Packing}}
+\subsubsection[{set\+Draw\+Circles}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Draw\+Circles (
+\begin{DoxyParamCaption}
+\item[{bool}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_adb39ee29cf54d899d2c7f3d924aca3e7}
+\hypertarget{class_packing_ae204c78072c0397bd55bb0d762258507}{}\index{Packing@{Packing}!set\+Draw\+Indicies@{set\+Draw\+Indicies}}
+\index{set\+Draw\+Indicies@{set\+Draw\+Indicies}!Packing@{Packing}}
+\subsubsection[{set\+Draw\+Indicies}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Draw\+Indicies (
+\begin{DoxyParamCaption}
+\item[{bool}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_ae204c78072c0397bd55bb0d762258507}
+\hypertarget{class_packing_a8d95224738fdcfe7c27886c75a21a888}{}\index{Packing@{Packing}!set\+Draw\+Links@{set\+Draw\+Links}}
+\index{set\+Draw\+Links@{set\+Draw\+Links}!Packing@{Packing}}
+\subsubsection[{set\+Draw\+Links}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Draw\+Links (
+\begin{DoxyParamCaption}
+\item[{bool}]{d}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [slot]}}\label{class_packing_a8d95224738fdcfe7c27886c75a21a888}
+\hypertarget{class_packing_a3ba83f90994302b47fc61dde4bec6246}{}\index{Packing@{Packing}!set\+Packing\+Type@{set\+Packing\+Type}}
+\index{set\+Packing\+Type@{set\+Packing\+Type}!Packing@{Packing}}
+\subsubsection[{set\+Packing\+Type(\+Packing\+Type type)}]{\setlength{\rightskip}{0pt plus 5cm}void Packing\+::set\+Packing\+Type (
+\begin{DoxyParamCaption}
+\item[{{\bf Packing\+Type}}]{type}
+\end{DoxyParamCaption}
+)}\label{class_packing_a3ba83f90994302b47fc61dde4bec6246}
+
+
+set\+Packing\+Type sets the geometry of the packing 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & either \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9aa4066bbe6791ed6bbfe12f55a60ed152}{Packing\+Type\+::\+Euclidean\+Packing} or \hyperlink{graphics_2_packing_8hpp_a331874350131c9e1039dac50b427f8b9af44d305ffa405b64040c7d4bc16953f9}{Packing\+Type\+::\+Hyperbolic\+Packing} \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_packing_a5b34c744eb2032be00bee06064fbb9d6}{}\index{Packing@{Packing}!boundary\+Nodes@{boundary\+Nodes}}
+\index{boundary\+Nodes@{boundary\+Nodes}!Packing@{Packing}}
+\subsubsection[{boundary\+Nodes}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<${\bf Node}$\ast$$>$ Packing\+::boundary\+Nodes\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a5b34c744eb2032be00bee06064fbb9d6}
+\hypertarget{class_packing_ad3ad2425f1ee067444ce424702bb3976}{}\index{Packing@{Packing}!center\+Circle\+I\+D@{center\+Circle\+I\+D}}
+\index{center\+Circle\+I\+D@{center\+Circle\+I\+D}!Packing@{Packing}}
+\subsubsection[{center\+Circle\+I\+D}]{\setlength{\rightskip}{0pt plus 5cm}int Packing\+::center\+Circle\+I\+D = -\/1}\label{class_packing_ad3ad2425f1ee067444ce424702bb3976}
+\hypertarget{class_packing_a60d1a498ccedd7c939ec9fb7e681fbaa}{}\index{Packing@{Packing}!circles@{circles}}
+\index{circles@{circles}!Packing@{Packing}}
+\subsubsection[{circles}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<${\bf Circle}$\ast$$>$ Packing\+::circles\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a60d1a498ccedd7c939ec9fb7e681fbaa}
+\hypertarget{class_packing_aaad204ad5222b559bc1515308eb2a275}{}\index{Packing@{Packing}!connectors@{connectors}}
+\index{connectors@{connectors}!Packing@{Packing}}
+\subsubsection[{connectors}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<${\bf Connector}$\ast$$>$ Packing\+::connectors\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_aaad204ad5222b559bc1515308eb2a275}
+\hypertarget{class_packing_a147cc720a45cfe1a2ba9cb6a7572ea3c}{}\index{Packing@{Packing}!draw\+Centers@{draw\+Centers}}
+\index{draw\+Centers@{draw\+Centers}!Packing@{Packing}}
+\subsubsection[{draw\+Centers}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::draw\+Centers =false\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a147cc720a45cfe1a2ba9cb6a7572ea3c}
+\hypertarget{class_packing_ad747edc67473a43bd84e883f236cc541}{}\index{Packing@{Packing}!draw\+Circles@{draw\+Circles}}
+\index{draw\+Circles@{draw\+Circles}!Packing@{Packing}}
+\subsubsection[{draw\+Circles}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::draw\+Circles =true\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_ad747edc67473a43bd84e883f236cc541}
+\hypertarget{class_packing_addbff5291338fd9db7b30643f162e5fd}{}\index{Packing@{Packing}!draw\+Indicies@{draw\+Indicies}}
+\index{draw\+Indicies@{draw\+Indicies}!Packing@{Packing}}
+\subsubsection[{draw\+Indicies}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::draw\+Indicies =false\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_addbff5291338fd9db7b30643f162e5fd}
+\hypertarget{class_packing_a4280a02b5e8abf0a2ede10d9336d4656}{}\index{Packing@{Packing}!draw\+Links@{draw\+Links}}
+\index{draw\+Links@{draw\+Links}!Packing@{Packing}}
+\subsubsection[{draw\+Links}]{\setlength{\rightskip}{0pt plus 5cm}bool Packing\+::draw\+Links =false\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a4280a02b5e8abf0a2ede10d9336d4656}
+\hypertarget{class_packing_afee4e76e75aea147685840e19c714d08}{}\index{Packing@{Packing}!nodes@{nodes}}
+\index{nodes@{nodes}!Packing@{Packing}}
+\subsubsection[{nodes}]{\setlength{\rightskip}{0pt plus 5cm}Q\+List$<${\bf Node}$\ast$$>$ Packing\+::nodes\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_afee4e76e75aea147685840e19c714d08}
+\hypertarget{class_packing_a95c44cf9bb1c33f5b4292b970dfe58d8}{}\index{Packing@{Packing}!selected\+Circle@{selected\+Circle}}
+\index{selected\+Circle@{selected\+Circle}!Packing@{Packing}}
+\subsubsection[{selected\+Circle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Circle}$\ast$ Packing\+::selected\+Circle = nullptr\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a95c44cf9bb1c33f5b4292b970dfe58d8}
+\hypertarget{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}{}\index{Packing@{Packing}!type@{type}}
+\index{type@{type}!Packing@{Packing}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Packing\+Type} Packing\+::type\hspace{0.3cm}{\ttfamily [protected]}}\label{class_packing_a934cbe1ef81173f5e7fbabf9846d16e2}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+graphics/\hyperlink{graphics_2_packing_8hpp}{Packing.\+hpp}\item 
+graphics/\hyperlink{graphics_2_packing_8cpp}{Packing.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,197 @@
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle}{}\section{Circles\+:\+:Packing\+:\+:Euclid\+Circle Class Reference}
+\label{class_circles_1_1_packing_1_1_euclid_circle}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+
+
+{\ttfamily \#include $<$Euclid\+Circle.\+hpp$>$}
+
+Inheritance diagram for Circles\+:\+:Packing\+:\+:Euclid\+Circle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_circles_1_1_packing_1_1_euclid_circle}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a20844fd3b36876330de35a7b135d6c1d}{Euclid\+Circle} ()
+\item 
+\hyperlink{class_circles_1_1_packing_1_1_euclid_circle_ab82afcad97df0d08ba78a3aa679aa16f}{Euclid\+Circle} (const Q\+Point\+F \&\hyperlink{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}{center}, qreal \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}{radius}, int \hyperlink{class_circles_1_1_packing_1_1_circle_a426d2e69ceadbbf0d119fd117102a8a9}{index})
+\item 
+\hyperlink{class_circles_1_1_packing_1_1_euclid_circle_ab850e2caabe2edcc75229546af893740}{Euclid\+Circle} (const \hyperlink{class_circles_1_1_packing_1_1_euclid_circle}{Euclid\+Circle} \&other)
+\item 
+\hyperlink{class_circles_1_1_packing_1_1_euclid_circle}{Euclid\+Circle} \& \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_ada694a1cf8517ffb437b8d9f224827c1}{operator=} (const \hyperlink{class_circles_1_1_packing_1_1_euclid_circle}{Euclid\+Circle} \&other)
+\item 
+virtual Q\+Point\+F \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}{center} () const  override
+\item 
+virtual qreal \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}{radius} () const  override
+\item 
+virtual Q\+Point\+F \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a4444a4bab157bee09e7dddf89b026d18}{proj\+Center} () const  override
+\item 
+virtual qreal \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a3c22ce28f6ede8bba1346523a3800c3b}{proj\+Radius} () const  override
+\item 
+virtual void \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a648a838ba8dd501dbe10e8304349dbb4}{set\+Radius} (qreal r) override
+\item 
+virtual bool \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_a9186f704f10ecfb53a1ca2dba148c092}{set\+Center} (Q\+Point\+F c) override
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_af3bfd627199cc10af703c37d3daad3ea}{operator==} (const \hyperlink{class_circles_1_1_packing_1_1_euclid_circle}{Euclid\+Circle} \&lhs, const \hyperlink{class_circles_1_1_packing_1_1_euclid_circle}{Euclid\+Circle} \&rhs)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+A circle on the euclidean plane. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_a20844fd3b36876330de35a7b135d6c1d}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!Euclid\+Circle@{Euclid\+Circle}}
+\index{Euclid\+Circle@{Euclid\+Circle}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{Euclid\+Circle()}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Packing\+::\+Euclid\+Circle\+::\+Euclid\+Circle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_euclid_circle_a20844fd3b36876330de35a7b135d6c1d}
+Construct an empty euclidean circle, centered at (0, 0) with radius 1.\+0, and index -\/1. \hypertarget{class_circles_1_1_packing_1_1_euclid_circle_ab82afcad97df0d08ba78a3aa679aa16f}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!Euclid\+Circle@{Euclid\+Circle}}
+\index{Euclid\+Circle@{Euclid\+Circle}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{Euclid\+Circle(const Q\+Point\+F \&center, qreal radius, int index)}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Packing\+::\+Euclid\+Circle\+::\+Euclid\+Circle (
+\begin{DoxyParamCaption}
+\item[{const Q\+Point\+F \&}]{center, }
+\item[{qreal}]{radius, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_euclid_circle_ab82afcad97df0d08ba78a3aa679aa16f}
+Construct a euclidean circle with a given center , radius, and index. 
+\begin{DoxyParams}{Parameters}
+{\em center} & Center point of the circle, in euclidean space. \\
+\hline
+{\em radius} & Radius of the circle. \\
+\hline
+{\em index} & Index of corresponding node in the underlying graph. \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_ab850e2caabe2edcc75229546af893740}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!Euclid\+Circle@{Euclid\+Circle}}
+\index{Euclid\+Circle@{Euclid\+Circle}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{Euclid\+Circle(const Euclid\+Circle \&other)}]{\setlength{\rightskip}{0pt plus 5cm}Circles\+::\+Packing\+::\+Euclid\+Circle\+::\+Euclid\+Circle (
+\begin{DoxyParamCaption}
+\item[{const {\bf Euclid\+Circle} \&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_euclid_circle_ab850e2caabe2edcc75229546af893740}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!center@{center}}
+\index{center@{center}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{center() const  override}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Point\+F Circles\+::\+Packing\+::\+Euclid\+Circle\+::center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}
+The center of the circle in it\textquotesingle{}s local space. \begin{DoxyReturn}{Returns}
+The point of the center of the circle in local coordinates. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a2241ee34969d0c0266948cf1f23fa23a}{Circles\+::\+Packing\+::\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_ada694a1cf8517ffb437b8d9f224827c1}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!operator=@{operator=}}
+\index{operator=@{operator=}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{operator=(const Euclid\+Circle \&other)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Euclid\+Circle} \& Circles\+::\+Packing\+::\+Euclid\+Circle\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Euclid\+Circle} \&}]{other}
+\end{DoxyParamCaption}
+)}\label{class_circles_1_1_packing_1_1_euclid_circle_ada694a1cf8517ffb437b8d9f224827c1}
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_a4444a4bab157bee09e7dddf89b026d18}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!proj\+Center@{proj\+Center}}
+\index{proj\+Center@{proj\+Center}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{proj\+Center() const  override}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Point\+F Circles\+::\+Packing\+::\+Euclid\+Circle\+::proj\+Center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_a4444a4bab157bee09e7dddf89b026d18}
+The center of the circle when projected into euclidean space (ie as it is on the monitor). For circles that exist in Euclidean space, this will be equal to its \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_aec7ab3f46badc0dd8d6b9eae66465435}{center()} \begin{DoxyReturn}{Returns}
+the projected center of the circle. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a8f410a32d3d9421231512f86fb0d564e}{Circles\+::\+Packing\+::\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_a3c22ce28f6ede8bba1346523a3800c3b}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!proj\+Radius@{proj\+Radius}}
+\index{proj\+Radius@{proj\+Radius}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{proj\+Radius() const  override}]{\setlength{\rightskip}{0pt plus 5cm}qreal Circles\+::\+Packing\+::\+Euclid\+Circle\+::proj\+Radius (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_a3c22ce28f6ede8bba1346523a3800c3b}
+The radius of the circle when projected into euclidean space (ie as it is on the monitor). For circles that exist in Euclidean space, this will be equal to its \hyperlink{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}{radius()}. \begin{DoxyReturn}{Returns}
+the projected radius of the circle. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a70b927c4a58d1fe7c7576f351ce45784}{Circles\+::\+Packing\+::\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!radius@{radius}}
+\index{radius@{radius}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{radius() const  override}]{\setlength{\rightskip}{0pt plus 5cm}qreal Circles\+::\+Packing\+::\+Euclid\+Circle\+::radius (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_af34ecb130884f976ecb5849463d60dbb}
+The radius of the circle in its local space. \begin{DoxyReturn}{Returns}
+radius of the circle in its local space. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a3e34226854bcbcbd9e462e1e4fe54005}{Circles\+::\+Packing\+::\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_a9186f704f10ecfb53a1ca2dba148c092}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!set\+Center@{set\+Center}}
+\index{set\+Center@{set\+Center}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{set\+Center(\+Q\+Point\+F c) override}]{\setlength{\rightskip}{0pt plus 5cm}bool Circles\+::\+Packing\+::\+Euclid\+Circle\+::set\+Center (
+\begin{DoxyParamCaption}
+\item[{Q\+Point\+F}]{c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_a9186f704f10ecfb53a1ca2dba148c092}
+Attempt to set the center of the circle. 
+\begin{DoxyParams}{Parameters}
+{\em c} & the center to set \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the center was set correctly. False otherwise. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a335f807f081d7f97fdea6e6d84cbc46e}{Circles\+::\+Packing\+::\+Circle}.
+
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_a648a838ba8dd501dbe10e8304349dbb4}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!set\+Radius@{set\+Radius}}
+\index{set\+Radius@{set\+Radius}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{set\+Radius(qreal r) override}]{\setlength{\rightskip}{0pt plus 5cm}void Circles\+::\+Packing\+::\+Euclid\+Circle\+::set\+Radius (
+\begin{DoxyParamCaption}
+\item[{qreal}]{r}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_circles_1_1_packing_1_1_euclid_circle_a648a838ba8dd501dbe10e8304349dbb4}
+Set the radius of the circle to the specified value. 
+\begin{DoxyParams}{Parameters}
+{\em r} & The new radius of the circle. (in local space) \\
+\hline
+\end{DoxyParams}
+
+
+Implements \hyperlink{class_circles_1_1_packing_1_1_circle_a7ed2112528b874aa2cb58854eb844b7c}{Circles\+::\+Packing\+::\+Circle}.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\hypertarget{class_circles_1_1_packing_1_1_euclid_circle_af3bfd627199cc10af703c37d3daad3ea}{}\index{Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}!operator==@{operator==}}
+\index{operator==@{operator==}!Circles\+::\+Packing\+::\+Euclid\+Circle@{Circles\+::\+Packing\+::\+Euclid\+Circle}}
+\subsubsection[{operator==}]{\setlength{\rightskip}{0pt plus 5cm}bool operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Euclid\+Circle} \&}]{lhs, }
+\item[{const {\bf Euclid\+Circle} \&}]{rhs}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [friend]}}\label{class_circles_1_1_packing_1_1_euclid_circle_af3bfd627199cc10af703c37d3daad3ea}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+packing/\hyperlink{_euclid_circle_8hpp}{Euclid\+Circle.\+hpp}\item 
+packing/\hyperlink{_euclid_circle_8cpp}{Euclid\+Circle.\+cpp}\end{DoxyCompactItemize}
