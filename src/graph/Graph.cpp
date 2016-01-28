@@ -2,9 +2,9 @@
 using namespace Circles::Graph;
 
 Circles::Graph::Graph::Graph(): // default constructor
-    edges(new QHash<Node, QSet<Node> >()),
-    boundaryNodes(new QSet<Node>()),
-    is_edges_sorted(new QHash<Node, bool>),
+    edges(new QHash<Node, QList<Node> >()),
+    boundaryNodes(new QList<Node>()),
+    is_edges_sorted(new QHash<Node, bool>()),
     is_boundary_sorted(false),
     is_boundary_valid(false)
 {
@@ -13,11 +13,11 @@ Circles::Graph::Graph::Graph(): // default constructor
 }
 
 Circles::Graph::Graph::Graph(const Graph& other): // copy constructor
-    edges(new QHash<Node, QSet<Node> >(*(other.edges))),
-    boundaryNodes(new QSet<Node>(*(other.boundaryNodes))),
+    edges(new QHash<Node, QList<Node> >(*(other.edges))),
+    boundaryNodes(new QList<Node>(*(other.boundaryNodes))),
     is_edges_sorted(new QHash<Node, bool>(*(other.is_edges_sorted))),
-    is_boundary_sorted(*other.is_boundary_sorted),
-    is_boundary_valid(*other.is_boundary_valid)
+    is_boundary_sorted(other.is_boundary_sorted),
+    is_boundary_valid(other.is_boundary_valid)
 {
     //nothing here either boss.
 }
@@ -34,9 +34,10 @@ Circles::Graph::Graph::Graph(Graph&& other): // move constructor
 
 Graph& Circles::Graph::Graph::operator=(const Graph& other) // copy assignment
 {
-    this->edges = std::make_unique<QHash<Node, QSet<Node> > >(*(other.edges));
-    this->boundaryNodes = std::make_unique<QSet<Node> >(*(other.boundaryNodes));
-    this->is_edges_sorted = std::make_unique<Hash<Node, bool>(*(other.is_edges_sorted));
+    // this->edges = std::m<QHash<Node, QList<Node> >(*(other.edges));
+    this->edges = std::make_unique<QHash<Node, QList<Node> > >(*(other.edges));
+    this->boundaryNodes = std::make_unique<QList<Node> >(*(other.boundaryNodes));
+    this->is_edges_sorted = std::make_unique<QHash<Node, bool> >(*(other.is_edges_sorted));
     this->is_boundary_sorted = other.is_boundary_sorted;
     this->is_boundary_valid = other.is_boundary_valid;
     return *this;
@@ -58,15 +59,15 @@ void Circles::Graph::Graph::addEdge(Node x, Node y)
     if(x == y) return; // no self-edges allowed.
 
     // we need to add y to the edge set of x, and x to the edge set of y to maintain symmetry
-    if(!this->edges->contains(x)) this->edges->insert(x, QSet<Node>());
-    if(!this->edges->contains(y)) this->edges->insert(y, QSet<Node>());
+    if(!this->edges->contains(x)) this->edges->insert(x, QList<Node>());
+    if(!this->edges->contains(y)) this->edges->insert(y, QList<Node>());
 
     auto xset = this->edges->take(x);
-    xset.insert(y);
+    xset.append(y);
     this->edges->insert(x, std::move(xset));
 
     auto yset = this->edges->take(y);
-    yset.insert(x);
+    yset.append(x);
     this->edges->insert(y, std::move(yset));
 
     // invalidates sorting on both nodes as well as the boundary.
@@ -87,12 +88,12 @@ void Circles::Graph::Graph::removeEdge(Node x, Node y)
     if(!this->hasEdge(x, y)) return;
 
     // the edge exists and must be terminated. (Read in arnold Schwarzenegger voice)
-    auto xset = this->edges->take(x);
-    xset.remove(y);
+    QList<Node> xset = this->edges->take(x);
+    xset.removeAll(y);
     this->edges->insert(x, std::move(xset));
 
-    auto yset = this->edges->take(y);
-    yset.remove(x);
+    QList<Node> yset = this->edges->take(y);
+    yset.removeAll(x);
     this->edges->insert(y, std::move(yset));
 
     // invalidates sorting on both nodes as well as the boundary.
@@ -143,53 +144,53 @@ std::unique_ptr<QList<Edge> > Circles::Graph::Graph::getEdges() const
     return std::unique_ptr<QList<Edge> >(edgelist);
 }
 
-QList<Node>& Circles::Graph::Graph::neighbours(Node i) const
+QList<Node> Circles::Graph::Graph::neighbours(Node i) const
 {
     return this->edges->value(i);
 }
 
-QList<Node> Graph::sortedNeighbours(Node n)
+QList<Node> Circles::Graph::Graph::sortedNeighbours(Node n)
 {
-    if(!this->is_edges_sorted->value(n)) this->sortNeighbours(i);
+    if(!this->is_edges_sorted->value(n)) this->sortNeighbours(n);
     return QList<Node>(this->edges->value(n));
 
 }
 
-QList<Node> Graph::boundary()
+QList<Node> Circles::Graph::Graph::boundary()
 {
     if(!this->is_boundary_sorted) this->sortBoundary();
     return QList<Node>(*(this->boundaryNodes));
 
 }
 
-void Graph::computeBoundary()
+void Circles::Graph::Graph::computeBoundary()
 {
     // Each node that does not have a full flower is a boundary node.
-    for(Node n: *(this->edges)){
+    for(Node n: this->edges->keys()){
         if(!hasFullFlower(n)) boundaryNodes->append(n);
     }
     this->is_boundary_valid = true;
 }
 
-void Graph::sortBoundary()
+void Circles::Graph::Graph::sortBoundary()
 {
     // there is probably a better way to do this.
     if(!this->is_boundary_valid) this->computeBoundary();
     // pick one boundary node. Iterate through nodes, finding ones that either can go on the left or right of the
     // existing list. Keep going until we either process the whole original list or we go through the entire list
     // without finding anything
-    auto newlist = std::make_unique<QList<Node>>(new QList<Node>());
+    auto newlist = std::make_unique<QList<Node>>();
     newlist->append(this->boundaryNodes->takeFirst());
     while(this->boundaryNodes->length() != 0){ // we exit early if we get a partition of the set
         bool fullCycle = true;
         for(Node n: *(this->boundaryNodes)){
             if(this->edges->value(newlist->first()).contains(n)){
-                this->boundaryNodes->removeFirst(n);
+                this->boundaryNodes->removeOne(n);
                 newlist->prepend(n);
                 fullCycle = false;
             }
             else if(this->edges->value(newlist->last()).contains(n)){
-                this->boundaryNodes->removeFirst(n);
+                this->boundaryNodes->removeOne(n);
                 newlist->append(n);
                 fullCycle = false;
             }
@@ -197,33 +198,33 @@ void Graph::sortBoundary()
         if(fullCycle) return; //boundary set does not form a single ring.
     }
     //we've sorted the whole boundary and can calim so
-    this->boundaryNodes = newlist;
+    this->boundaryNodes = std::move(newlist);
     this->is_boundary_sorted = true;
 
 }
 
-void Graph::sortNeighbours(Node n)
+void Circles::Graph::Graph::sortNeighbours(Node n)
 {
     QList<Node> oldlist(this->edges->value(n));
-    QList<Node> newlist();
+    QList<Node> newlist;
     newlist.append(oldlist.takeFirst());
     while(oldlist.length() != 0){
         bool fullCycle = true;
         for(Node m: oldlist){
-            if(this->edges->value(newlist->first()).contains(m)){
-                oldlist.removeFirst(m);
-                newlist->prepend(m);
+            if(this->edges->value(newlist.first()).contains(m)){
+                oldlist.removeOne(m);
+                newlist.prepend(m);
                 fullCycle = false;
             }
-            else if(this->edges->value(newlist->last()).contains(m)){
-                oldlist.removeFirst(m);
-                newlist->append(m);
+            else if(this->edges->value(newlist.last()).contains(m)){
+                oldlist.removeOne(m);
+                newlist.append(m);
                 fullCycle = false;
             }
         }
         if(fullCycle) return; //boundary set does not form a single ring.
     }
-    this->edges->insert(n, std::move(newlist));
-    this->is_edges_sorted->value(n) = true;
+    this->edges->insert(n, newlist);
+    this->is_edges_sorted->insert(n, true);
 }
 

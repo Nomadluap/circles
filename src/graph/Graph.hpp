@@ -2,7 +2,6 @@
 #define GRAPH_HPP
 
 #include <QHash>
-#include <QSet>
 #include <QList>
 #include <memory>
 #include <graph/Edge.hpp>
@@ -83,7 +82,7 @@ namespace Circles{
          * @param i Node to query
          * @return  Set of nodes which are ajacent to the specified node.
          */
-        QList<Node>& neighbours(Node i) const;
+        QList<Node> neighbours(Node i) const;
 
         /**
          * Attempt to get a list of the ajacent nodes of a specified node such that two nodes ajacent in the list
@@ -91,7 +90,7 @@ namespace Circles{
          * @param i
          * @return The sorted list, if it exists. Otherwise return an empty list.
          */
-        QList<Node>& sortedNeighbours(Node n);
+        QList<Node> sortedNeighbours(Node n);
 
         /**
          * Get a sorted list of nodes that make up the boundary of the graph.

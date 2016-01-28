@@ -50,16 +50,17 @@ namespace Circles{
 
         /**
          * Get a list of all circles in the packing, addressable by their indicies.
+         * Note that these circles are not referenced to the circles that still exist in the packing.
          * @return Qhash of index -> circle elements for the packing.
          */
-        QMap<int, Circle *> circles() const;
+        QMap<int, std::shared_ptr<Circle>> circles() const;
 
         /**
          * Get a circle based on its index.
          * @param index index of the circle
          * @return const reference to circle with specified index.
          */
-        const Circle* circle(int index) const;
+        const Circle& circle(int index) const;
 
 
     protected:
@@ -74,7 +75,7 @@ namespace Circles{
 
         std::shared_ptr<Graph::Graph> _graph;
         // since Circles are ordered, we can sort this list for easy lookups.
-        QMap<int, std::unique_ptr<Circle> > _circles;
+        QMap<int, std::shared_ptr<Circle> > _circles;
     };
     }
 }

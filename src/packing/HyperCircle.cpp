@@ -3,14 +3,16 @@
 
 using namespace Circles::Packing;
 
-Circles::Packing::HyperCircle::HyperCircle()
+Circles::Packing::HyperCircle::HyperCircle():
+    Circle()
 {
     this->_index = -1;
     this->_center = QPointF(0, 0);
     this->_radius = 1.0;
 }
 
-Circles::Packing::HyperCircle::HyperCircle(const QPointF &center, qreal radius, int index)
+Circles::Packing::HyperCircle::HyperCircle(const QPointF &center, qreal radius, int index):
+    Circle(center, radius, index)
 {
     this->_index = index;
     // if norm is >1 then we normalize.
@@ -20,7 +22,8 @@ Circles::Packing::HyperCircle::HyperCircle(const QPointF &center, qreal radius, 
     this->_radius = radius;
 }
 
-Circles::Packing::HyperCircle::HyperCircle(const HyperCircle &other)
+Circles::Packing::HyperCircle::HyperCircle(const HyperCircle &other):
+    Circle(other)
 {
     this->_index = other._index;
     this->_center = other._center;

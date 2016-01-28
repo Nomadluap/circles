@@ -10,6 +10,11 @@ namespace Circles{
     {
     public:
         Circle();
+        Circle(const QPointF &center, qreal radius, int index);
+        Circle(const Circle& other);
+        Circle(Circle&& other);
+        Circle& operator=(const Circle& other);
+        Circle& operator=(Circle&& other);
 
         /**
          * Get the index of the graph node associated with this Circle.

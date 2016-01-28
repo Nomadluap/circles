@@ -12,25 +12,27 @@ const Graph::Graph& Circles::Packing::Packing::graph() const
     return *(this->_graph);
 }
 
-QMap<int, Circle *> Circles::Packing::Packing::circles() const
+QMap<int,std::shared_ptr<Circle> > Circles::Packing::Packing::circles() const
 {
-    QMap<int, Circle* > c;
+    QMap<int, std::shared_ptr<Circle> > c;
     for(int i: this->_circles.keys()){
-        c.insert(i, this->_circles.value(i).get());
+        c.insert(i, this->_circles.value(i) );
     }
     return std::move(c);
 }
 
-const Circle * Circles::Packing::Packing::circle(int index) const
+const Circle& Circles::Packing::Packing::circle(int index) const
 {
-    Circle* c = this->_circles.value(index).get();
-    return c;
+    return *(this->_circles.value(index));
 }
 
 qreal Circles::Packing::Packing::anglesum(const Circle &c) const
 {
     //find the c node, get its neibhours, and add up the angles.
     QPointF o = c.center();
+    o.isNull();
     int cc = c.index();
-    QList<int> neighbours(this->_graph->neighbours(cc));
+    QList<int> nbhrs(this->_graph->neighbours(cc));
+    nbhrs.isEmpty();
+    return 0.0; //TODO FINISH
 }
