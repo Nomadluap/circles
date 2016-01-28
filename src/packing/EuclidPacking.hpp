@@ -48,6 +48,12 @@ namespace Circles{
 
         //EuclideanPackings are considered to be equal if they share a graph and have Circles with identical parameters.
         friend bool operator==(const EuclidPacking& lhs, const EuclidPacking& rhs);
+
+        virtual void repack(qreal epsilon, qreal outerRadius) override;
+
+        virtual void layout(int centerNode) override;
+
+        virtual qreal angle(const QPointF &p, const QPointF &p1, const QPointF &p2) const override;
     };
 
     bool operator==(const EuclidPacking& lhs, const EuclidPacking& rhs);
