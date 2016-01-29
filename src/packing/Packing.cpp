@@ -32,7 +32,7 @@ qreal Circles::Packing::Packing::anglesum(const Circle &c) const
     //find the c node, get its neibhours, and add up the angles.
     QPointF o = c.center();
     int cc = c.index();
-    QList<int> nbhrs(this->_graph->sortedNeighbours(cc));
+    QList<int> nbhrs(*(this->_graph->sortedNeighbours(cc)));
     if(!this->_graph->hasFullFlower(cc)) return 0.0; // if we don't have a full flower then we can't do anglesum.
     for(int i = 0; i <nbhrs.length(); ++i){
         QPointF p1 = this->_circles.value(nbhrs.at(i))->center();

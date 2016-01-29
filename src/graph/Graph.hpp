@@ -26,6 +26,10 @@ namespace Circles{
         Graph& operator=(const Graph& other); //assignment operator
         Graph& operator=(Graph&& other); //move assignment
 
+        // two graphs are equal if they share the same edge set.
+        friend bool operator==(const Graph& lhs, const Graph& rhs);
+
+
         /**
          * Add an edge to the graph. Note that edges are symmetric. eg. AB == BA
          * @param x index of one end of the edge
@@ -90,7 +94,7 @@ namespace Circles{
          * @param i
          * @return The sorted list, if it exists. Otherwise return an empty list.
          */
-        QList<Node> sortedNeighbours(Node n);
+        std::unique_ptr<QList<Node> > sortedNeighbours(Node n);
 
         /**
          * Get a sorted list of nodes that make up the boundary of the graph.
@@ -123,7 +127,10 @@ namespace Circles{
         bool is_boundary_valid;
     };
 
-    }
-}
+    bool operator==(const Graph& lhs, const Graph& rhs);
+    bool operator!=(const Graph& lhs, const Graph& rhs);
+
+    } // namespace Graph
+} // namespace Circles
 
 #endif // GRAPH_HPP
