@@ -21,6 +21,12 @@ namespace Circles{
         HyperCircle();
 
         /**
+         * Construct a Hyper Circle with specified index. Centered at the origin with radius 1.
+         * @param index Index in the underlying graph.
+         */
+        HyperCircle(int index);
+
+        /**
          * Construct a Hyperbolic circle with a given center , radius, and index.
          * @param center Center point of the circle, in hyperbolic disc space.
          * @param radius Hyperbolic Radius of the circle.

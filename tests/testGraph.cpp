@@ -23,8 +23,8 @@ protected:
 
     }
 
-    Graph g;
-    Graph singleFlower;
+    Graph g; //an empty graph.
+    Graph singleFlower; // has one flower around 0
 
 };
 
@@ -47,18 +47,35 @@ TEST_F(testGraph, notAutoComplete)
 TEST_F(testGraph, singleFlowerHasFlower)
 {
     EXPECT_TRUE(singleFlower.hasFullFlower(0));
+
+}
+
+TEST_F(testGraph, removeEdgeViolatesFlower)
+{
+    singleFlower.removeEdge(1, 2);
+    EXPECT_FALSE(singleFlower.hasFullFlower(0));
 }
 
 TEST_F(testGraph, equalityWorks)
 {
     Graph s(singleFlower);
     Graph t = singleFlower;
-    EXPECT_EQ(*(s.getEdges()), *(t.getEdges()) );
-    EXPECT_EQ(*(s.getNodes()), *(t.getNodes()) );
+    EXPECT_EQ((s.getEdges()), (t.getEdges()) );
+    EXPECT_EQ((s.getNodes()), (t.getNodes()) );
     EXPECT_EQ(s, t);
     s.addEdge(0, 10);
     EXPECT_FALSE(s == t);
 
+}
+
+TEST_F(testGraph, lastEdgeRemovesPoint)
+{
+    g.addEdge(1, 2);
+    EXPECT_TRUE(g.hasEdge(1, 2));
+    g.removeEdge(1, 2);
+    EXPECT_FALSE(g.hasEdge(1, 2));
+    EXPECT_FALSE(g.hasNode(1));
+    EXPECT_FALSE(g.hasNode(2));
 }
 
 } // namespace

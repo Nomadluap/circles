@@ -40,6 +40,7 @@ namespace Circles{
 
         /**
          * Removes an edge from the graph, if it exists.
+         * If a node has no neighbours, then it is removed from the map.
          * @param x index of first node which defines edge
          * @param y index of second node which defines edge
          */
@@ -71,14 +72,21 @@ namespace Circles{
          * Get the set of nodes that are present in the graph.
          * @return Set of the nodes present in the graph
          */
-        std::unique_ptr<QList<Node> > getNodes() const;
+        QList<Node> getNodes() const;
+
+        /**
+         * Determine if a graph has a specified node.
+         * @param n node to query
+         * @return True if the node exists, false otherwise.
+         */
+        bool hasNode(Node n) const;
 
         /**
          *  Get a set of all edges in the graph.
          * The pairs returned will always have the lowest-order node index first.
          * @return A set of node pairs representing the edges of the graph.
          */
-        std::unique_ptr<QList<Edge> > getEdges() const;
+        QList<Edge> getEdges() const;
 
         /**
          * Get the set of nodes which are adjacent to the specified node. Does not require sorting of
@@ -94,7 +102,7 @@ namespace Circles{
          * @param i
          * @return The sorted list, if it exists. Otherwise return an empty list.
          */
-        std::unique_ptr<QList<Node> > sortedNeighbours(Node n);
+        QList<Node> sortedNeighbours(Node n);
 
         /**
          * Get a sorted list of nodes that make up the boundary of the graph.

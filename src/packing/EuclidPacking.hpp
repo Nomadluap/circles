@@ -16,6 +16,7 @@ namespace Circles{
     public:
         /**
          * Construct an empty packing with no underlying graph. (don't use this)
+         * Underlying graph will be empty.
          */
         EuclidPacking();
 
@@ -25,15 +26,6 @@ namespace Circles{
          * @param g pointer to underlying graph.
          */
         EuclidPacking(std::shared_ptr<Graph::Graph> g);
-
-        /**
-         * Construct a new euclidean packing with a specified underlying graph and pre-defined circles.
-         * @param g the underlying graph.
-         * @param circles List of circles to pre-setup. Dupliecate circles and circles which do not correspond to
-         *  nodes present in the graph will be removed. Any nodes without circles in the list will have their circles
-         *  initialized to radius 1.0 and center 0,0.
-         */
-        EuclidPacking(std::shared_ptr<Graph::Graph> g,  const QList<Circle*>& circles);
 
         /**
          * Copy reference to node as well as deep-copy of circles.
@@ -49,11 +41,12 @@ namespace Circles{
         //EuclideanPackings are considered to be equal if they share a graph and have Circles with identical parameters.
         friend bool operator==(const EuclidPacking& lhs, const EuclidPacking& rhs);
 
-        virtual void repack(qreal epsilon, qreal outerRadius) override;
-
-        virtual void layout(int centerNode) override;
+        virtual void layout(int centerCircle) override;
 
         virtual qreal angle(const QPointF &p, const QPointF &p1, const QPointF &p2) const override;
+
+    protected:
+        virtual void spawnCircles() override;
     };
 
     bool operator==(const EuclidPacking& lhs, const EuclidPacking& rhs);

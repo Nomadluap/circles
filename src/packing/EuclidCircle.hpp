@@ -18,6 +18,12 @@ namespace Circles{
         EuclidCircle();
 
         /**
+         * Construct a Euclid Circle with specified index. Centered at the origin with radius 1.
+         * @param index Index in the underlying graph.
+         */
+        EuclidCircle(int index);
+
+        /**
          * Construct a euclidean circle with a given center , radius, and index.
          * @param center Center point of the circle, in euclidean space.
          * @param radius Radius of the circle.

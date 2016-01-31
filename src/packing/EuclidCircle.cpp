@@ -9,6 +9,12 @@ Circles::Packing::EuclidCircle::EuclidCircle():
     this->_radius = 1.0;
 }
 
+EuclidCircle::EuclidCircle(int index):
+    Circle(index)
+{
+
+}
+
 Circles::Packing::EuclidCircle::EuclidCircle(const QPointF &center, qreal radius, int index):
     Circle(center, radius, index)
 {

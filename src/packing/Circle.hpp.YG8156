@@ -13,7 +13,6 @@ namespace Circles{
     {
     public:
         Circle();
-        Circle(int index);
         Circle(const QPointF &center, qreal radius, int index);
         Circle(const Circle& other);
         Circle(Circle&& other);

@@ -96,6 +96,10 @@ void Circles::Graph::Graph::removeEdge(Node x, Node y)
     yset.removeAll(x);
     this->edges->insert(y, std::move(yset));
 
+    // Remove any node with no neighbours.
+    if(edges->value(x).length() == 0) edges->remove(x);
+    if(edges->value(y).length() == 0) edges->remove(y);
+
     // invalidates sorting on both nodes as well as the boundary.
     this->is_edges_sorted->insert(x, false);
     this->is_edges_sorted->insert(y, false);
@@ -115,8 +119,10 @@ bool Graph::hasFullFlower(Node n)
 {
     //requires sorted neighbours in the nodes' edge list
     auto sn = this->sortedNeighbours(n);
-
-    if(this->hasEdge(sn->first(), sn->last()) && this->is_edges_sorted->value(n)) return true;
+    for(int i = 0; i < sn.length() - 1; ++i){
+        if(!this->hasEdge(sn.at(i), sn.at(i+1))) return false;
+    }
+    if(this->hasEdge(sn.first(), sn.last()) && this->is_edges_sorted->value(n)) return true;
     else return false;
 
 }
@@ -126,13 +132,18 @@ bool Graph::isBoundary(Node n)
     return !this->hasFullFlower(n);
 }
 
-std::unique_ptr<QList<Node> > Circles::Graph::Graph::getNodes() const
+QList<Node> Circles::Graph::Graph::getNodes() const
 {
-    auto nodes = std::make_unique<QList<Node> >(this->edges->keys());
+    auto nodes = QList<Node>(this->edges->keys());
     return nodes;
 }
 
-std::unique_ptr<QList<Edge> > Circles::Graph::Graph::getEdges() const
+bool Circles::Graph::Graph::hasNode(Node n) const
+{
+    return this->edges->contains(n);
+}
+
+QList<Edge> Circles::Graph::Graph::getEdges() const
 {
     // iterate over each node. Take all nodes with order greater. Form Edge.
     QList<Edge> edgelist;
@@ -141,7 +152,7 @@ std::unique_ptr<QList<Edge> > Circles::Graph::Graph::getEdges() const
             if( x < y) edgelist.append(Edge(x, y));
         }
     }
-    return std::make_unique<QList<Edge> >(std::move(edgelist));
+    return QList<Edge>(std::move(edgelist));
 }
 
 QList<Node> Circles::Graph::Graph::neighbours(Node i) const
@@ -149,12 +160,12 @@ QList<Node> Circles::Graph::Graph::neighbours(Node i) const
     return this->edges->value(i);
 }
 
-std::unique_ptr<QList<Node> >Circles::Graph::Graph::sortedNeighbours(Node n)
+QList<Node> Circles::Graph::Graph::sortedNeighbours(Node n)
 {
     if(!this->is_edges_sorted->value(n)){
         this->sortNeighbours(n);
     }
-    return std::make_unique<QList<Node> >(this->edges->value(n));
+    return this->edges->value(n);
 
 }
 
@@ -234,7 +245,7 @@ void Circles::Graph::Graph::sortNeighbours(Node n)
 bool Circles::Graph::operator==(const Graph& lhs, const Graph& rhs)
 {
     bool e =  *(lhs.edges) == *(rhs.edges);
-    bool n = *(lhs.getNodes()) == *(rhs.getNodes());
+    bool n = (lhs.getNodes() == rhs.getNodes());
     return e && n;
 }
 

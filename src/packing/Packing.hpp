@@ -25,13 +25,13 @@ namespace Circles{
          * @param epsilon tolerance value when determining angle sum
          * @param outerRadius Radius of the boundary circles.
          */
-        virtual void repack(qreal epsilon, qreal outerRadius) = 0;
+        void repack(qreal epsilon, qreal outerRadius);
 
         /**
-         * Lay out the circles such that neighbouring circles are tangent to one another.
+         * Lay out the circles such that neighbourstd:ng circles are tangent to one another.
          * @param centerNode index of the circle to place at the center of the packing.
          */
-        virtual void layout(int centerNode) = 0;
+        virtual void layout(int centerCircle) = 0;
 
         /**
          * Compute the angle <p,p1,p2 in the local space of the packing.
@@ -62,6 +62,20 @@ namespace Circles{
          */
         const Circle& circle(int index) const;
 
+        /**
+         * Determine if a circle has a full flower
+         * @param c circle to query
+         * @return True if the circle has a full flower, false otherwise.
+         */
+        bool hasFullFlower(const Circle& c) const;
+
+        /**
+         * Get the list of circles which are neighbours to the circle c.
+         * @param c The circle to query
+         * @return  List of pointers to the ajacent circles.
+         */
+        QList<std::shared_ptr<Circle>> neighbours(const Circle& c);
+
 
     protected:
 
@@ -72,6 +86,11 @@ namespace Circles{
          */
         qreal anglesum(const Circle& c) const;
 
+        /**
+         * Update the circle list so that every graph node has exactly one circle assosciated with it.
+         */
+        virtual void spawnCircles() = 0;
+
 
         std::shared_ptr<Graph::Graph> _graph;
         // since Circles are ordered, we can sort this list for easy lookups.
@@ -81,3 +100,6 @@ namespace Circles{
 }
 
 #endif // PACKING_HPP
+
+//TODO: HyperPacking
+//TODO: :Connect packings to display.

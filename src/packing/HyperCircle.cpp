@@ -11,6 +11,12 @@ Circles::Packing::HyperCircle::HyperCircle():
     this->_radius = 1.0;
 }
 
+Circles::Packing::HyperCircle::HyperCircle(int index):
+    Circle(index)
+{
+
+}
+
 Circles::Packing::HyperCircle::HyperCircle(const QPointF &center, qreal radius, int index):
     Circle(center, radius, index)
 {

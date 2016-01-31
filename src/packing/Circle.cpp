@@ -11,6 +11,14 @@ Circles::Packing::Circle::Circle():
 
 }
 
+Circles::Packing::Circle::Circle(int index):
+    _index(index),
+    _radius(1.0),
+    _center(0, 0)
+{
+
+}
+
 Circle::Circle(const QPointF& center, qreal radius, int index):
     _index(index),
     _radius(radius),
@@ -67,4 +75,9 @@ void Circles::Packing::Circle::setIndex(int index)
 bool Circles::Packing::operator<(const Circle &lhs, const Circle &rhs)
 {
     return lhs._index < rhs._index;
+}
+
+bool Circles::Packing::operator==(const Circle& lhs, const Circle& rhs)
+{
+    return (lhs._center == rhs._center) && (lhs._radius == rhs._radius) && (lhs._index == rhs._index);
 }
