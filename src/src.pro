@@ -11,7 +11,8 @@ SOURCES += \
     packing/EuclidCircle.cpp \
     packing/EuclidPacking.cpp \
     packing/HyperCircle.cpp \
-    packing/Packing.cpp
+    packing/Packing.cpp \
+    packing/HyperPacking.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -20,6 +21,7 @@ HEADERS += \
     packing/EuclidCircle.hpp \
     packing/EuclidPacking.hpp \
     packing/HyperCircle.hpp \
-    packing/Packing.hpp
+    packing/Packing.hpp \
+    packing/HyperPacking.hpp
 
 DISTFILES +=

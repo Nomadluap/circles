@@ -1,42 +1,43 @@
-#include "EuclidPacking.hpp"
+#include "HyperPacking.hpp"
 #include <QDebug>
+#include <complex>
 
-#include "EuclidCircle.hpp"
+#include "HyperCircle.hpp"
 using namespace Circles;
 using namespace Circles::Packing;
 
 const qreal PI = 3.141592653589793238462643383279502884;
 
-Circles::Packing::EuclidPacking::EuclidPacking()
+Circles::Packing::HyperPacking::HyperPacking()
 {
     this->_graph = std::make_shared<Graph::Graph>();
 }
 
-EuclidPacking::EuclidPacking(std::shared_ptr<Graph::Graph> g)
+HyperPacking::HyperPacking(std::shared_ptr<Graph::Graph> g)
 {
     this->_graph = g;
     this->spawnCircles();
 }
-EuclidPacking::EuclidPacking(const EuclidPacking& other)
+HyperPacking::HyperPacking(const HyperPacking& other)
 {
     this->_graph = other._graph;
     this->_circles = other._circles;
 }
 
-EuclidPacking::EuclidPacking(Circles::Packing::EuclidPacking&& other)
+HyperPacking::HyperPacking(HyperPacking&& other)
 {
     this->_graph = std::move(other._graph);
     this->_circles = std::move(other._circles);
 }
 
-EuclidPacking& EuclidPacking::operator=(const EuclidPacking& other)
+HyperPacking& HyperPacking::operator=(const HyperPacking& other)
 {
     this->_graph = other._graph;
     this->_circles = other._circles;
     return *(this);
 }
 
-void EuclidPacking::layout(int centerCircle)
+void HyperPacking::layout(int centerCircle)
 {
     QList<std::shared_ptr<Circle>> unplacedCircles = this->_circles.values(); //circles which have not yet been placed
     QList<std::shared_ptr<Circle>> placedCircles; //nodes which have been placed but do not have full flowers.
@@ -69,7 +70,7 @@ void EuclidPacking::layout(int centerCircle)
             qreal h1 = c->radius();
             qreal h2 = d->radius();
 
-            qreal s = h1+h2;
+            qreal s = (exp(h1 + h2) - 1)/(exp(h1 + h2) + 1);
             d->setCenter(QPointF(s, 0));
             qDebug() << "Placing second circle #" << d->index() << " at (" <<
                         s << ", 0)";
@@ -144,10 +145,33 @@ void EuclidPacking::layout(int centerCircle)
         //now v becomes this "first unplaced node"
         std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
 
+        /*=========================================
+         * Isometry for the hyperbolic layout is here
+         * ========================================*/
+        QPointF wp = w->center();
+
+        auto phi = [wp](QPointF zz)->QPointF{
+            std::complex<double> c(wp.x(), wp.y());
+            std::complex<double> cbar(wp.x(), -wp.y());
+            std::complex<double> z(zz.x(), zz.y());
+
+            std::complex<double> result = (z - c)/(1.0 - cbar*z);
+            return QPointF(result.real(), result.imag());
+        };
+        auto phiinv = [wp](QPointF zz)->QPointF{
+            std::complex<double> c(wp.x(), wp.y());
+            std::complex<double> cbar(wp.x(), -wp.y());
+            std::complex<double> z(zz.x(), zz.y());
+
+            std::complex<double> result = (z + c)/(1.0 + cbar*z);
+            return QPointF(result.real(), result.imag());
+        };
+
+
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w->center(), u->center(), v->center());
         //find the argument of u
-        QPointF relU = u->center() - w->center();
+        QPointF relU = phi(u->center());
         qreal beta = atan2(relU.y(), relU.x());
 
         //we need to determine if the nodes are currently being laid out in a
@@ -159,7 +183,7 @@ void EuclidPacking::layout(int centerCircle)
         int isCCW = true;
         for(auto n: placedCircles + floweredCircles){
             if(neighbours(*w).contains(n)) placedCount++;
-        }
+        } // for
         if(placedCount >= 2 && neighbours(*w).length() >= 3){
             //grab uprime
             std::shared_ptr<Circle> uprime;
@@ -187,30 +211,32 @@ void EuclidPacking::layout(int centerCircle)
             }
 
             //now look at angles of uprime and u
-            QPointF relUPrime = uprime->center() - w->center();
+            QPointF relUPrime = phi(uprime->center());
             qreal betaprime = atan2(relUPrime.y(), relUPrime.x());
             //difference between angles should be less than PI radians
             qreal diff = fmod(betaprime - beta + 2*PI, 2*PI);
             if(diff < PI){
                 //betaprime is "ahead" of beta, so we should continue clockwise
                 isCCW = false;
-            }
+            } // if
             else{
                 //betaprime is "behind" beta, so continue anticlockwise
                 isCCW = true;
-            }
-        }
+            } //  else
+        } //  if placedcount
         //then the actual argument of v is beta + alpha or beta - alpha
         qreal arg;
-        if(isCCW) arg = fmod(beta+alpha+2*PI, 2*PI);
-        else arg = fmod(beta-alpha+2*PI, 2 * PI);
+        if(isCCW)   arg = fmod(beta+alpha+2*PI, 2 * PI);
+        else        arg = fmod(beta-alpha+2*PI, 2 * PI);
         qreal r = w->radius() + v->radius();
+        qreal s = (exp(r) - 1.0)/(exp(r) + 1.0);
         //now plot the point using sin and
         //remember that this point is an offset from w.
-        QPointF pos(r*cos(arg), r*sin(arg));
-        pos += w->center();
+        QPointF pos(s*cos(arg), s*sin(arg));
+        //set the position of v, remembering to take isometry into account.
+        QPointF position = phiinv(pos);
         //set the position of v
-        v->setCenter(pos);
+        v->setCenter(position);
         //and update the lists
         unplacedCircles.removeAll(v);
         placedCircles.append(v);
@@ -219,13 +245,13 @@ void EuclidPacking::layout(int centerCircle)
 
 }
 
-qreal EuclidPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const
+qreal HyperPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const
 {
     qreal a = (p1 - p).manhattanLength();
     qreal b = (p2 - p).manhattanLength();
     qreal c = (p2 - p1).manhattanLength();
 
-    qreal arg = (a*a + b*b - c*c)/(2.0 * a * b);
+    qreal arg = (cosh(a)*cosh(b) - cosh(c))/(sinh(a)*sinh(b));
     qreal angle = acos(arg);
     return angle;
 
@@ -233,7 +259,7 @@ qreal EuclidPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p
 
 
 
-EuclidPacking& EuclidPacking::operator=(EuclidPacking&& other)
+HyperPacking& HyperPacking::operator=(HyperPacking&& other)
 {
     this->_graph = std::move(other._graph);
     this->_circles = std::move(other._circles);
@@ -242,15 +268,15 @@ EuclidPacking& EuclidPacking::operator=(EuclidPacking&& other)
 
 
 
-void EuclidPacking::spawnCircles()
+void HyperPacking::spawnCircles()
 {
     for(int i: this->_graph->getNodes()){
-        this->_circles.insert(i, std::make_shared<EuclidCircle>(i) );
+        this->_circles.insert(i, std::make_shared<HyperCircle>(i) );
     }
 }
 
 
-bool Circles::Packing::operator==(const EuclidPacking& lhs, const EuclidPacking& rhs)
+bool Circles::Packing::operator==(const HyperPacking& lhs, const HyperPacking& rhs)
 {
     //Packings are equal if their graphs are equivalent and their circles have the same dimensions.
     bool equalGraphs = (lhs._graph == rhs._graph);
