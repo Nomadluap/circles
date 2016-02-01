@@ -101,5 +101,4 @@ namespace Circles{
 
 #endif // PACKING_HPP
 
-//TODO: HyperPacking
 //TODO: :Connect packings to display.

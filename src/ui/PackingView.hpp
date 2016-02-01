@@ -9,11 +9,12 @@
 
 #include "packing/Packing.hpp"
 #include "packing./PackingCoordinate.hpp"
+#include "ui/GraphicCircle.hpp"
 
 using namespace Circles;
 
 namespace Circles{
-    namespace UI{
+    namespace Ui{
 
     /**
      * An extension of QGraphicsScene which visualizes a Packing of either type.
@@ -23,7 +24,6 @@ namespace Circles{
      */
     class PackingView: public QGraphicsScene
     {
-        Q_OBJECT
     public:
         /**
          * Construct a PackingView with no internal Packing. In this case, an empty
@@ -63,10 +63,11 @@ namespace Circles{
          * Emitted when the packing that the PackingView is displaying has changed
          * @param p The new packing that the view is now displaying
          */
-        packingChanged(std::shared_ptr<Packing::Packing> p);
+        void packingChanged(std::shared_ptr<Packing::Packing> p);
 
     private:
-        std::shared_ptr<Packing> _packing;
+        std::shared_ptr<Packing::Packing> packing_;
+        QList<std::shared_ptr<Ui::GraphicCircle> > graphicCircles_;
 
         bool _drawCircles    = false;
         bool _drawCenters    = false;

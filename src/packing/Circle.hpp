@@ -2,6 +2,7 @@
 #define CIRCLE_HPP
 
 #include <QPointF>
+#include <memory>
 
 namespace Circles{
     namespace Packing{
@@ -12,14 +13,15 @@ namespace Circles{
     class Circle
     {
     public:
+        virtual std::unique_ptr<Circle> clone() const = 0;
         Circle();
         Circle(int index);
-        Circle(const QPointF &center, qreal radius, int index);
+        Circle(const QPointF& center, qreal radius, int index);
         Circle(const Circle& other);
         Circle(Circle&& other);
         Circle& operator=(const Circle& other);
         Circle& operator=(Circle&& other);
-
+        virtual ~Circle() {}
         /**
          * Get the index of the graph node associated with this Circle.
          * @return index of the graph node.

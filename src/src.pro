@@ -14,7 +14,8 @@ SOURCES += \
     packing/Packing.cpp \
     packing/HyperPacking.cpp \
     ui/PackingView.cpp \
-    packing/PackingCoordinate.cpp
+    packing/PackingCoordinate.cpp \
+    ui/GraphicCircle.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -27,6 +28,7 @@ HEADERS += \
     packing/HyperPacking.hpp \
     ui/PackingView.hpp \
     packing/PackingCoordinate.hpp \
-    graph/Triangle.hpp
+    graph/Triangle.hpp \
+    ui/GraphicCircle.hpp
 
 DISTFILES +=

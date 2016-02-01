@@ -16,6 +16,12 @@ namespace Circles{
     {
     public:
         /**
+         * Return a pointer to an exact copy of this circle.
+         * @return
+         */
+        virtual std::unique_ptr<Circle> clone() const override;
+
+        /**
          * Construct an empty euclidean circle, centered at (0, 0) with radius 1.0, and index -1.
          */
         HyperCircle();

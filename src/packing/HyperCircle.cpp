@@ -3,6 +3,11 @@
 
 using namespace Circles::Packing;
 
+std::unique_ptr<Circle> HyperCircle::clone() const
+{
+    return std::unique_ptr<HyperCircle>(new HyperCircle(*this));
+}
+
 Circles::Packing::HyperCircle::HyperCircle():
     Circle()
 {

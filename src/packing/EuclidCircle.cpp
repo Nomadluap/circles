@@ -1,6 +1,11 @@
 #include "EuclidCircle.hpp"
 using namespace Circles::Packing;
 
+std::unique_ptr<Circle> EuclidCircle::clone() const
+{
+    return std::unique_ptr<EuclidCircle>(new EuclidCircle(*this));
+}
+
 Circles::Packing::EuclidCircle::EuclidCircle():
     Circle()
 {
