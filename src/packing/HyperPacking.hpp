@@ -9,7 +9,7 @@ namespace Circles{
     namespace Packing{
 
     /**
-     * A packing on the euclidean plane. Holds EuclidCircles.
+     * A packing on the Hyperbolic poincare disk. Holds EuclidCircles.
      */
     class HyperPacking : public Packing
     {

@@ -39,6 +39,7 @@ HyperPacking& HyperPacking::operator=(const HyperPacking& other)
 
 void HyperPacking::layout(int centerCircle)
 {
+    //fixme: clean up this code and move it into multiple functions?
     QList<std::shared_ptr<Circle>> unplacedCircles = this->_circles.values(); //circles which have not yet been placed
     QList<std::shared_ptr<Circle>> placedCircles; //nodes which have been placed but do not have full flowers.
     QList<std::shared_ptr<Circle>> floweredCircles; //nodes for which their entire flower has been placed.
