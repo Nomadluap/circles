@@ -125,12 +125,26 @@ void ShapeSelector::cullPacking()
         nodes.removeAll(n);
     }
     removedNodes.clear();
+    bool noSingles = false;
+    while(noSingles == false){
+        noSingles = true;
+        for(Node* n: nodes){
+            if(n->getNeibhourCount() == 1){
+                noSingles = false;
+                this->packing->delNode_fast(n);
+                removedNodes.append(n);
+            }
+        }
+    }
+    // and one more time for good measure.
     for(Node* n: nodes){
         if(n->getNeibhourCount() == 1){
+            noSingles = false;
             this->packing->delNode_fast(n);
             removedNodes.append(n);
         }
     }
+
     for(Node* n: removedNodes){
         nodes.removeAll(n);
     }
