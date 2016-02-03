@@ -24,6 +24,7 @@ namespace Circles{
      */
     class PackingView: public QGraphicsScene
     {
+        Q_OBJECT
     public:
         /**
          * Construct a PackingView with no internal Packing. In this case, an empty
@@ -58,6 +59,13 @@ namespace Circles{
          */
         void setPacking(std::shared_ptr<Packing::Packing> p);
 
+        /**
+         * Re-generate the graphics objects to represent the packing.
+         *
+         * this should be done after the packing is re-packed or re-laid.
+         */
+        void rebuildGraphics();
+
     signals:
         /**
          * Emitted when the packing that the PackingView is displaying has changed
@@ -68,13 +76,20 @@ namespace Circles{
     private:
         std::shared_ptr<Packing::Packing> packing_;
         QList<std::shared_ptr<Ui::GraphicCircle> > graphicCircles_;
+        //TODO: make the other graphics item classes
 
-        bool _drawCircles    = false;
-        bool _drawCenters    = false;
-        bool _drawIndices    = false;
-        bool _drawConnectors = false;
-        bool _drawColor      = false; // because everyone loves american spelling I guess.
+        bool drawCircles_    = false;
+        bool drawCenters_    = false;
+        bool drawIndices_    = false;
+        bool drawConnectors_ = false;
+        bool drawColor_      = false; // because everyone loves american spelling I guess.
 
+        /// Re-create the graphics objects for the packingView
+        void rebuildCircles();
+        void rebuildCenters();
+        void rebuildIndices();
+        void rebuildConnectors();
+        void rebuildColor();
 
     };
 

@@ -44,7 +44,12 @@ namespace Circles{
 
 
     private:
-        std::unique_ptr<Packing::Circle> circle;
+
+        /// Euclidean radius of the circle.
+        qreal radius_;
+
+        /// Node in the underlying graph that the circle represents.
+        int index_;
     };
 
     }

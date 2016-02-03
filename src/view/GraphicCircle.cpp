@@ -9,20 +9,22 @@ using namespace Circles::Ui;
 GraphicCircle::GraphicCircle():
     QGraphicsItem()
 {
-    this->circle = std::make_unique<Packing::EuclidCircle>();
-    this->setPos(this->circle->projCenter());
+    this->setPos(0, 0);
+    this->radius_ = 1.0;
+    this->index_ = -1;
 }
 
 Ui::GraphicCircle::GraphicCircle(const Packing::Circle& c):
     QGraphicsItem()
 {
-    this->circle = c.clone();
-    this->setPos(this->circle->projCenter());
+    this->setPos(c.center());
+    this->radius_ = c.radius();
+    this->index_ = c.index();
 }
 
 QRectF GraphicCircle::boundingRect() const
 {
-    qreal r = this->circle->projRadius();
+    qreal r = this->radius_;
     return QRectF(-r, -r, r, r);
 }
 
@@ -38,15 +40,14 @@ void GraphicCircle::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     Q_UNUSED(widget)
     //get the scale of the scene
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
-    qreal radius = this->circle->projRadius();
     painter->setPen(QPen(Qt::black, 1.50/lod ));
     painter->setBrush(QBrush(Qt::white));
-    painter->drawEllipse(QPointF(0, 0), radius, radius);
+    painter->drawEllipse(QPointF(0, 0), this->radius_, this->radius_);
 
 
 }
 
 int GraphicCircle::graphIndex() const
 {
-    return this->circle->index();
+    return this->index_;
 }

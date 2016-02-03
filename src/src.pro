@@ -13,9 +13,10 @@ SOURCES += \
     packing/HyperCircle.cpp \
     packing/Packing.cpp \
     packing/HyperPacking.cpp \
-    ui/PackingView.cpp \
     packing/PackingCoordinate.cpp \
-    ui/GraphicCircle.cpp
+    view/GraphicCircle.cpp \
+    view/PackingView.cpp \
+    ui/dualpackingview.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -26,9 +27,13 @@ HEADERS += \
     packing/HyperCircle.hpp \
     packing/Packing.hpp \
     packing/HyperPacking.hpp \
-    ui/PackingView.hpp \
     packing/PackingCoordinate.hpp \
     graph/Triangle.hpp \
-    ui/GraphicCircle.hpp
+    view/GraphicCircle.hpp \
+    view/PackingView.hpp \
+    ui/dualpackingview.hpp
 
 DISTFILES +=
+
+FORMS += \
+    ui/dualpackingview.ui
