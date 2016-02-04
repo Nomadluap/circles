@@ -103,7 +103,7 @@ void Circles::Packing::HyperCircle::setRadius(qreal r)
 bool Circles::Packing::HyperCircle::setCenter(QPointF c)
 {
     //we need to make sure the point lies inside the disc.
-    if(c.manhattanLength() > 1.0) return false;
+    if(sqrt(QPointF::dotProduct(c, c)) > 1.0) return false;
     else{
         this->_center = c;
         return true;

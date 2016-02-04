@@ -27,9 +27,8 @@ void Circles::Packing::Packing::repack(qreal epsilon, qreal outerRadius)
     while(!done){
         //recompute radii
         for(auto c: interior){
-            qDebug() << "working on interior circle:" << c->index();
             qreal theta = this->anglesum(*c);
-
+            qDebug() << "circle" << c->index() << "anglesum" << theta;
             //NEW CODE FROM PRACTICUM 3 PAGE 243
             int k = neighbours(*c).length();
             qreal r = c->radius();
@@ -131,6 +130,5 @@ qreal Circles::Packing::Packing::anglesum(const Circle &c) const
         qreal p2 = this->circles_.value(nbhrs.at( (i + 1) % nbhrs.length()) )->radius();
         partialSum += this->angle(o, p1, p2);
     }
-    qreal PI = atan(1)*4.0;
-    return std::fmod(partialSum, 2.0*PI );
+    return partialSum;
 }

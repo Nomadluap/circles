@@ -226,15 +226,19 @@ void HyperPacking::layout()
         qreal arg;
         if(isCCW)   arg = fmod(beta+alpha+2*PI, 2 * PI);
         else        arg = fmod(beta-alpha+2*PI, 2 * PI);
+        qDebug() << "circle" << v->index() << "arg is" << arg;
         qreal r = w->radius() + v->radius();
         qreal s = (exp(r) - 1.0)/(exp(r) + 1.0);
         //now plot the point using sin and
         //remember that this point is an offset from w.
         QPointF pos(s*cos(arg), s*sin(arg));
+        qDebug() << "pre-phiinv" << pos;
         //set the position of v, remembering to take isometry into account.
         QPointF position = phiinv(pos);
         //set the position of v
         v->setCenter(position);
+        qDebug() << "circle" << v->index() << "got position" << position;
+        qDebug() << "Setting Circle" << v->index() << "with radius:" << v->radius() << "at pos " << v->center();
         //and update the lists
         unplacedCircles.removeAll(v);
         placedCircles.append(v);

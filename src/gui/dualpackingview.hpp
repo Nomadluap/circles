@@ -95,7 +95,7 @@ namespace Circles{
         /// epsilon value for repacks.
         qreal epsilon_ = 10.0e-3;
 
-        qreal hyperRadius_ = 2.0;
+        qreal hyperRadius_ = 5.0;
 
         /**
          * Generate packingViews for the packings and send them to the GraphicsViews.

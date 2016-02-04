@@ -20,6 +20,12 @@ int main(int argc, char *argv[])
     singleFlower->addEdge(6, 1);
     for(int i = 1; i <= 6; ++i) singleFlower->addEdge(0, i);
 
+    singleFlower->addEdge(1, 20);
+    singleFlower->addEdge(2, 20);
+    singleFlower->addEdge(2, 21);
+    singleFlower->addEdge(3, 21);
+
+
     w.setPacking(singleFlower, 0, 1, 0.0);
 
     w.show();
