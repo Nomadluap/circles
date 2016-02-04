@@ -10,7 +10,7 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui(new Ui::DualPackingView)
 {
     ui->setupUi(this);
-    ui->euclidview->scale(100.0, 100.0);
+    ui->euclidview->scale(33.0, 33.0);
     ui->hyperview->scale(100.0, 100.0);
 }
 

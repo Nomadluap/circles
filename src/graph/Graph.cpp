@@ -122,6 +122,7 @@ bool Graph::hasFullFlower(Node n)
     for(int i = 0; i < sn.length() - 1; ++i){
         if(!this->hasEdge(sn.at(i), sn.at(i+1))) return false;
     }
+    if(sn.length() < 3) return false; // two neighbours can't form an edge:
     if(this->hasEdge(sn.first(), sn.last()) && this->is_edges_sorted->value(n)) return true;
     else return false;
 

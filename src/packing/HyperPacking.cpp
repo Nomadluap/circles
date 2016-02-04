@@ -68,7 +68,7 @@ void HyperPacking::layout()
             qreal h2 = d->radius();
 
             qreal s = (exp(h1 + h2) - 1)/(exp(h1 + h2) + 1);
-            QPointF dcenter(s * cos(this->firstNeighbourAngle_), s * sin(this->firstNeighbourAngle_) );
+            QPointF dcenter(s * cos(-this->firstNeighbourAngle_), s * sin(-this->firstNeighbourAngle_) );
             d->setCenter(dcenter);
             qDebug() << "Placing second circle #" << d->index() << " at (" <<
                         dcenter.x() << ", " << dcenter.y() << ")";

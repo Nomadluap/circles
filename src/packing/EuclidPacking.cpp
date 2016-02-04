@@ -67,7 +67,7 @@ void EuclidPacking::layout()
 
             qreal s = h1+h2;
             //rotate correctly.
-            QPointF dcenter(s * cos(this->firstNeighbourAngle_), s * sin(this->firstNeighbourAngle_) );
+            QPointF dcenter(s * cos(-this->firstNeighbourAngle_), s * sin(-this->firstNeighbourAngle_) );
             d->setCenter(dcenter);
             qDebug() << "Placing second circle #" << d->index() << " at (" <<
                         dcenter.x() << ", " << dcenter.y() << ")";
