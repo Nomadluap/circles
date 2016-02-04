@@ -41,9 +41,9 @@ namespace Circles{
         //HyperPackings are considered to be equal if they share a graph and have Circles with identical parameters.
         friend bool operator==(const HyperPacking& lhs, const HyperPacking& rhs);
 
-        virtual void layout(int centerCircle) override;
+        virtual void layout() override;
 
-        virtual qreal angle(const QPointF &p, const QPointF &p1, const QPointF &p2) const override;
+        virtual qreal angle(qreal r, qreal ra, qreal rb) const override;
 
     protected:
         virtual void spawnCircles() override;

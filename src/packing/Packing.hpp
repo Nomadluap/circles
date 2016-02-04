@@ -31,16 +31,16 @@ namespace Circles{
          * Lay out the circles such that neighbourstd:ng circles are tangent to one another.
          * @param centerNode index of the circle to place at the center of the packing.
          */
-        virtual void layout(int centerCircle) = 0;
+        virtual void layout() = 0;
 
         /**
          * Compute the angle <p,p1,p2 in the local space of the packing.
-         * @param point which represents the vertex point.
-         * @param point which defines one ray of the angle.
-         * @param point which defines the other ray of the angle.
+         * @param r radius which represents the vertex point.
+         * @param ra radius which defines one ray of the angle.
+         * @param rb radius which defines the other ray of the angle.
          * @return The angle formed by the points, in radians in range [0, pi]
          */
-        virtual qreal angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const = 0;
+        virtual qreal angle(qreal r, qreal ra, qreal rb) const = 0;
 
         /**
          * Get a reference to the underlying graph of the packing.
@@ -76,6 +76,42 @@ namespace Circles{
          */
         QList<std::shared_ptr<Circle>> neighbours(const Circle& c);
 
+        /**
+         * set the circle that is to be in the center of the packing when it is laid out.
+         * @param index
+         */
+        void setCenterCircle(int index);
+
+        /**
+         * Set the circle that is to be the second placed when performing a layout.
+         * @param index
+         */
+        void setFirstNeighbour(int index);
+
+        /**
+         * Set the angle to the positive horizontal that the first neighbour is placed at, in radians.
+         * @param angle
+         */
+        void setFirstNeighbourAngle(qreal angle);
+
+        /**
+         * the circle that is to be in the center of the packing when it is laid out.
+         * @return
+         */
+        int centerCircle();
+
+        /**
+         * The circle that is to be the second placed when performing a layout
+         * @return
+         */
+        int firstNeighbour();
+
+        /**
+         * The angle to the positive horizontal that the firstNeighbour is placed at, in radians.
+         * @return
+         */
+        qreal firstNeighbourAngle();
+
 
     protected:
 
@@ -92,9 +128,18 @@ namespace Circles{
         virtual void spawnCircles() = 0;
 
 
-        std::shared_ptr<Graph::Graph> _graph;
+        std::shared_ptr<Graph::Graph> graph_;
         // since Circles are ordered, we can sort this list for easy lookups.
-        QMap<int, std::shared_ptr<Circle> > _circles;
+        QMap<int, std::shared_ptr<Circle> > circles_;
+
+        /// Circle to place at the center of the layout.
+        int centerCircle_ = 1;
+
+        /// Center to place beside the centerCircle during the layout.
+        int firstNeighbour_ = 2;
+
+        /// Angle to the positive horizontal to place the firstNeighbour. In Radians
+        qreal firstNeighbourAngle_ = 0.0;
     };
     }
 }

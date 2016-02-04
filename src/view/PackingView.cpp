@@ -4,11 +4,19 @@
 #include <QList>
 
 using namespace Circles;
-using namespace Circles::Ui;
+using namespace Circles::View;
 
-PackingView::PackingView()
+PackingView::PackingView():
+    QGraphicsScene()
 {
 
+}
+
+PackingView::PackingView(std::shared_ptr<Packing::Packing> p):
+    QGraphicsScene()
+{
+    this->packing_ = p;
+    this->rebuildGraphics();
 }
 
 void PackingView::setDrawCircles(bool state)
@@ -57,14 +65,34 @@ void PackingView::rebuildGraphics()
 void PackingView::rebuildCircles()
 {
     // remove the old
-    for(auto i: this->graphicCircles_) this->removeItem(i);
+    for(auto i: this->graphicCircles_) this->removeItem(i.get());
     this->graphicCircles_.clear();
 
     // and rebuild.
     for(auto i: this->packing_->circles()){
-        auto c = std::make_shared<Ui::GraphicCircle>(*i);
+        auto c = std::make_shared<View::GraphicCircle>(*i);
         this->graphicCircles_.append(c);
-        this->addItem(c);
+        this->addItem(c.get());
     }
+
+}
+
+void PackingView::rebuildCenters()
+{
+
+}
+
+void PackingView::rebuildIndices()
+{
+
+}
+
+void PackingView::rebuildConnectors()
+{
+
+}
+
+void PackingView::rebuildColor()
+{
 
 }

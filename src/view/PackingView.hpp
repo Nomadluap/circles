@@ -9,12 +9,12 @@
 
 #include "packing/Packing.hpp"
 #include "packing./PackingCoordinate.hpp"
-#include "ui/GraphicCircle.hpp"
+#include "View/GraphicCircle.hpp"
 
 using namespace Circles;
 
 namespace Circles{
-    namespace Ui{
+    namespace View{
 
     /**
      * An extension of QGraphicsScene which visualizes a Packing of either type.
@@ -75,7 +75,7 @@ namespace Circles{
 
     private:
         std::shared_ptr<Packing::Packing> packing_;
-        QList<std::shared_ptr<Ui::GraphicCircle> > graphicCircles_;
+        QList<std::shared_ptr<View::GraphicCircle> > graphicCircles_;
         //TODO: make the other graphics item classes
 
         bool drawCircles_    = false;

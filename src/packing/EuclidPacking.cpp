@@ -9,70 +9,68 @@ const qreal PI = 3.141592653589793238462643383279502884;
 
 Circles::Packing::EuclidPacking::EuclidPacking()
 {
-    this->_graph = std::make_shared<Graph::Graph>();
+    this->graph_ = std::make_shared<Graph::Graph>();
 }
 
 EuclidPacking::EuclidPacking(std::shared_ptr<Graph::Graph> g)
 {
-    this->_graph = g;
+    this->graph_ = g;
     this->spawnCircles();
 }
 EuclidPacking::EuclidPacking(const EuclidPacking& other)
 {
-    this->_graph = other._graph;
-    this->_circles = other._circles;
+    this->graph_ = other.graph_;
+    this->circles_ = other.circles_;
 }
 
 EuclidPacking::EuclidPacking(Circles::Packing::EuclidPacking&& other)
 {
-    this->_graph = std::move(other._graph);
-    this->_circles = std::move(other._circles);
+    this->graph_ = std::move(other.graph_);
+    this->circles_ = std::move(other.circles_);
 }
 
 EuclidPacking& EuclidPacking::operator=(const EuclidPacking& other)
 {
-    this->_graph = other._graph;
-    this->_circles = other._circles;
+    this->graph_ = other.graph_;
+    this->circles_ = other.circles_;
     return *(this);
 }
 
-void EuclidPacking::layout(int centerCircle)
+void EuclidPacking::layout()
 {
-    QList<std::shared_ptr<Circle>> unplacedCircles = this->_circles.values(); //circles which have not yet been placed
+    QList<std::shared_ptr<Circle>> unplacedCircles = this->circles_.values(); //circles which have not yet been placed
     QList<std::shared_ptr<Circle>> placedCircles; //nodes which have been placed but do not have full flowers.
     QList<std::shared_ptr<Circle>> floweredCircles; //nodes for which their entire flower has been placed.
     //place the first circle
     bool foundCenterCircle = false;
     for(auto c: unplacedCircles){ //find the circle that is to be the center circle.
-        if (c->index() == centerCircle){
+        if (c->index() == this->centerCircle_){
             qDebug() << "Placing first circle #" << c->index() << " at (0, 0)";
             c->setCenter(QPointF(0, 0));
             placedCircles.append(c);
             unplacedCircles.removeAll(c);
             //place the second node to right of the first node.
-            std::shared_ptr<Circle> d = neighbours(*c).first();
+            std::shared_ptr<Circle> d = this->circles_.value(this->firstNeighbour_);
 
+            if(!neighbours(*c).contains(d)){
+                qDebug() << "centerCircle and FirstNeighbour are not neighbouring circles. Fail.";
+                return;
+            }
             //at least one of c and d need to have a full flower
             if(!(hasFullFlower(*c) || hasFullFlower(*d)) ){
-                int dindex = 1;
-                do{
-                    d = neighbours(*c).at(dindex);
-                    dindex++;
-                } while(!hasFullFlower(*d) && dindex < neighbours(*c).length());
-                //fail if we didn't find a proper d.
-                if(dindex >= neighbours(*c).length()){
-                    qDebug() << "Neither C or D has full flower. Fail.";
-                    return;
-                }
+                qDebug() << "Neither C or D has full flower. Fail.";
+                return;
             }
 
             qreal h1 = c->radius();
             qreal h2 = d->radius();
 
             qreal s = h1+h2;
-            d->setCenter(QPointF(s, 0));
+            //rotate correctly.
+            QPointF dcenter(s * cos(this->firstNeighbourAngle_), s * sin(this->firstNeighbourAngle_) );
+            d->setCenter(dcenter);
             qDebug() << "Placing second circle #" << d->index() << " at (" <<
-                        s << ", 0)";
+                        dcenter.x() << ", " << dcenter.y() << ")";
             placedCircles.append(d);
             unplacedCircles.removeAll(d);
             foundCenterCircle = true;
@@ -145,7 +143,7 @@ void EuclidPacking::layout(int centerCircle)
         std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
 
         //find the angle <UWV=alpha
-        qreal alpha = this->angle(w->center(), u->center(), v->center());
+        qreal alpha = this->angle(w->radius(), u->radius(), v->radius());
         //find the argument of u
         QPointF relU = u->center() - w->center();
         qreal beta = atan2(relU.y(), relU.x());
@@ -219,11 +217,11 @@ void EuclidPacking::layout(int centerCircle)
 
 }
 
-qreal EuclidPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const
+qreal EuclidPacking::angle(qreal r, qreal ra, qreal rb) const
 {
-    qreal a = (p1 - p).manhattanLength();
-    qreal b = (p2 - p).manhattanLength();
-    qreal c = (p2 - p1).manhattanLength();
+    qreal a = r + ra;
+    qreal b = r + rb;
+    qreal c = ra + rb;
 
     qreal arg = (a*a + b*b - c*c)/(2.0 * a * b);
     qreal angle = acos(arg);
@@ -235,8 +233,8 @@ qreal EuclidPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p
 
 EuclidPacking& EuclidPacking::operator=(EuclidPacking&& other)
 {
-    this->_graph = std::move(other._graph);
-    this->_circles = std::move(other._circles);
+    this->graph_ = std::move(other.graph_);
+    this->circles_ = std::move(other.circles_);
     return *(this);
 }
 
@@ -244,8 +242,8 @@ EuclidPacking& EuclidPacking::operator=(EuclidPacking&& other)
 
 void EuclidPacking::spawnCircles()
 {
-    for(int i: this->_graph->getNodes()){
-        this->_circles.insert(i, std::make_shared<EuclidCircle>(i) );
+    for(int i: this->graph_->getNodes()){
+        this->circles_.insert(i, std::make_shared<EuclidCircle>(i) );
     }
 }
 
@@ -253,7 +251,7 @@ void EuclidPacking::spawnCircles()
 bool Circles::Packing::operator==(const EuclidPacking& lhs, const EuclidPacking& rhs)
 {
     //Packings are equal if their graphs are equivalent and their circles have the same dimensions.
-    bool equalGraphs = (lhs._graph == rhs._graph);
+    bool equalGraphs = (lhs.graph_ == rhs.graph_);
     auto ca = lhs.circles();
     auto cb = rhs.circles();
     bool equalCircles = (ca == cb);

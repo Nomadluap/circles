@@ -9,7 +9,7 @@
 using namespace Circles;
 
 namespace Circles{
-    namespace Ui{
+    namespace View{
 
     /**
      * Defines a visual circle object in a packingView. Each GraphicCircle corresponds to a single Circle, and therefore

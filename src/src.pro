@@ -16,7 +16,7 @@ SOURCES += \
     packing/PackingCoordinate.cpp \
     view/GraphicCircle.cpp \
     view/PackingView.cpp \
-    ui/dualpackingview.cpp
+    gui/dualpackingview.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -31,9 +31,9 @@ HEADERS += \
     graph/Triangle.hpp \
     view/GraphicCircle.hpp \
     view/PackingView.hpp \
-    ui/dualpackingview.hpp
+    gui/dualpackingview.hpp
 
 DISTFILES +=
 
 FORMS += \
-    ui/dualpackingview.ui
+    gui/dualpackingview.ui

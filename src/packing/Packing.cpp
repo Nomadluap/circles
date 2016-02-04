@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cmath>
 #include "Packing.hpp"
+#include <QDebug>
 
 using namespace Circles::Packing;
 
@@ -9,21 +10,24 @@ const qreal PI = 3.141592653589793238462643383279502884;
 
 void Circles::Packing::Packing::repack(qreal epsilon, qreal outerRadius)
 {
+    qDebug();
+    qDebug() << "Performing repack: epsilon=" << epsilon << " out.radius=" << outerRadius;
     //first set all radii
-    for(auto c: this->_circles.values()){
+    for(auto c: this->circles_.values()){
         c->setRadius(outerRadius);
     }
     //compute a list of all inner nodes
 
     QList<std::shared_ptr<Circle> > interior;
-    for(auto c: this->_circles.values()){
-        if(!this->_graph->isBoundary(c->index())) interior.append(c);
+    for(auto c: this->circles_.values()){
+        if(!this->graph_->isBoundary(c->index())) interior.append(c);
     }
     //Repacking loop
     bool done = false;
     while(!done){
         //recompute radii
         for(auto c: interior){
+            qDebug() << "working on interior circle:" << c->index();
             qreal theta = this->anglesum(*c);
 
             //NEW CODE FROM PRACTICUM 3 PAGE 243
@@ -44,54 +48,87 @@ void Circles::Packing::Packing::repack(qreal epsilon, qreal outerRadius)
             }
         }
     }
+    for(auto c: this->circles_.values()){
+        qDebug() << "\tCircle:" << c->index() << "radius:" << c->radius();
+    }
 
 }
 
 const Graph::Graph& Circles::Packing::Packing::graph() const
 {
-    return *(this->_graph);
+    return *(this->graph_);
 }
 
 QMap<int,std::shared_ptr<Circle> > Circles::Packing::Packing::circles() const
 {
     QMap<int, std::shared_ptr<Circle> > c;
-    for(int i: this->_circles.keys()){
-        c.insert(i, this->_circles.value(i) );
+    for(int i: this->circles_.keys()){
+        c.insert(i, this->circles_.value(i) );
     }
     return c;
 }
 
 const Circle& Circles::Packing::Packing::circle(int index) const
 {
-    return *(this->_circles.value(index));
+    return *(this->circles_.value(index));
 }
 
 bool Circles::Packing::Packing::hasFullFlower(const Circle& c) const
 {
-    return this->_graph->hasFullFlower(c.index());
+    return this->graph_->hasFullFlower(c.index());
 }
 
 QList<std::shared_ptr<Circle> > Circles::Packing::Packing::neighbours(const Circle& c)
 {
    //  this->circle(this->_graph->neighbours(c->index()))
     QList<std::shared_ptr<Circle> > circs;
-    for(int i: this->_graph->neighbours(c.index())){
-        circs.append(this->_circles.value(i));
+    for(int i: this->graph_->neighbours(c.index())){
+        circs.append(this->circles_.value(i));
     }
     return std::move(circs);
+}
+
+void Packing::Packing::setCenterCircle(int index)
+{
+    this->centerCircle_ = index;
+}
+
+void Packing::Packing::setFirstNeighbour(int index)
+{
+    this->firstNeighbour_ = index;
+}
+
+void Packing::Packing::setFirstNeighbourAngle(qreal angle)
+{
+    this->firstNeighbourAngle_ = angle;
+}
+
+int Packing::Packing::centerCircle()
+{
+    return this->centerCircle_;
+}
+
+int Packing::Packing::firstNeighbour()
+{
+    return this->firstNeighbour_;
+}
+
+qreal Packing::Packing::firstNeighbourAngle()
+{
+    return this->firstNeighbourAngle_;
 }
 
 qreal Circles::Packing::Packing::anglesum(const Circle &c) const
 {
     qreal partialSum = 0.0;
     //find the c node, get its neibhours, and add up the angles.
-    QPointF o = c.center();
+    qreal o = c.radius();
     int cc = c.index();
-    QList<int> nbhrs((this->_graph->sortedNeighbours(cc)));
-    if(!this->_graph->hasFullFlower(cc)) return 0.0; // if we don't have a full flower then we can't do anglesum.
+    QList<int> nbhrs((this->graph_->sortedNeighbours(cc)));
+    if(!this->graph_->hasFullFlower(cc)) return 0.0; // if we don't have a full flower then we can't do anglesum.
     for(int i = 0; i <nbhrs.length(); ++i){
-        QPointF p1 = this->_circles.value(nbhrs.at(i))->center();
-        QPointF p2 = this->_circles.value(nbhrs.at( (i + 1) % nbhrs.length()) )->center();
+        qreal p1 = this->circles_.value(nbhrs.at(i))->radius();
+        qreal p2 = this->circles_.value(nbhrs.at( (i + 1) % nbhrs.length()) )->radius();
         partialSum += this->angle(o, p1, p2);
     }
     qreal PI = atan(1)*4.0;

@@ -5,7 +5,7 @@
 #include "packing/Circle.hpp"
 #include "packing/EuclidCircle.hpp"
 using namespace Circles;
-using namespace Circles::Ui;
+using namespace Circles::View;
 GraphicCircle::GraphicCircle():
     QGraphicsItem()
 {
@@ -14,7 +14,7 @@ GraphicCircle::GraphicCircle():
     this->index_ = -1;
 }
 
-Ui::GraphicCircle::GraphicCircle(const Packing::Circle& c):
+View::GraphicCircle::GraphicCircle(const Packing::Circle& c):
     QGraphicsItem()
 {
     this->setPos(c.center());

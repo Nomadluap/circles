@@ -10,71 +10,68 @@ const qreal PI = 3.141592653589793238462643383279502884;
 
 Circles::Packing::HyperPacking::HyperPacking()
 {
-    this->_graph = std::make_shared<Graph::Graph>();
+    this->graph_ = std::make_shared<Graph::Graph>();
 }
 
 HyperPacking::HyperPacking(std::shared_ptr<Graph::Graph> g)
 {
-    this->_graph = g;
+    this->graph_ = g;
     this->spawnCircles();
 }
 HyperPacking::HyperPacking(const HyperPacking& other)
 {
-    this->_graph = other._graph;
-    this->_circles = other._circles;
+    this->graph_ = other.graph_;
+    this->circles_ = other.circles_;
 }
 
 HyperPacking::HyperPacking(HyperPacking&& other)
 {
-    this->_graph = std::move(other._graph);
-    this->_circles = std::move(other._circles);
+    this->graph_ = std::move(other.graph_);
+    this->circles_ = std::move(other.circles_);
 }
 
 HyperPacking& HyperPacking::operator=(const HyperPacking& other)
 {
-    this->_graph = other._graph;
-    this->_circles = other._circles;
+    this->graph_ = other.graph_;
+    this->circles_ = other.circles_;
     return *(this);
 }
 
-void HyperPacking::layout(int centerCircle)
+void HyperPacking::layout()
 {
     //fixme: clean up this code and move it into multiple functions?
-    QList<std::shared_ptr<Circle>> unplacedCircles = this->_circles.values(); //circles which have not yet been placed
+    QList<std::shared_ptr<Circle>> unplacedCircles = this->circles_.values(); //circles which have not yet been placed
     QList<std::shared_ptr<Circle>> placedCircles; //nodes which have been placed but do not have full flowers.
     QList<std::shared_ptr<Circle>> floweredCircles; //nodes for which their entire flower has been placed.
     //place the first circle
     bool foundCenterCircle = false;
     for(auto c: unplacedCircles){ //find the circle that is to be the center circle.
-        if (c->index() == centerCircle){
+        if (c->index() == this->centerCircle_){
             qDebug() << "Placing first circle #" << c->index() << " at (0, 0)";
             c->setCenter(QPointF(0, 0));
             placedCircles.append(c);
             unplacedCircles.removeAll(c);
             //place the second node to right of the first node.
-            std::shared_ptr<Circle> d = neighbours(*c).first();
+            std::shared_ptr<Circle> d = this->circles_.value(this->firstNeighbour_);
 
+            if(!neighbours(*c).contains(d)){
+                qDebug() << "centerCircle and FirstNeighbour are not neighbouring circles. Fail.";
+                return;
+            }
             //at least one of c and d need to have a full flower
             if(!(hasFullFlower(*c) || hasFullFlower(*d)) ){
-                int dindex = 1;
-                do{
-                    d = neighbours(*c).at(dindex);
-                    dindex++;
-                } while(!hasFullFlower(*d) && dindex < neighbours(*c).length());
-                //fail if we didn't find a proper d.
-                if(dindex >= neighbours(*c).length()){
-                    qDebug() << "Neither C or D has full flower. Fail.";
-                    return;
-                }
+                qDebug() << "Neither C or D has full flower. Fail.";
+                return;
             }
 
             qreal h1 = c->radius();
             qreal h2 = d->radius();
 
             qreal s = (exp(h1 + h2) - 1)/(exp(h1 + h2) + 1);
-            d->setCenter(QPointF(s, 0));
+            QPointF dcenter(s * cos(this->firstNeighbourAngle_), s * sin(this->firstNeighbourAngle_) );
+            d->setCenter(dcenter);
             qDebug() << "Placing second circle #" << d->index() << " at (" <<
-                        s << ", 0)";
+                        dcenter.x() << ", " << dcenter.y() << ")";
             placedCircles.append(d);
             unplacedCircles.removeAll(d);
             foundCenterCircle = true;
@@ -170,7 +167,7 @@ void HyperPacking::layout(int centerCircle)
 
 
         //find the angle <UWV=alpha
-        qreal alpha = this->angle(w->center(), u->center(), v->center());
+        qreal alpha = this->angle(w->radius(), u->radius(), v->radius());
         //find the argument of u
         QPointF relU = phi(u->center());
         qreal beta = atan2(relU.y(), relU.x());
@@ -246,11 +243,11 @@ void HyperPacking::layout(int centerCircle)
 
 }
 
-qreal HyperPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p2) const
+qreal HyperPacking::angle(qreal r, qreal ra, qreal rb) const
 {
-    qreal a = (p1 - p).manhattanLength();
-    qreal b = (p2 - p).manhattanLength();
-    qreal c = (p2 - p1).manhattanLength();
+    qreal a = r + ra;
+    qreal b = r + rb;
+    qreal c = ra + rb;
 
     qreal arg = (cosh(a)*cosh(b) - cosh(c))/(sinh(a)*sinh(b));
     qreal angle = acos(arg);
@@ -262,8 +259,8 @@ qreal HyperPacking::angle(const QPointF& p, const QPointF& p1, const QPointF& p2
 
 HyperPacking& HyperPacking::operator=(HyperPacking&& other)
 {
-    this->_graph = std::move(other._graph);
-    this->_circles = std::move(other._circles);
+    this->graph_ = std::move(other.graph_);
+    this->circles_ = std::move(other.circles_);
     return *(this);
 }
 
@@ -271,8 +268,8 @@ HyperPacking& HyperPacking::operator=(HyperPacking&& other)
 
 void HyperPacking::spawnCircles()
 {
-    for(int i: this->_graph->getNodes()){
-        this->_circles.insert(i, std::make_shared<HyperCircle>(i) );
+    for(int i: this->graph_->getNodes()){
+        this->circles_.insert(i, std::make_shared<HyperCircle>(i) );
     }
 }
 
@@ -280,7 +277,7 @@ void HyperPacking::spawnCircles()
 bool Circles::Packing::operator==(const HyperPacking& lhs, const HyperPacking& rhs)
 {
     //Packings are equal if their graphs are equivalent and their circles have the same dimensions.
-    bool equalGraphs = (lhs._graph == rhs._graph);
+    bool equalGraphs = (lhs.graph_ == rhs.graph_);
     auto ca = lhs.circles();
     auto cb = rhs.circles();
     bool equalCircles = (ca == cb);
