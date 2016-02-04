@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     singleFlower->addEdge(2, 20);
     singleFlower->addEdge(2, 21);
     singleFlower->addEdge(3, 21);
+    singleFlower->addEdge(20, 21);
 
 
     w.setPacking(singleFlower, 0, 1, 0.0);
