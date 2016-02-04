@@ -78,4 +78,11 @@ TEST_F(testGraph, lastEdgeRemovesPoint)
     EXPECT_FALSE(g.hasNode(2));
 }
 
+TEST_F(testGraph, boundary)
+{
+    ASSERT_TRUE(singleFlower.isBoundary(1));
+    ASSERT_FALSE(singleFlower.isBoundary(0));
+
+}
+
 } // namespace

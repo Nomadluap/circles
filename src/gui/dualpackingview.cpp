@@ -101,7 +101,10 @@ void DualPackingView::generateViews()
     qDebug() << "Generating Views...";
     this->hyperView_ = std::make_shared<View::PackingView>(this->hyperPacking_);
     this->euclidView_ = std::make_shared<View::PackingView>(this->euclidPacking_);
+
     qDebug() << "Displaying Views...";
     ui->euclidview->setScene(this->euclidView_.get());
     ui->hyperview->setScene(this->hyperView_.get());
+
+    // ui->hyperview->fitInView(-1.5, -1.5, 3.0, 3.0, Qt::KeepAspectRatio);
 }

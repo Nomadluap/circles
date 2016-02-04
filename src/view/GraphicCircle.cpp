@@ -17,8 +17,8 @@ GraphicCircle::GraphicCircle():
 View::GraphicCircle::GraphicCircle(const Packing::Circle& c):
     QGraphicsItem()
 {
-    this->setPos(c.center());
-    this->radius_ = c.radius();
+    this->setPos(c.projCenter());
+    this->radius_ = c.projRadius();
     this->index_ = c.index();
 }
 
