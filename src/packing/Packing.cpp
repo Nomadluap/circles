@@ -28,7 +28,7 @@ void Circles::Packing::Packing::repack(qreal epsilon, qreal outerRadius)
         //recompute radii
         for(auto c: interior){
             qreal theta = this->anglesum(*c);
-            qDebug() << "circle" << c->index() << "anglesum" << theta;
+//            qDebug() << "circle" << c->index() << "anglesum" << theta;
             //NEW CODE FROM PRACTICUM 3 PAGE 243
             int k = neighbours(*c).length();
             qreal r = c->radius();
@@ -47,9 +47,9 @@ void Circles::Packing::Packing::repack(qreal epsilon, qreal outerRadius)
             }
         }
     }
-    for(auto c: this->circles_.values()){
-        qDebug() << "\tCircle:" << c->index() << "radius:" << c->radius();
-    }
+//    for(auto c: this->circles_.values()){
+//        qDebug() << "\tCircle:" << c->index() << "radius:" << c->radius();
+//    }
 
 }
 

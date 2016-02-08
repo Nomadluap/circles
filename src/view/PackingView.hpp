@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QGraphicsSceneMouseEvent>
 #include <QWidget>
+#include <QWheelEvent>
 #include <memory>
 
 #include "packing/Packing.hpp"
@@ -72,6 +73,12 @@ namespace Circles{
          * @param p The new packing that the view is now displaying
          */
         void packingChanged(std::shared_ptr<Packing::Packing> p);
+        /**
+         * Passed when the view recieves a wheel event. Meant to be intercepted
+         * by the containing widget to zoom the view.
+         * @param e the event.
+         */
+        void gotMouseEvent(int delta);
 
     private:
         std::shared_ptr<Packing::Packing> packing_;
@@ -90,6 +97,12 @@ namespace Circles{
         void rebuildIndices();
         void rebuildConnectors();
         void rebuildColor();
+    protected:
+        /**
+         * override of default wheelEvent to emit the signal.
+         * @param e
+         */
+        void wheelEvent(QGraphicsSceneWheelEvent* e) override;
 
     };
 

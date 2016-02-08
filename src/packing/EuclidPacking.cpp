@@ -150,7 +150,7 @@ void EuclidPacking::layout()
 
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w->radius(), u->radius(), v->radius());
-        qDebug() << "circle" << v->index() << "angle=" << alpha;
+//        qDebug() << "circle" << v->index() << "angle=" << alpha;
         //find the argument of u
         QPointF relU = u->center() - w->center();
         qreal beta = atan2(relU.y(), relU.x());
@@ -216,7 +216,7 @@ void EuclidPacking::layout()
         pos += w->center();
         //set the position of v
         v->setCenter(pos);
-        qDebug() << "Setting Circle" << v->index() << "with radius:" << v->radius() << "at pos " << v->center();
+//        qDebug() << "Setting Circle" << v->index() << "with radius:" << v->radius() << "at pos " << v->center();
         //and update the lists
         unplacedCircles.removeAll(v);
         placedCircles.append(v);

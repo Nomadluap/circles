@@ -1,6 +1,10 @@
 #include "dualpackingview.hpp"
 #include "ui_dualpackingview.h"
 #include <QDebug>
+#include <QPoint>
+#include <cmath>
+#include <QGLWidget>
+#include <QGLFormat>
 
 using namespace Circles;
 using namespace Circles::GUI;
@@ -12,6 +16,24 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui->setupUi(this);
     ui->euclidview->scale(33.0, 33.0);
     ui->hyperview->scale(100.0, 100.0);
+
+    ui->euclidview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+    ui->hyperview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+
+    ui->euclidview->setRenderHint(QPainter::Antialiasing, true);
+    ui->hyperview->setRenderHint(QPainter::Antialiasing, true);
+
+    ui->euclidview->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    ui->hyperview->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+
+    ui->euclidview->setDragMode(QGraphicsView::ScrollHandDrag);
+    ui->hyperview->setDragMode(QGraphicsView::ScrollHandDrag);
+
+    ui->euclidview->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    ui->hyperview->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+
+    ui->euclidview->setDragMode(QGraphicsView::ScrollHandDrag);
+    ui->hyperview->setDragMode(QGraphicsView::ScrollHandDrag);
 }
 
 DualPackingView::~DualPackingView()
@@ -104,9 +126,30 @@ void DualPackingView::generateViews()
     this->hyperView_ = std::make_shared<View::PackingView>(this->hyperPacking_);
     this->euclidView_ = std::make_shared<View::PackingView>(this->euclidPacking_);
 
+    connect(hyperView_.get(),
+            View::PackingView::gotMouseEvent,
+            this,
+            DualPackingView::zoomHyperView);
+    connect(euclidView_.get(),
+            View::PackingView::gotMouseEvent,
+            this,
+            DualPackingView::zoomEuclideanView);
+
     qDebug() << "Displaying Views...";
     ui->euclidview->setScene(this->euclidView_.get());
     ui->hyperview->setScene(this->hyperView_.get());
 
     // ui->hyperview->fitInView(-1.5, -1.5, 3.0, 3.0, Qt::KeepAspectRatio);
+}
+
+void DualPackingView::zoomEuclideanView(int delta)
+{
+    this->euclidZoom_ = pow(ZOOM_PER_MOUSECOUNT, delta/120.0);
+    ui->euclidview->scale(euclidZoom_, euclidZoom_);
+}
+
+void DualPackingView::zoomHyperView(int delta)
+{
+    this->hyperZoom_ = pow(ZOOM_PER_MOUSECOUNT, delta/120.0);
+    ui->hyperview->scale(hyperZoom_, hyperZoom_);
 }

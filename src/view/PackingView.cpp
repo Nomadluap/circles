@@ -96,3 +96,9 @@ void PackingView::rebuildColor()
 {
 
 }
+
+void PackingView::wheelEvent(QGraphicsSceneWheelEvent* e)
+{
+    emit gotMouseEvent(e->delta());
+    e->accept();
+}

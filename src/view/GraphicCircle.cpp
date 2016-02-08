@@ -12,6 +12,7 @@ GraphicCircle::GraphicCircle():
     this->setPos(0, 0);
     this->radius_ = 1.0;
     this->index_ = -1;
+    prepareGeometryChange();
 }
 
 View::GraphicCircle::GraphicCircle(const Packing::Circle& c):
@@ -25,7 +26,7 @@ View::GraphicCircle::GraphicCircle(const Packing::Circle& c):
 QRectF GraphicCircle::boundingRect() const
 {
     qreal r = this->radius_;
-    return QRectF(-r, -r, r, r);
+    return QRectF(-r, -r, 2*r, 2*r);
 }
 
 QPainterPath GraphicCircle::shape() const

@@ -76,6 +76,18 @@ namespace Circles{
          */
         void setHyperRadius(qreal radius);
 
+        /**
+         * Zoom the euclidean view
+         * @param steps
+         */
+        void zoomEuclideanView(int delta);
+
+        /**
+         * Zoom the hyper view.
+         * @param steps
+         */
+        void zoomHyperView(int delta);
+
     private:
         Ui::DualPackingView *ui;
 
@@ -97,12 +109,22 @@ namespace Circles{
 
         qreal hyperRadius_ = 5.0;
 
+        /// default zoom rates
+        const qreal EUCLID_ZOOM_DEFAULT = 33.0;
+        const qreal HYPER_ZOOM_DEFAULT = 100.0;
+
+        /// current zoom levels
+        qreal euclidZoom_ = EUCLID_ZOOM_DEFAULT;
+        qreal hyperZoom_ = HYPER_ZOOM_DEFAULT;
+
+        const qreal ZOOM_PER_MOUSECOUNT = 1.1;
         /**
          * Generate packingViews for the packings and send them to the GraphicsViews.
          * Also handles setting up any signals that may be required between the views and
          * the parent.
          */
         void generateViews();
+
     };
     }
 }
