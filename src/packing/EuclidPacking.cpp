@@ -129,18 +129,24 @@ void EuclidPacking::layout()
             floweredCircles.append(w);
             continue;
         }
-        std::shared_ptr<Circle> u;
+
+        //now v becomes this "first unplaced node"
+        std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
+
+        std::shared_ptr<Circle> u; //already placed node which is a neighbour to both w and v.
         if(nonFullOp){
             if(nbhrIndex == neighbours(*w).length() - 1) u = neighbours(*w).first();
             else u = neighbours(*w).at(nbhrIndex+1);
+            // if for some reason u and v aren't neighbours, then we have to find a u that is.
+            if(!neighbours(*v).contains(u)) u = neighbours(*w).at(nbhrIndex-1);
+
         }
         else{
             if(nbhrIndex == 0) u = neighbours(*w).last();
             else u = neighbours(*w).at(nbhrIndex-1);
         }
 
-        //now v becomes this "first unplaced node"
-        std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
+
 
         //find the angle <UWV=alpha
         qreal alpha = this->angle(w->radius(), u->radius(), v->radius());

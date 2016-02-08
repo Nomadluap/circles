@@ -130,18 +130,20 @@ void HyperPacking::layout()
             floweredCircles.append(w);
             continue;
         }
+        //now v becomes this "first unplaced node"
+        std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
+
         std::shared_ptr<Circle> u;
         if(nonFullOp){
             if(nbhrIndex == neighbours(*w).length() - 1) u = neighbours(*w).first();
             else u = neighbours(*w).at(nbhrIndex+1);
+            // if for some reason u and v aren't neighbours, then we have to find a u that is.
+            if(!neighbours(*v).contains(u)) u = neighbours(*w).at(nbhrIndex-1);
         }
         else{
             if(nbhrIndex == 0) u = neighbours(*w).last();
             else u = neighbours(*w).at(nbhrIndex-1);
         }
-
-        //now v becomes this "first unplaced node"
-        std::shared_ptr<Circle> v = neighbours(*w).at(nbhrIndex);
 
         /*=========================================
          * Isometry for the hyperbolic layout is here
