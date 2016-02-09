@@ -1,0 +1,85 @@
+#include "EuclidCircle.hpp"
+using namespace Circles::Packing;
+
+std::unique_ptr<Circle> EuclidCircle::clone() const
+{
+    return std::unique_ptr<EuclidCircle>(new EuclidCircle(*this));
+}
+
+Circles::Packing::EuclidCircle::EuclidCircle():
+    Circle()
+{
+    this->_index = -1;
+    this->_center = QPointF(0, 0);
+    this->_radius = 1.0;
+}
+
+EuclidCircle::EuclidCircle(int index):
+    Circle(index)
+{
+
+}
+
+Circles::Packing::EuclidCircle::EuclidCircle(const QPointF &center, qreal radius, int index):
+    Circle(center, radius, index)
+{
+    this->_index = index;
+    this->_center = center;
+    this->_radius = radius;
+}
+
+Circles::Packing::EuclidCircle::EuclidCircle(const EuclidCircle &other):
+    Circle(other)
+{
+    this->_index = other._index;
+    this->_center = other._center;
+    this->_radius = other._radius;
+}
+
+EuclidCircle& Circles::Packing::EuclidCircle::operator =(const EuclidCircle& other)
+{
+    this->_index = other._index;
+    this->_center = other._center;
+    this->_radius = other._radius;
+
+    return *this;
+}
+
+QPointF Circles::Packing::EuclidCircle::center() const
+{
+    return this->_center;
+}
+
+qreal Circles::Packing::EuclidCircle::radius() const
+{
+    return this->_radius;
+}
+
+QPointF Circles::Packing::EuclidCircle::projCenter() const
+{
+    return this->_center;
+}
+
+qreal Circles::Packing::EuclidCircle::projRadius() const
+{
+    return this->_radius;
+}
+
+void Circles::Packing::EuclidCircle::setRadius(qreal r)
+{
+    this->_radius = r;
+}
+
+bool Circles::Packing::EuclidCircle::setCenter(QPointF c)
+{
+    // no restrictions since the euclidean plane is unbounded.
+    this->_center = c;
+    return true;
+}
+
+
+bool Circles::Packing::operator ==(const EuclidCircle& lhs, const EuclidCircle& rhs)
+{
+    return (lhs._center == rhs._center) && (lhs._index == rhs._index) && (lhs._radius == rhs._radius);
+}
+
