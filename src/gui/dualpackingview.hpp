@@ -112,7 +112,7 @@ namespace Circles{
         std::shared_ptr<View::PackingView> hyperView_;
 
         /// epsilon value for repacks.
-        qreal epsilon_ = 10.0e-3;
+        qreal epsilon_ = 10.0e-6;
 
         qreal hyperRadius_ = 5.0;
 

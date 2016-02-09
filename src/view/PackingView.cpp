@@ -121,7 +121,7 @@ void PackingView::rebuildColor()
     if(this->drawColor_){
         for(Graph::Triangle t: this->triangleColors_.keys()){
             QColor color = this->triangleColors_.value(t);
-            qDebug() << color;
+//            qDebug() << color;
             QPointF v1 = this->packing_->circle(t.p1).center();
             QPointF v2 = this->packing_->circle(t.p2).center();
             QPointF v3 = this->packing_->circle(t.p3).center();
