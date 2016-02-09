@@ -17,6 +17,11 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui(new Ui::DualPackingView)
 {
     ui->setupUi(this);
+    connect(ui->pushButton,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(generateViews()));
+
     ui->euclidview->scale(33.0, 33.0);
     ui->hyperview->scale(100.0, 100.0);
 

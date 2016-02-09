@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <cmath>
+#include <QDebug>
 
 using namespace Circles;
 using namespace Circles::View;
@@ -14,7 +15,7 @@ QColor Circles::View::getHyperColor(QPointF p)
     const qreal radius = 0.5;
 
     qreal x = p.x();
-    qreal y = p.y();
+    qreal y = -p.y();
     qreal d = sqrt(QPointF::dotProduct(p, p)) / radius;
     qreal theta = atan2(y, x);
 
@@ -44,7 +45,9 @@ QColor Circles::View::getHyperColor(QPointF p)
         g = fmin(1, g + (1-g) * (d-1));
         b = fmin(1, b + (1-b) * (d-1));
     }
-
-    QColor c(int(round(r*255)), int(round(g*255)), int(round(b*255)));
+    int rr = int(round(r*255));
+    int gg = int(round(g*255));
+    int bb = int(round(b*255));
+    QColor c(rr, gg, bb);
     return std::move(c);
 }

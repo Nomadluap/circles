@@ -1,9 +1,10 @@
 #include "graph/Graph.hpp"
 #include <QList>
+#include <QDebug>
 
 using namespace Circles::Graph;
 
-std::shared_ptr<Graph::Graph> Graph::Graph::generateHexArray(int w, int h)
+std::shared_ptr<Circles::Graph::Graph> Graph::Graph::generateHexArray(int w, int h)
 {
     int n = w;
         int m = h;
@@ -57,7 +58,7 @@ std::shared_ptr<Graph::Graph> Graph::Graph::generateHexArray(int w, int h)
             }
         }
         //genereate nodes
-        auto g = std::make_shared<Graph::Graph>(Graph::Graph());
+        auto g = std::make_shared<Circles::Graph::Graph>();
         //apply neibhour relations
         for(int i = 0; i < nodecount; i++){
             for(int j: cplx[i]){
@@ -130,11 +131,11 @@ void Circles::Graph::Graph::addEdge(Node x, Node y)
     if(!this->edges->contains(y)) this->edges->insert(y, QList<Node>());
 
     auto xset = this->edges->take(x);
-    xset.append(y);
+    if(!xset.contains(y)) xset.append(y);
     this->edges->insert(x, std::move(xset));
 
     auto yset = this->edges->take(y);
-    yset.append(x);
+    if(!yset.contains(x)) yset.append(x);
     this->edges->insert(y, std::move(yset));
 
     // invalidates sorting on both nodes as well as the boundary.

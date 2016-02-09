@@ -30,6 +30,13 @@ namespace Circles{
 
     public slots:
         /**
+         * Generate packingViews for the packings and send them to the GraphicsViews.
+         * Also handles setting up any signals that may be required between the views and
+         * the parent.
+         */
+        void generateViews();
+
+        /**
          * Instruct the PackingView to display an existing Euclidean packing. The hyperbolic packing will be
          * generated from this packing.
          * @param p The packing to display.
@@ -118,12 +125,7 @@ namespace Circles{
         qreal hyperZoom_ = HYPER_ZOOM_DEFAULT;
 
         const qreal ZOOM_PER_MOUSECOUNT = 1.1;
-        /**
-         * Generate packingViews for the packings and send them to the GraphicsViews.
-         * Also handles setting up any signals that may be required between the views and
-         * the parent.
-         */
-        void generateViews();
+
 
         /**
          * Generate the colors for the packing based on the unit disc coloring defined in PackingView

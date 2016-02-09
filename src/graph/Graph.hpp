@@ -24,7 +24,7 @@ namespace Circles{
          * @param w the width
          * @param h the height
          */
-        static std::shared_ptr<Graph::Graph> generateHexArray(int w, int h);
+        static std::shared_ptr<Circles::Graph::Graph> generateHexArray(int w, int h);
 
         Graph();
         Graph(const Graph& other); //copy constructor
