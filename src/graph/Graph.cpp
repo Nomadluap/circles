@@ -1,4 +1,5 @@
-#include "Graph.hpp"
+#include "graph/Graph.hpp"
+
 using namespace Circles::Graph;
 
 Circles::Graph::Graph::Graph(): // default constructor
@@ -32,7 +33,7 @@ Circles::Graph::Graph::Graph(Graph&& other): // move constructor
     //nothing to do here.
 }
 
-Graph& Circles::Graph::Graph::operator=(const Graph& other) // copy assignment
+Circles::Graph::Graph& Circles::Graph::Graph::operator=(const Graph& other) // copy assignment
 {
     // this->edges = std::m<QHash<Node, QList<Node> >(*(other.edges));
     this->edges = std::make_unique<QHash<Node, QList<Node> > >(*(other.edges));
@@ -43,7 +44,7 @@ Graph& Circles::Graph::Graph::operator=(const Graph& other) // copy assignment
     return *this;
 }
 
-Graph& Circles::Graph::Graph::operator=(Graph&& other) // move assignment
+Circles::Graph::Graph& Circles::Graph::Graph::operator=(Graph&& other) // move assignment
 {
     this->edges = std::move(other.edges);
     this->boundaryNodes = std::move(other.boundaryNodes);
@@ -78,7 +79,7 @@ void Circles::Graph::Graph::addEdge(Node x, Node y)
 
 }
 
-void Graph::addEdge(Edge e)
+void Circles::Graph::Graph::addEdge(Edge e)
 {
     this->addEdge(e.getX(), e.getY());
 }
@@ -115,7 +116,7 @@ bool Circles::Graph::Graph::hasEdge(Node x, Node y) const
     else return true; //otherwise teh edge exists.
 }
 
-bool Graph::hasFullFlower(Node n)
+bool Circles::Graph::Graph::hasFullFlower(Node n)
 {
     //requires sorted neighbours in the nodes' edge list
     auto sn = this->sortedNeighbours(n);
@@ -128,7 +129,7 @@ bool Graph::hasFullFlower(Node n)
 
 }
 
-bool Graph::isBoundary(Node n)
+bool Circles::Graph::Graph::isBoundary(Node n)
 {
     return !this->hasFullFlower(n);
 }
@@ -175,6 +176,24 @@ QList<Node> Circles::Graph::Graph::boundary()
     if(!this->is_boundary_sorted) this->sortBoundary();
     return QList<Node>(*(this->boundaryNodes));
 
+}
+
+QList<Triangle> Circles::Graph::Graph::triangles() const
+{
+    QList<Triangle> triangles;
+    // all nodes
+    for(auto n1: this->getNodes()){
+        //all nodes neighbour to n1
+        for(auto n2: this->edges->value(n1)){
+            if(n1 < n2){
+                for(auto n3: this->edges->value(n2)){
+                    if(n2 < n3 && this->edges->value(n1).contains(n3))
+                        triangles.append(Circles::Graph::Triangle({n1, n2, n3}));
+                }
+            }
+        }
+    }
+    return triangles;
 }
 
 void Circles::Graph::Graph::computeBoundary()
@@ -250,7 +269,7 @@ bool Circles::Graph::operator==(const Graph& lhs, const Graph& rhs)
     return e && n;
 }
 
-bool operator!=(const Graph& lhs, const Graph& rhs)
+bool operator!=(const Circles::Graph::Graph& lhs, const Circles::Graph::Graph& rhs)
 {
     return !(lhs == rhs);
 }

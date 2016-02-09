@@ -5,6 +5,9 @@
 #include <cmath>
 #include <QGLWidget>
 #include <QGLFormat>
+#include <memory>
+
+#include "view/HyperColor.hpp"
 
 using namespace Circles;
 using namespace Circles::GUI;
@@ -139,7 +142,28 @@ void DualPackingView::generateViews()
     ui->euclidview->setScene(this->euclidView_.get());
     ui->hyperview->setScene(this->hyperView_.get());
 
+    this->generateHyperColors(*(this->hyperView_));
+    this->generateHyperColors(*(this->euclidView_));
+
+    this->euclidView_->rebuildGraphics();
+    this->hyperView_->rebuildGraphics();
+
     // ui->hyperview->fitInView(-1.5, -1.5, 3.0, 3.0, Qt::KeepAspectRatio);
+}
+
+void DualPackingView::generateHyperColors(View::PackingView& pv)
+{
+    // iterate over the triangles in p's graph
+    for(auto t: pv.packing().graph().triangles()){
+        //generate a coordinate for the center of the triangle
+        Packing::PackingCoordinate coord(t, 1.0/3.0, 1.0/3.0, 1.0/3.0);
+        //convert that coord to an xy in the hyperbolic packing
+        QPointF xy = this->hyperPacking_->getXY(coord);
+        //now pull a color from that xy
+        QColor c = Circles::View::getHyperColor(xy);
+        pv.setTriangleColor(t, c);
+
+    }
 }
 
 void DualPackingView::zoomEuclideanView(int delta)

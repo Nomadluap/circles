@@ -3,6 +3,7 @@
 #include "Packing.hpp"
 #include <QDebug>
 
+#include "graph/Triangle.hpp"
 using namespace Circles::Packing;
 
 const qreal PI = 3.141592653589793238462643383279502884;
@@ -115,6 +116,17 @@ int Packing::Packing::firstNeighbour()
 qreal Packing::Packing::firstNeighbourAngle()
 {
     return this->firstNeighbourAngle_;
+}
+
+QPointF Packing::Packing::getXY(PackingCoordinate p)
+{
+    Graph::Triangle t = p.triangle();
+    QPointF v1 = this->circle(t.p1).center();
+    QPointF v2 = this->circle(t.p2).center();
+    QPointF v3 = this->circle(t.p3).center();
+
+    QPointF result = v1 * p.a() + v2 * p.b() + v3 * p.c();
+    return result;
 }
 
 qreal Circles::Packing::Packing::anglesum(const Circle &c) const

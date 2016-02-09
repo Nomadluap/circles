@@ -1,6 +1,8 @@
 #ifndef EDGE_HPP
 #define EDGE_HPP
 
+
+
 namespace Circles{
     namespace Graph{
 

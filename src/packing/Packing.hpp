@@ -6,6 +6,8 @@
 #include <QMap>
 #include <graph/Graph.hpp>
 #include <packing/Circle.hpp>
+
+#include "packing/PackingCoordinate.hpp"
 using namespace Circles;
 
 namespace Circles{
@@ -111,6 +113,14 @@ namespace Circles{
          * @return
          */
         qreal firstNeighbourAngle();
+
+        /**
+         * Determine the actual coordinates of a point in the packing as described by a PackingCoordinate, which
+         * uses barycentric coordinates.
+         * @param p PackingCoordinate to "dereference"
+         * @return Point on the cartesian plane.
+         */
+        QPointF getXY(PackingCoordinate p);
 
 
     protected:

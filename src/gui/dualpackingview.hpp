@@ -125,6 +125,12 @@ namespace Circles{
          */
         void generateViews();
 
+        /**
+         * Generate the colors for the packing based on the unit disc coloring defined in PackingView
+         * @param p Packing to generate for
+         */
+        void generateHyperColors(View::PackingView& p);
+
     };
     }
 }

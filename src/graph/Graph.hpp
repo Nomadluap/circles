@@ -4,14 +4,13 @@
 #include <QHash>
 #include <QList>
 #include <memory>
-#include <graph/Edge.hpp>
+#include "graph/Edge.hpp"
+#include "graph/Triangle.hpp"
+#include "graph/Node.hpp"
 
 namespace Circles{
 
     namespace Graph{
-
-    //typedefs to simplify the language.
-    typedef int Node;
 
     /**
      * Implements a mathematical graph.
@@ -109,6 +108,12 @@ namespace Circles{
          * @return sorted list of nodes.
          */
         QList<Node> boundary();
+
+        /**
+         * Get the list of triangles in the graph. Each triangle will be included exactly once.
+         * @return List of triangles. First point will have lowest order, and the last point will have the highest.
+         */
+        QList<Triangle> triangles() const;
 
 
     private:

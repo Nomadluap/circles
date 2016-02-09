@@ -7,10 +7,13 @@
 #include <QWidget>
 #include <QWheelEvent>
 #include <memory>
+#include <QColor>
+#include <QMap>
 
 #include "packing/Packing.hpp"
 #include "packing./PackingCoordinate.hpp"
 #include "View/GraphicCircle.hpp"
+
 
 using namespace Circles;
 
@@ -46,6 +49,15 @@ namespace Circles{
         PackingView& operator=(const PackingView& other);
 
         PackingView& operator=(PackingView&& other);
+
+        /**
+         * Set the color of a specified triangle to be displayed.
+         * @param t Triangle to set.
+         * @param c Color to set the triangle.
+         */
+        void setTriangleColor(Triangle t, QColor c);
+
+        Packing::Packing& packing();
 
     public slots:
         void setDrawCircles     (bool state);
@@ -83,13 +95,18 @@ namespace Circles{
     private:
         std::shared_ptr<Packing::Packing> packing_;
         QList<std::shared_ptr<View::GraphicCircle> > graphicCircles_;
+        QList<std::shared_ptr<QGraphicsPolygonItem> > colorPolygons_;
+
+
+        /// for storing triangle colors
+        QMap<Graph::Triangle, QColor> triangleColors_;
         //TODO: make the other graphics item classes
 
-        bool drawCircles_    = false;
+        bool drawCircles_    = true;
         bool drawCenters_    = false;
         bool drawIndices_    = false;
         bool drawConnectors_ = false;
-        bool drawColor_      = false; // because everyone loves american spelling I guess.
+        bool drawColor_      = true; // because everyone loves american spelling I guess.
 
         /// Re-create the graphics objects for the packingView
         void rebuildCircles();

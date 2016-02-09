@@ -2,6 +2,7 @@
 
 #include "graph/Graph.hpp"
 
+using Circles::Graph::Graph;
 using namespace Circles::Graph;
 
 namespace {
@@ -23,8 +24,8 @@ protected:
 
     }
 
-    Graph g; //an empty graph.
-    Graph singleFlower; // has one flower around 0
+    Graph::Graph g; //an empty graph.
+    Graph::Graph singleFlower; // has one flower around 0
 
 };
 
@@ -58,8 +59,8 @@ TEST_F(testGraph, removeEdgeViolatesFlower)
 
 TEST_F(testGraph, equalityWorks)
 {
-    Graph s(singleFlower);
-    Graph t = singleFlower;
+    Graph::Graph s(singleFlower);
+    Graph::Graph t = singleFlower;
     EXPECT_EQ((s.getEdges()), (t.getEdges()) );
     EXPECT_EQ((s.getNodes()), (t.getNodes()) );
     EXPECT_EQ(s, t);

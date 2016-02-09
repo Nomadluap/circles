@@ -16,7 +16,8 @@ SOURCES += \
     packing/PackingCoordinate.cpp \
     view/GraphicCircle.cpp \
     view/PackingView.cpp \
-    gui/dualpackingview.cpp
+    gui/dualpackingview.cpp \
+    view/HyperColor.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -31,7 +32,9 @@ HEADERS += \
     graph/Triangle.hpp \
     view/GraphicCircle.hpp \
     view/PackingView.hpp \
-    gui/dualpackingview.hpp
+    gui/dualpackingview.hpp \
+    graph/Node.hpp \
+    view/HyperColor.hpp
 
 DISTFILES +=
 

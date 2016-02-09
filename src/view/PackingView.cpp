@@ -3,8 +3,13 @@
 #include "packing/Packing.hpp"
 #include <QList>
 
+#include "graph/Triangle.hpp"
+#include "graph/Graph.hpp"
+#include "packing/PackingCoordinate.hpp"
+
 using namespace Circles;
 using namespace Circles::View;
+using Circles::Packing::PackingCoordinate;
 
 PackingView::PackingView():
     QGraphicsScene()
@@ -17,6 +22,18 @@ PackingView::PackingView(std::shared_ptr<Packing::Packing> p):
 {
     this->packing_ = p;
     this->rebuildGraphics();
+}
+
+
+
+void PackingView::setTriangleColor(Graph::Triangle t, QColor c)
+{
+    this->triangleColors_.insert(t, c);
+}
+
+Packing::Packing& PackingView::packing()
+{
+    return *(this->packing_);
 }
 
 void PackingView::setDrawCircles(bool state)
@@ -69,10 +86,12 @@ void PackingView::rebuildCircles()
     this->graphicCircles_.clear();
 
     // and rebuild.
-    for(auto i: this->packing_->circles()){
-        auto c = std::make_shared<View::GraphicCircle>(*i);
-        this->graphicCircles_.append(c);
-        this->addItem(c.get());
+    if(this->drawCircles_){
+        for(auto i: this->packing_->circles()){
+            auto c = std::make_shared<View::GraphicCircle>(*i);
+            this->graphicCircles_.append(c);
+            this->addItem(c.get());
+        }
     }
 
 }
@@ -94,7 +113,26 @@ void PackingView::rebuildConnectors()
 
 void PackingView::rebuildColor()
 {
+    // remove the old
+    for(auto i: this->colorPolygons_) this->removeItem(i.get());
+    this->colorPolygons_.clear();
+    // and rebuild
+    if(this->drawColor_){
+        for(Graph::Triangle t: this->triangleColors_.keys()){
+            QColor color = this->triangleColors_.value(t);
+            QPointF v1 = this->packing_->circle(t.p1).center();
+            QPointF v2 = this->packing_->circle(t.p2).center();
+            QPointF v3 = this->packing_->circle(t.p3).center();
+            QPolygonF poly;
+            poly << v1 << v2 << v3 << v1;
 
+            auto pp = std::make_shared<QGraphicsPolygonItem>(poly);
+            pp->setBrush(QBrush(color));
+            pp->setPen(QPen(QColor(0, 0, 0, 0)));
+            colorPolygons_.append(pp);
+            this->addItem(pp.get());
+        }
+    }
 }
 
 void PackingView::wheelEvent(QGraphicsSceneWheelEvent* e)
