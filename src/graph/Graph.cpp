@@ -1,6 +1,72 @@
 #include "graph/Graph.hpp"
+#include <QList>
 
 using namespace Circles::Graph;
+
+std::shared_ptr<Graph::Graph> Graph::Graph::generateHexArray(int w, int h)
+{
+    int n = w;
+        int m = h;
+        if(m % 2 == 0) m++; //ensure m is odd
+        //number of nodes in packing
+        int nodecount = (m+1)/2*n + (m-1)/2*(n-1);
+        //generate node list
+        QList<QList<int> > cplx;
+        for(int i = 0; i < nodecount; i++){
+            cplx.append(QList<int>());
+        }
+        //now generate nbhr relations
+        //corners
+        cplx[0] = {1, n};
+        cplx[n-1] = {2*n-2, n-2};
+        cplx[nodecount-1] = {nodecount-2, nodecount-n-1};
+        cplx[nodecount-n] = {nodecount-2*n+1, nodecount-n+1};
+
+        //top edge
+        for(int i = 1; i < n-1; i++){
+            cplx[i] = {i+1, i+n, i+n-1, i-1};
+        }
+        //bottom edge
+        for(int i = nodecount-n+1; i < nodecount-1; i++){
+            cplx[i] = {i-1, i-n, i-n+1, i+1};
+        }
+        //left edge even (wide) rows
+        for(int i = 0; i < (m+1)/2 - 2; i++){
+            int index = (i+1) * (2*n-1);
+            cplx[index] = {index-n+1, index+1, index+n};
+        }
+        //right edge even(wide) rows
+        for(int i = 0; i < (m+1)/2 - 2; i++){
+            int index = (i+1) * (2*n-1) + n-1;
+            cplx[index] = {index+n-1, index-1, index-n};
+        }
+        //left edge odd (short) rows
+        for(int i = 0; i < (m+1)/2 - 1; i++){
+            int index = n + i*(2*n-1);
+            cplx[index] = {index-n, index-n+1, index+1, index+n, index+n-1};
+        }
+        //right edge odd (short) rows
+        for(int i = 0; i < (m+1)/ 2 - 1; i++){
+            int index = n + i*(2*n-1) + n-2;
+            cplx[index] = {index+n, index+n-1, index-1, index-n, index-n+1};
+        }
+        //interior circles
+        for(int i = 0; i < nodecount; i++){
+            if(cplx[i].isEmpty()){
+                cplx[i] = {i-n, i-n+1, i+1, i+n, i+n-1, i-1, i-n};
+            }
+        }
+        //genereate nodes
+        auto g = std::make_shared<Graph::Graph>(Graph::Graph());
+        //apply neibhour relations
+        for(int i = 0; i < nodecount; i++){
+            for(int j: cplx[i]){
+                g->addEdge(i, j);
+            }
+        }
+        return g;
+
+}
 
 Circles::Graph::Graph::Graph(): // default constructor
     edges(new QHash<Node, QList<Node> >()),

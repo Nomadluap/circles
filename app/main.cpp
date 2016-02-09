@@ -1,6 +1,7 @@
 // #include "ui/MainWindow.hpp"
 #include <QApplication>
 #include "gui/dualpackingview.hpp"
+#include "gui/mainwindow.hpp"
 #include "graph/Graph.hpp"
 #include <memory>
 
@@ -9,29 +10,11 @@ using namespace Circles;
 int main(int argc, char *argv[])
 {
    QApplication a(argc, argv);
-    GUI::DualPackingView w;
+    GUI::MainWindow w;
 
-    auto singleFlower = std::make_shared<Graph::Graph>();
-    singleFlower->addEdge(1, 2);
-    singleFlower->addEdge(2, 3);
-    singleFlower->addEdge(3, 4);
-    singleFlower->addEdge(4, 5);
-    singleFlower->addEdge(5, 6);
-    singleFlower->addEdge(6, 1);
-    for(int i = 1; i <= 6; ++i) singleFlower->addEdge(0, i);
-
-    singleFlower->addEdge(1, 20);
-    singleFlower->addEdge(2, 20);
-    singleFlower->addEdge(2, 21);
-    singleFlower->addEdge(3, 21);
-    // singleFlower->addEdge(20, 21);
-
-
-    w.setPacking(singleFlower, 0, 1, 3.14159/4.0);
 
     w.show();
 
 
     return a.exec();
-    return 0;
 }

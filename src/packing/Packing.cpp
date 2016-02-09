@@ -125,7 +125,8 @@ QPointF Packing::Packing::getXY(PackingCoordinate p)
     QPointF v2 = this->circle(t.p2).center();
     QPointF v3 = this->circle(t.p3).center();
 
-    QPointF result = v1 * p.a() + v2 * p.b() + v3 * p.c();
+    QPointF result;
+    result = v1 * p.a() + v2 * p.b() + v3 * p.c();
     return result;
 }
 

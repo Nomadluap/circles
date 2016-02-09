@@ -19,6 +19,13 @@ namespace Circles{
     class Graph
     {
     public:
+        /**
+         * Generate a graph of a hexagonal tiling with the specified width and height
+         * @param w the width
+         * @param h the height
+         */
+        static std::shared_ptr<Graph::Graph> generateHexArray(int w, int h);
+
         Graph();
         Graph(const Graph& other); //copy constructor
         Graph(Graph&& other); //move constructor

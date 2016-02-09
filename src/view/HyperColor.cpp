@@ -36,8 +36,8 @@ QColor Circles::View::getHyperColor(QPointF p)
     }
 
     r = fmin(1.0, pow(r, contrast1) * pow(d, contrast2));
-    r = fmin(1.0, pow(g, contrast1) * pow(d, contrast2));
-    r = fmin(1.0, pow(b, contrast1) * pow(d, contrast2));
+    g = fmin(1.0, pow(g, contrast1) * pow(d, contrast2));
+    b = fmin(1.0, pow(b, contrast1) * pow(d, contrast2));
 
     if(d > 1.0){
         r = fmin(1, r + (1-r) * (d-1));
