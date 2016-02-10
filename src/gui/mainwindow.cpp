@@ -11,10 +11,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
-    auto g = Graph::Graph::generateHexArray(33, 33);
+    auto g = Graph::Graph::generateHexArray(5, 5);
 
 
-    ui->packingview->setPacking(g, 500, 501, 0.0);
+    ui->packingview->setPacking(g, 15, 16, 0.0);
 }
 
 MainWindow::~MainWindow()

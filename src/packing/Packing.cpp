@@ -120,11 +120,13 @@ qreal Packing::Packing::firstNeighbourAngle()
 
 QPointF Packing::Packing::getXY(PackingCoordinate p)
 {
+    qDebug() << "getting the triangle...";
     Graph::Triangle t = p.triangle();
+    qDebug() << "gettting verties";
     QPointF v1 = this->circle(t.p1).center();
     QPointF v2 = this->circle(t.p2).center();
     QPointF v3 = this->circle(t.p3).center();
-
+    qDebug() << "setting the result";
     QPointF result;
     result = v1 * p.a() + v2 * p.b() + v3 * p.c();
     return result;
