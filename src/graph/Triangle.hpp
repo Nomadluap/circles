@@ -12,21 +12,27 @@ namespace Circles{
     /**
      * Represents a triangle on a graph G.
      */
-    struct Triangle{
-        Circles::Graph::Node p1;
-        Circles::Graph::Node p2;
-        Circles::Graph::Node p3;
+    class Triangle{
+    public:
+        Triangle();
+        Triangle(Node t1, Node t2, Node t3);
+        Triangle(const Triangle& other);
+        Triangle& operator=(const Triangle& other);
 
-        bool operator==(const Triangle& rhs) const{
-            return (this->p1 == rhs.p1) && (this->p2 == rhs.p2) && (this->p3 == rhs.p3);
-        }
+        bool operator==(const Triangle& rhs) const;
 
-        bool operator<(const Triangle& rhs) const{
-            if(this->p1 < rhs.p1) return true;
-            else if(this->p2 < rhs.p2) return true;
-            else if(this->p3 < rhs.p3) return true;
-            else return false;
-        }
+        bool operator<(const Triangle& rhs) const;
+
+        Node p1() const;
+        Node p2() const;
+        Node p3() const;
+
+    private:
+        Circles::Graph::Node p1_;
+        Circles::Graph::Node p2_;
+        Circles::Graph::Node p3_;
+
+
     };
 
     } // namespace packing

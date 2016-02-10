@@ -119,12 +119,15 @@ void PackingView::rebuildColor()
     this->colorPolygons_.clear();
     // and rebuild
     if(this->drawColor_){
-        for(Graph::Triangle t: this->triangleColors_.keys()){
-            QColor color = this->triangleColors_.value(t);
-//            qDebug() << color;
-            QPointF v1 = this->packing_->circle(t.p1).center();
-            QPointF v2 = this->packing_->circle(t.p2).center();
-            QPointF v3 = this->packing_->circle(t.p3).center();
+        // for some reason we can't use key-based retrevial, as it returns some invalid colors.
+        // May have something to do with the ordering of the triangles.
+        //for(Graph::Triangle t: this->triangleColors_.keys()){
+        for(int i = 0; i < this->triangleColors_.keys().length(); ++i){
+            Graph::Triangle t = this->triangleColors_.keys().at(i);
+            QColor color = this->triangleColors_.values().at(i);
+            QPointF v1 = this->packing_->circle(t.p1()).center();
+            QPointF v2 = this->packing_->circle(t.p2()).center();
+            QPointF v3 = this->packing_->circle(t.p3()).center();
             QPolygonF poly;
             poly << v1 << v2 << v3 << v1;
 

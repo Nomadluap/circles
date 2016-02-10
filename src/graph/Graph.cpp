@@ -255,7 +255,7 @@ QList<Triangle> Circles::Graph::Graph::triangles() const
             if(n1 < n2){
                 for(auto n3: this->edges->value(n2)){
                     if(n2 < n3 && this->edges->value(n1).contains(n3))
-                        triangles.append(Circles::Graph::Triangle({n1, n2, n3}));
+                        triangles.append(Circles::Graph::Triangle(n1, n2, n3));
                 }
             }
         }

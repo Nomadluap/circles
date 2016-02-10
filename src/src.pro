@@ -18,7 +18,8 @@ SOURCES += \
     view/PackingView.cpp \
     gui/dualpackingview.cpp \
     view/HyperColor.cpp \
-    gui/mainwindow.cpp
+    gui/mainwindow.cpp \
+    graph/Triangle.cpp
 
 HEADERS += \
     graph/Edge.hpp \
