@@ -2,6 +2,7 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
+#include "gui/ShapeSelector.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -16,7 +17,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void openSelector();
 
+private:
+
+    std::shared_ptr<Circles::GUI::ShapeSelector> ss;
     Ui::MainWindow *ui;
 };
 

@@ -42,6 +42,44 @@ DualPackingView::DualPackingView(QWidget *parent) :
 
     ui->euclidview->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->hyperview->setDragMode(QGraphicsView::ScrollHandDrag);
+
+    // UI Connections
+    connect(ui->btnLayout,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(repackAndLayout()));
+    connect(ui->drawCircles,
+            SIGNAL(toggled(bool)),
+            this,
+            SLOT(setDrawCircles(bool)));
+    connect(ui->drawColors,
+            SIGNAL(toggled(bool)),
+            this,
+            SLOT(setDrawColors(bool)));
+    connect(ui->drawIndices,
+            SIGNAL(toggled(bool)),
+            this,
+            SLOT(setDrawIndices(bool)));
+    connect(ui->epsilonMagnitude,
+            SIGNAL(valueChanged(double)),
+            this,
+            SLOT(setEpsilon(qreal)));
+    connect(ui->firstCircleIndex,
+            SIGNAL(valueChanged(int)),
+            this,
+            SLOT(setFirstCircle(int)));
+    connect(ui->firstNeighbourIndex,
+            SIGNAL(valueChanged(int)),
+            this,
+            SLOT(setFirstNeighbour(int)));
+    connect(ui->firstNeighbourAngle,
+            SIGNAL(valueChanged(int)),
+            this,
+            SLOT(setFirstNeighbourAngle(int)));
+    connect(ui->hyperOuterRadius,
+            SIGNAL(valueChanged(double)),
+            this,
+            SLOT(setHyperRadius(qreal)));
 }
 
 DualPackingView::~DualPackingView()

@@ -109,7 +109,7 @@ namespace Circles{
 
         bool drawCircles_    = true;
         bool drawCenters_    = false;
-        bool drawIndices_    = true;
+        bool drawIndices_    = false;
         bool drawConnectors_ = false;
         bool drawColor_      = true; // because everyone loves american spelling I guess.
 

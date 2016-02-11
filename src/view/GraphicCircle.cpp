@@ -47,6 +47,14 @@ void GraphicCircle::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     painter->setClipRect(option->exposedRect);
     painter->drawEllipse(QPointF(0, 0), this->radius_, this->radius_);
 
+    QFont font("Times", 10);
+    font.setStyleStrategy(QFont::ForceOutline);
+    painter->setFont(font);
+    painter->save();
+    painter->scale(1.0/lod, 1.0/lod);
+    painter->drawText(QPointF(0, 0), QString("%1").arg(this->index_));
+    painter->restore();
+
 
 }
 
