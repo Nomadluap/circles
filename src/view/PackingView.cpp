@@ -1,6 +1,7 @@
 #include "PackingView.hpp"
 
 #include "packing/Packing.hpp"
+#include "packing/EuclidPacking.hpp"
 #include <QList>
 
 #include "graph/Triangle.hpp"
@@ -31,6 +32,11 @@ PackingView::PackingView(std::shared_ptr<Packing::Packing> p):
 void PackingView::setTriangleColor(Graph::Triangle t, QColor c)
 {
     this->triangleColors_.insert(t, c);
+}
+
+void PackingView::clearTriangleColor()
+{
+    this->triangleColors_.clear();
 }
 
 Packing::Packing& PackingView::packing()

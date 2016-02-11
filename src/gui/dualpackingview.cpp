@@ -137,29 +137,36 @@ void DualPackingView::setPacking(std::shared_ptr<Graph::Graph> g, int centerCirc
     this->hyperPacking_->setFirstNeighbour(firstNeighbour);
     this->hyperPacking_->setFirstNeighbourAngle(angle);
 
+
+
+    this->generateViews();
+
     // perform initial repacks and layouts.
     this->hyperRepackAndLayout();
     this->euclidRepackAndLayout();
-
-    this->generateViews();
 }
 
 void DualPackingView::hyperRepackAndLayout()
 {
     this->hyperPacking_->repack(this->epsilon_, this->hyperRadius_);
     this->hyperPacking_->layout();
+    this->generateHyperColors(*(this->hyperView_));
+    this->hyperView_->rebuildGraphics();
 }
 
 void DualPackingView::euclidRepackAndLayout()
 {
     this->euclidPacking_->repack(this->epsilon_, 1.0);
     this->euclidPacking_->layout();
+    this->generateHyperColors(*(this->euclidView_));
+    this->euclidView_->rebuildGraphics();
 }
 
 void DualPackingView::repackAndLayout()
 {
     this->hyperRepackAndLayout();
     this->euclidRepackAndLayout();
+
 }
 
 void DualPackingView::setEpsilonMagnitude(qreal mag)
@@ -202,6 +209,7 @@ void DualPackingView::generateViews()
 
 void DualPackingView::generateHyperColors(View::PackingView& pv)
 {
+    pv.clearTriangleColor();
     // iterate over the triangles in p's graph
     for(auto t: pv.packing().graph().triangles()){
         //generate a coordinate for the center of the triangle
@@ -255,16 +263,24 @@ void DualPackingView::setDrawColors(bool state)
 {
     this->euclidView_->setDrawColor(state);
     this->hyperView_->setDrawColor(state);
+    this->euclidView_->rebuildGraphics();
+    this->hyperView_->rebuildGraphics();
 }
 
 void DualPackingView::setDrawCircles(bool state)
 {
     this->euclidView_->setDrawCircles(state);
     this->hyperView_->setDrawCircles(state);
+    this->euclidView_->rebuildGraphics();
+    this->hyperView_->rebuildGraphics();
+
 }
 
 void DualPackingView::setDrawIndices(bool state)
 {
     this->euclidView_->setDrawIndices(state);
     this->hyperView_->setDrawIndices(state);
+    this->euclidView_->rebuildGraphics();
+    this->hyperView_->rebuildGraphics();
+
 }
