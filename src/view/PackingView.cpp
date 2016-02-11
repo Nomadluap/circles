@@ -7,6 +7,7 @@
 #include "graph/Graph.hpp"
 #include "packing/PackingCoordinate.hpp"
 #include <QDebug>
+#include <QGraphicsSimpleTextItem>
 
 using namespace Circles;
 using namespace Circles::View;
@@ -104,7 +105,19 @@ void PackingView::rebuildCenters()
 
 void PackingView::rebuildIndices()
 {
+    for(auto i: this->indices_) this->removeItem(i.get());
+    this->indices_.clear();
 
+    if(this->drawIndices_){
+        for(auto c: this->graphicCircles_){
+            auto t = std::make_shared<Text>(QString::number(c->graphIndex()));
+            t->setFont(QFont("Times", 10));
+            t->setPos(this->packing_->circle(c->graphIndex()).projCenter());
+         //   t->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
+            this->indices_.append(t);
+            this->addItem(t.get());
+        }
+    }
 }
 
 void PackingView::rebuildConnectors()
@@ -142,6 +155,11 @@ void PackingView::rebuildColor()
 
 void PackingView::wheelEvent(QGraphicsSceneWheelEvent* e)
 {
-    emit gotMouseEvent(e->delta());
+    emit gotMouseWheelEvent(e->delta());
     e->accept();
+}
+
+void PackingView::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    emit gotMousePressEvent(event);
 }

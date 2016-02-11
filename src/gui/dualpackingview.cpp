@@ -17,10 +17,7 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui(new Ui::DualPackingView)
 {
     ui->setupUi(this);
-    connect(ui->pushButton,
-            SIGNAL(clicked(bool)),
-            this,
-            SLOT(generateViews()));
+
 
     ui->euclidview->scale(33.0, 33.0);
     ui->hyperview->scale(100.0, 100.0);
@@ -121,6 +118,12 @@ void DualPackingView::euclidRepackAndLayout()
     this->euclidPacking_->layout();
 }
 
+void DualPackingView::repackAndLayout()
+{
+    this->hyperRepackAndLayout();
+    this->euclidRepackAndLayout();
+}
+
 void DualPackingView::setEpsilonMagnitude(qreal mag)
 {
     this->epsilon_ = pow(10, mag);
@@ -138,11 +141,11 @@ void DualPackingView::generateViews()
     this->euclidView_ = std::make_shared<View::PackingView>(this->euclidPacking_);
 
     connect(hyperView_.get(),
-            View::PackingView::gotMouseEvent,
+            View::PackingView::gotMouseWheelEvent,
             this,
             DualPackingView::zoomHyperView);
     connect(euclidView_.get(),
-            View::PackingView::gotMouseEvent,
+            View::PackingView::gotMouseWheelEvent,
             this,
             DualPackingView::zoomEuclideanView);
 
@@ -184,4 +187,46 @@ void DualPackingView::zoomHyperView(int delta)
 {
     this->hyperZoom_ = pow(ZOOM_PER_MOUSECOUNT, delta/120.0);
     ui->hyperview->scale(hyperZoom_, hyperZoom_);
+}
+
+void DualPackingView::setEpsilon(qreal magnitude)
+{
+    this->epsilon_ = pow(10.0, magnitude);
+}
+
+void DualPackingView::setFirstCircle(int id)
+{
+    this->euclidPacking_->setCenterCircle(id);
+    this->hyperPacking_->setCenterCircle(id);
+}
+
+void DualPackingView::setFirstNeighbour(int id)
+{
+    this->euclidPacking_->setFirstNeighbour(id);
+    this->hyperPacking_->setFirstNeighbour(id);
+}
+
+void DualPackingView::setFirstNeighbourAngle(int slidervalue)
+{
+    qreal theta = double(270 - slidervalue) * 3.141592654 / 180.0;
+    this->euclidPacking_->setFirstNeighbourAngle(theta);
+    this->hyperPacking_->setFirstNeighbourAngle(theta);
+}
+
+void DualPackingView::setDrawColors(bool state)
+{
+    this->euclidView_->setDrawColor(state);
+    this->hyperView_->setDrawColor(state);
+}
+
+void DualPackingView::setDrawCircles(bool state)
+{
+    this->euclidView_->setDrawCircles(state);
+    this->hyperView_->setDrawCircles(state);
+}
+
+void DualPackingView::setDrawIndices(bool state)
+{
+    this->euclidView_->setDrawIndices(state);
+    this->hyperView_->setDrawIndices(state);
 }

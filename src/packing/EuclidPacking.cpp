@@ -7,6 +7,37 @@ using namespace Circles::Packing;
 
 const qreal PI = 3.141592653589793238462643383279502884;
 
+std::shared_ptr<EuclidPacking> EuclidPacking::generateHexArray(int w, int h, QPointF topleft, qreal radius)
+{
+    // get a graph of the specified size and create a EuclidPacking from it.
+    auto g = Graph::Graph::generateHexArray(w, h);
+    auto p = std::make_shared<EuclidPacking>(g);
+    // repack the circles to the specified radius and then lay them out from the starting point.
+    qDebug() << "w, h" << w << h;
+    p->repack(1e-3, radius);
+    p->setCenterCircle(w+2);
+    p->setFirstNeighbour(w+3);
+    p->setFirstNeighbourAngle(3.14159 * 3.0 / 2.0);
+    qDebug() << "about to do p layout";
+    p->layout();
+    //now the circle 0 is at the origin with all circles laid out from it.
+    // so move all the circles over to fit the required area
+    for(auto c: p->circles_.values()){
+        c->setCenter(c->center() + topleft);
+    }
+    return p;
+}
+
+std::shared_ptr<EuclidPacking> EuclidPacking::generateHexArray(QRectF area, qreal radius)
+{
+    QPointF startpos = area.topLeft();
+    qreal width = area.width();
+    qreal height = area.height();
+    int w = int(width / (2.0 * radius) + 1);
+    int h = int( (height / (2.0*radius) - 1 ) * 2 / sqrt(3) + 2) + 1; // needs to be odd.
+    return EuclidPacking::generateHexArray(w, h, startpos, radius);
+}
+
 Circles::Packing::EuclidPacking::EuclidPacking()
 {
     this->graph_ = std::make_shared<Graph::Graph>();
@@ -236,8 +267,6 @@ qreal EuclidPacking::angle(qreal r, qreal ra, qreal rb) const
     return angle;
 
 }
-
-
 
 EuclidPacking& EuclidPacking::operator=(EuclidPacking&& other)
 {

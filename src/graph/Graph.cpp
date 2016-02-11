@@ -1,6 +1,7 @@
 #include "graph/Graph.hpp"
 #include <QList>
 #include <QDebug>
+#include <QHash>
 
 using namespace Circles::Graph;
 
@@ -210,6 +211,13 @@ QList<Node> Circles::Graph::Graph::getNodes() const
 bool Circles::Graph::Graph::hasNode(Node n) const
 {
     return this->edges->contains(n);
+}
+
+void Graph::Graph::removeNode(Node n)
+{
+    for(auto e: this->edges->value(n)){
+        this->removeEdge(n, e);
+    }
 }
 
 QList<Edge> Circles::Graph::Graph::getEdges() const

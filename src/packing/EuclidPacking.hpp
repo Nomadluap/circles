@@ -3,6 +3,7 @@
 
 #include <QHash>
 #include <memory>
+#include <QRectF>
 #include "graph/Graph.hpp"
 #include "packing/Packing.hpp"
 namespace Circles{
@@ -14,6 +15,23 @@ namespace Circles{
     class EuclidPacking : public Packing
     {
     public:
+        /**
+         * Construct a EuclideanPacking of a hexagonal array, using circles of a specified radius.
+         * @param w number of circles in the horizontal direction
+         * @param h number of circles in the vertical direction.
+         * @param radius radius of the circles
+         * @return shared pointer to the packing generated.
+         */
+        static std::shared_ptr<EuclidPacking> generateHexArray(int w, int h, QPointF topleft, qreal radius);
+
+        /**
+         * Construct a euclideanPacking of a hexagonal tiling of the specified area of circles with a specified radius
+         * @param area The area to cover
+         * @param radius The radius of the circles
+         * @return shared pointer to the packing generated.
+         */
+        static std::shared_ptr<EuclidPacking> generateHexArray(QRectF area, qreal radius);
+
         /**
          * Construct an empty packing with no underlying graph. (don't use this)
          * Underlying graph will be empty.
@@ -44,6 +62,7 @@ namespace Circles{
         virtual void layout() override;
 
         virtual qreal angle(qreal r, qreal ra, qreal rb) const override;
+
 
     protected:
         virtual void spawnCircles() override;

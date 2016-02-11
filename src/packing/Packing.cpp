@@ -129,6 +129,14 @@ QPointF Packing::Packing::getXY(PackingCoordinate p)
     return result;
 }
 
+void Packing::Packing::removeCircle(int id)
+{
+    //first remove the circle itself
+    this->circles_.remove(id);
+    //then remove the node from the graph
+    this->graph_->removeNode(id);
+}
+
 qreal Circles::Packing::Packing::anglesum(const Circle &c) const
 {
     qreal partialSum = 0.0;

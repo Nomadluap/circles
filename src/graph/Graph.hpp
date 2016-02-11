@@ -88,6 +88,12 @@ namespace Circles{
         bool hasNode(Node n) const;
 
         /**
+         * Removes a node from the graph, also removing all edges that reference it.
+         * @param n The ndoe to remove
+         */
+        void removeNode(Node n);
+
+        /**
          *  Get a set of all edges in the graph.
          * The pairs returned will always have the lowest-order node index first.
          * @return A set of node pairs representing the edges of the graph.

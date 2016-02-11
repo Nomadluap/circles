@@ -19,7 +19,10 @@ SOURCES += \
     gui/dualpackingview.cpp \
     view/HyperColor.cpp \
     gui/mainwindow.cpp \
-    graph/Triangle.cpp
+    graph/Triangle.cpp \
+    gui/ShapeSelector.cpp \
+    view/SelectionVertex.cpp \
+    view/Text.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -37,10 +40,14 @@ HEADERS += \
     gui/dualpackingview.hpp \
     graph/Node.hpp \
     view/HyperColor.hpp \
-    gui/mainwindow.hpp
+    gui/mainwindow.hpp \
+    gui/ShapeSelector.hpp \
+    view/SelectionVertex.hpp \
+    view/Text.hpp
 
 DISTFILES +=
 
 FORMS += \
     gui/dualpackingview.ui \
-    gui/mainwindow.ui
+    gui/mainwindow.ui \
+    gui/ShapeSelector.ui

@@ -50,6 +50,8 @@ namespace Circles{
 
         /// Node in the underlying graph that the circle represents.
         int index_;
+
+
     };
 
     }

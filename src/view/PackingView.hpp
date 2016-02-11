@@ -13,6 +13,7 @@
 #include "packing/Packing.hpp"
 #include "packing./PackingCoordinate.hpp"
 #include "View/GraphicCircle.hpp"
+#include "view/Text.hpp"
 
 
 using namespace Circles;
@@ -85,17 +86,21 @@ namespace Circles{
          * @param p The new packing that the view is now displaying
          */
         void packingChanged(std::shared_ptr<Packing::Packing> p);
+
         /**
          * Passed when the view recieves a wheel event. Meant to be intercepted
          * by the containing widget to zoom the view.
          * @param e the event.
          */
-        void gotMouseEvent(int delta);
+        void gotMouseWheelEvent(int delta);
+
+        void gotMousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
 
     private:
         std::shared_ptr<Packing::Packing> packing_;
         QList<std::shared_ptr<View::GraphicCircle> > graphicCircles_;
         QList<std::shared_ptr<QGraphicsPolygonItem> > colorPolygons_;
+        QList<std::shared_ptr<Text> > indices_;
 
 
         /// for storing triangle colors
@@ -104,7 +109,7 @@ namespace Circles{
 
         bool drawCircles_    = true;
         bool drawCenters_    = false;
-        bool drawIndices_    = false;
+        bool drawIndices_    = true;
         bool drawConnectors_ = false;
         bool drawColor_      = true; // because everyone loves american spelling I guess.
 
@@ -120,6 +125,8 @@ namespace Circles{
          * @param e
          */
         void wheelEvent(QGraphicsSceneWheelEvent* e) override;
+
+        void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
 
     };
 

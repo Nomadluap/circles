@@ -122,6 +122,12 @@ namespace Circles{
          */
         QPointF getXY(PackingCoordinate p);
 
+        /**
+         * Delete a specified circle from the packing. The graph will also be updated.
+         * @param id
+         */
+        void removeCircle(int id);
+
 
     protected:
 

@@ -72,6 +72,11 @@ namespace Circles{
         void euclidRepackAndLayout();
 
         /**
+         * Layout and repack both packings.
+         */
+        void repackAndLayout();
+
+        /**
          * Set the magnitude of the epsilon value for repacking, as a power of 10.
          * @param mag Power of 10 to use as epsilon value;
          */
@@ -94,6 +99,21 @@ namespace Circles{
          * @param steps
          */
         void zoomHyperView(int delta);
+
+        void setEpsilon(qreal magnitude);
+
+        void setFirstCircle(int id);
+
+        void setFirstNeighbour(int id);
+
+        void setFirstNeighbourAngle(int slidervalue);
+
+        void setDrawColors(bool state);
+
+        void setDrawCircles(bool state);
+
+        void setDrawIndices(bool state);
+
 
     private:
         Ui::DualPackingView *ui;
