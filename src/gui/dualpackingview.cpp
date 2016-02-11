@@ -31,14 +31,17 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui->euclidview->setRenderHint(QPainter::Antialiasing, true);
     ui->hyperview->setRenderHint(QPainter::Antialiasing, true);
 
+    ui->euclidview->setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
+    ui->hyperview->setOptimizationFlag(QGraphicsView::DontSavePainterState, true);
+
     ui->euclidview->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
     ui->hyperview->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
     ui->euclidview->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->hyperview->setDragMode(QGraphicsView::ScrollHandDrag);
 
-    ui->euclidview->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
-    ui->hyperview->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+    ui->euclidview->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
+    ui->hyperview->setViewportUpdateMode(QGraphicsView::MinimalViewportUpdate);
 
     ui->euclidview->setDragMode(QGraphicsView::ScrollHandDrag);
     ui->hyperview->setDragMode(QGraphicsView::ScrollHandDrag);
