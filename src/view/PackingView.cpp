@@ -17,12 +17,13 @@ using Circles::Packing::PackingCoordinate;
 PackingView::PackingView():
     QGraphicsScene()
 {
-
+    this->setItemIndexMethod(QGraphicsScene::NoIndex);
 }
 
 PackingView::PackingView(std::shared_ptr<Packing::Packing> p):
     QGraphicsScene()
 {
+    this->setItemIndexMethod(QGraphicsScene::NoIndex);
     this->packing_ = p;
     this->rebuildGraphics();
 }

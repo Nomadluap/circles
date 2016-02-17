@@ -22,6 +22,7 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     // set up the packing for the first time
     this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.1, -1.1, 2.2, 2.2), 0.1);
     this->packingView = std::make_shared<View::PackingView>(this->packing);
+    this->packingView->update();
     this->packingView->setDrawCenters(false);
     this->packingView->setDrawCircles(true);
     this->packingView->setDrawColor(false);
@@ -35,11 +36,13 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
     ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
-    qreal xscale = ui->view->size().width() / 10.0;
-    qreal yscale = ui->view->size().height() / 10.0;
-    ui->view->scale(xscale, yscale);
-    ui->view->setSceneRect(-1.0, -1.0, 2.0, 2.0);
+    qreal xscale = ui->view->size().width();
+    qreal yscale = ui->view->size().height();
+    //ui->view->scale(1.0/xscale, 1.0/yscale);
+    //ui->view->setSceneRect(-1.0, -1.0, 2.0, 2.0);
     ui->view->setScene(this->packingView.get());
+    ui->view->ensureVisible(this->packingView->sceneRect());
+    ui->view->setTransform(QTransform());
 
     this->setupPolygon();
 
