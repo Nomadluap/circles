@@ -81,6 +81,11 @@ namespace Circles{
          */
         void sceneMousePressEvent(QGraphicsSceneMouseEvent* event);
 
+        /**
+         * Remove all vertices from the vertex list and reset the polygon.
+         */
+        void resetPolygon();
+
     private:
         virtual void resizeEvent(QResizeEvent *event);
 

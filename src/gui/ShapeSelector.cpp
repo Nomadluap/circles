@@ -20,7 +20,7 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     ui->setupUi(this);
     this->setModal(false);
     // set up the packing for the first time
-    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.1, -1.1, 2.2, 2.2), 0.1);
+    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), 0.1);
     this->packingView = std::make_shared<View::PackingView>(this->packing);
     this->packingView->update();
     this->packingView->setDrawCenters(false);
@@ -147,11 +147,11 @@ void ShapeSelector::acceptPacking()
 
 void ShapeSelector::circleResize()
 {
+    this->resetPolygon();
    qreal r = ui->spinCircleRadius->value();
    //destroy nodes
    disconnect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
-   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.1, -1.1, 2.2, 2.2), r);
-   this->packingView = std::make_shared<View::PackingView>(this->packing);
+   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), r);
    this->packingView = std::make_shared<View::PackingView>(this->packing);
    this->packingView->setDrawCenters(false);
    this->packingView->setDrawCircles(true);
@@ -197,13 +197,20 @@ void ShapeSelector::sceneMousePressEvent(QGraphicsSceneMouseEvent* event)
     this->addVertex(pos);
 }
 
+void ShapeSelector::resetPolygon()
+{
+    this->vertices.clear();
+    ui->lstVertices->clear();
+    this->selectedRow = -1;
+}
+
 void ShapeSelector::resizeEvent(QResizeEvent *event)
 {
     ui->view->resetMatrix();
     Q_UNUSED(event);
     qreal xscale = ui->view->size().width();
     qreal yscale = ui->view->size().height();
-    ui->view->scale(xscale*0.995, yscale*0.995);
+    ui->view->scale(xscale*0.5, yscale*0.5);
     //ui->view->scale(xscale*0.0, yscale*0.0);
 }
 
