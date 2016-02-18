@@ -20,6 +20,12 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(triggered(bool)),
             this,
             SLOT(openSelector()));
+
+    ss = std::make_shared<Circles::GUI::ShapeSelector>();
+    connect(ss.get(),
+            SIGNAL(packingAccepted(std::shared_ptr<Packing::EuclidPacking>)),
+            ui->packingview,
+            SLOT(setPacking(std::shared_ptr<Packing::EuclidPacking>)));
 }
 
 MainWindow::~MainWindow()
@@ -29,11 +35,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::openSelector()
 {
-    ss = std::make_shared<Circles::GUI::ShapeSelector>();
-    connect(ss.get(),
-            SIGNAL(packingAccepted(std::shared_ptr<Packing::EuclidPacking>)),
-            ui->packingview,
-            SLOT(setPacking(std::shared_ptr<Packing::EuclidPacking>)));
-
     ss->show();
 }
