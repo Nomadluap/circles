@@ -65,9 +65,16 @@ namespace Circles{
         void acceptPacking();
 
         /**
-         * Re-size the circles as they are displayed on the view.
+         * Re-size the circles as they are displayed on the view. Uses the value from the spinbox as the circle
+         * radius.
          */
         void circleResize();
+
+        /**
+         * Re-size the circles as they are displayed on the view.
+         * @param radius the radius to set the circles to
+         */
+        void circleResize(qreal radius);
 
         /**
          * Add a vertex to the polygon at the specified point.

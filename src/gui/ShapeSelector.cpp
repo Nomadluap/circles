@@ -47,7 +47,7 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     this->setupPolygon();
 
     //connections
-    connect(ui->btnRadiusSet, &QPushButton::clicked, this, &ShapeSelector::circleResize);
+    connect(ui->btnRadiusSet, SIGNAL(clicked(bool)), this, SLOT(circleResize()));
     connect(ui->btnCancel, &QPushButton::clicked, this, &ShapeSelector::reject);
     connect(ui->btnAppend, &QPushButton::clicked, this, &ShapeSelector::manualAddVertex);
     connect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
@@ -147,8 +147,14 @@ void ShapeSelector::acceptPacking()
 
 void ShapeSelector::circleResize()
 {
-    this->resetPolygon();
    qreal r = ui->spinCircleRadius->value();
+   this->circleResize(r);
+}
+
+void ShapeSelector::circleResize(qreal radius)
+{
+    this->resetPolygon();
+   qreal r = radius;
    //destroy nodes
    disconnect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), r);
@@ -174,7 +180,6 @@ void ShapeSelector::circleResize()
    QBrush b(Qt::SolidPattern);
    b.setColor(QColor(255, 0, 0, 68));
    this->polygon->setBrush(b);
-
 }
 
 void ShapeSelector::addVertex(QPointF pos)
