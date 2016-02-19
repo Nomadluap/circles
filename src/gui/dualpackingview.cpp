@@ -89,6 +89,7 @@ DualPackingView::~DualPackingView()
 
 void DualPackingView::setPacking(std::shared_ptr<Packing::EuclidPacking> p)
 {
+    this->setDrawColors(false);
     *(this->graph_) = p->graph();
     this->euclidPacking_ = p;
     this->hyperPacking_ = std::make_shared<Packing::HyperPacking>(this->graph_);
@@ -102,6 +103,7 @@ void DualPackingView::setPacking(std::shared_ptr<Packing::EuclidPacking> p)
     hyperRepackAndLayout();
 
     this->generateViews();
+    this->setDrawColors(true);
 
 }
 
@@ -120,10 +122,12 @@ void DualPackingView::setPacking(std::shared_ptr<Packing::HyperPacking> p)
     this->euclidRepackAndLayout();
 
     this->generateViews();
+    this->setDrawColors(true);
 }
 
 void DualPackingView::setPacking(std::shared_ptr<Graph::Graph> g, int centerCircle, int firstNeighbour, qreal angle)
 {
+    this->setDrawColors(false);
     this->graph_ = g;
     this->hyperPacking_ = std::make_shared<Packing::HyperPacking>(this->graph_);
     this->euclidPacking_ = std::make_shared<Packing::EuclidPacking>(this->graph_);
@@ -144,6 +148,7 @@ void DualPackingView::setPacking(std::shared_ptr<Graph::Graph> g, int centerCirc
     // perform initial repacks and layouts.
     this->hyperRepackAndLayout();
     this->euclidRepackAndLayout();
+    this->setDrawColors(true);
 }
 
 void DualPackingView::hyperRepackAndLayout()
@@ -261,10 +266,14 @@ void DualPackingView::setFirstNeighbourAngle(int slidervalue)
 
 void DualPackingView::setDrawColors(bool state)
 {
-    this->euclidView_->setDrawColor(state);
-    this->hyperView_->setDrawColor(state);
-    this->euclidView_->rebuildGraphics();
-    this->hyperView_->rebuildGraphics();
+    if(this->euclidView_ != nullptr){
+        this->euclidView_->setDrawColor(state);
+        this->euclidView_->rebuildGraphics();
+    }
+    if(this->hyperView_ != nullptr){
+        this->hyperView_->setDrawColor(state);
+        this->hyperView_->rebuildGraphics();
+    }
 }
 
 void DualPackingView::setDrawCircles(bool state)

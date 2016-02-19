@@ -22,7 +22,8 @@ SOURCES += \
     graph/Triangle.cpp \
     gui/ShapeSelector.cpp \
     view/SelectionVertex.cpp \
-    view/Text.cpp
+    view/Text.cpp \
+    loader/CPShape.cpp
 
 HEADERS += \
     graph/Edge.hpp \
@@ -43,7 +44,8 @@ HEADERS += \
     gui/mainwindow.hpp \
     gui/ShapeSelector.hpp \
     view/SelectionVertex.hpp \
-    view/Text.hpp
+    view/Text.hpp \
+    loader/CPShape.hpp
 
 DISTFILES +=
 

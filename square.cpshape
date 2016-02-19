@@ -1,0 +1,6 @@
+0.100
+#first line is always the radius, then comes the pairs of coordinates. 
+-0.5, -0.5
+-0.5, 0.5
+0.5, 0.5
+0.5, -0.5

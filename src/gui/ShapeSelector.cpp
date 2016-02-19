@@ -8,6 +8,9 @@
 #include <QDebug>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QFileDialog>
+
+#include "loader/CPShape.hpp"
 
 
 using namespace Circles;
@@ -19,30 +22,31 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setModal(false);
-    // set up the packing for the first time
-    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), 0.1);
-    this->packingView = std::make_shared<View::PackingView>(this->packing);
-    this->packingView->update();
-    this->packingView->setDrawCenters(false);
-    this->packingView->setDrawCircles(true);
-    this->packingView->setDrawColor(false);
-    this->packingView->setDrawConnectors(false);
-    this->packingView->setDrawIndices(false);
+//    // set up the packing for the first time
+//    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), 0.1);
+//    this->packingView = std::make_shared<View::PackingView>(this->packing);
+//    this->packingView->update();
+//    this->packingView->setDrawCenters(false);
+//    this->packingView->setDrawCircles(true);
+//    this->packingView->setDrawColor(false);
+//    this->packingView->setDrawConnectors(false);
+//    this->packingView->setDrawIndices(false);
 
 
-    ui->view->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+//    ui->view->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
 
-    ui->view->setRenderHint(QPainter::Antialiasing, true);
-    ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
-    ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+//    ui->view->setRenderHint(QPainter::Antialiasing, true);
+//    ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
+//    ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
-    qreal xscale = ui->view->size().width();
-    qreal yscale = ui->view->size().height();
-    //ui->view->scale(1.0/xscale, 1.0/yscale);
-    //ui->view->setSceneRect(-1.0, -1.0, 2.0, 2.0);
-    ui->view->setScene(this->packingView.get());
-    ui->view->ensureVisible(this->packingView->sceneRect());
-    ui->view->setTransform(QTransform());
+//    qreal xscale = ui->view->size().width();
+//    qreal yscale = ui->view->size().height();
+//    //ui->view->scale(1.0/xscale, 1.0/yscale);
+//    //ui->view->setSceneRect(-1.0, -1.0, 2.0, 2.0);
+//    ui->view->setScene(this->packingView.get());
+//    ui->view->ensureVisible(this->packingView->sceneRect());
+//    ui->view->setTransform(QTransform());
+    this->circleResize(0.1);
 
     this->setupPolygon();
 
@@ -55,6 +59,8 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
     connect(ui->btnAccept, &QPushButton::clicked, this, &ShapeSelector::acceptPacking);
     connect(ui->btnDelete, &QPushButton::clicked, this, &ShapeSelector::deleteSelected);
     connect(ui->lstVertices, &QListWidget::currentRowChanged, this, &ShapeSelector::selectionChanged);
+    connect(ui->btnOpenShapeFile, SIGNAL(clicked(bool)), this, SLOT(readShapeFile()));
+    connect(ui->btnSaveShapeFile, SIGNAL(clicked(bool)), this, SLOT(writeShapeFile()));
 
 }
 
@@ -97,6 +103,7 @@ void ShapeSelector::deleteSelected()
     this->redefinePolygon();
     //and remove the item from the list
     ui->lstVertices->takeItem(this->selectedRow);
+    this->selectedRow--;
 
 
 
@@ -155,9 +162,10 @@ void ShapeSelector::circleResize(qreal radius)
 {
     this->resetPolygon();
    qreal r = radius;
+   this->circleRadius = radius;
    //destroy nodes
-   disconnect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
-   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), r);
+   if(this->packingView != nullptr) disconnect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
+   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -0.6, 2.1, 2.1), r);
    this->packingView = std::make_shared<View::PackingView>(this->packing);
    this->packingView->setDrawCenters(false);
    this->packingView->setDrawCircles(true);
@@ -167,6 +175,7 @@ void ShapeSelector::circleResize(qreal radius)
    connect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
 
    ui->view->setScene(this->packingView.get());
+   ui->view->centerOn(0, 0);
 
    this->polygon = new QGraphicsPolygonItem();
    this->packingView->addItem(this->polygon);
@@ -207,6 +216,42 @@ void ShapeSelector::resetPolygon()
     this->vertices.clear();
     ui->lstVertices->clear();
     this->selectedRow = -1;
+}
+
+void ShapeSelector::readShapeFile()
+{
+    QString filename;
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setNameFilter("Circle Packing Shape Files (*.cpshape)");
+    dialog.setViewMode(QFileDialog::Detail);
+    if(dialog.exec()){
+        filename = dialog.selectedFiles().first();
+        Loader::CPShape cpshape(filename);
+        this->circleResize(cpshape.getRadius());
+        this->resetPolygon();
+        for(QPointF p: cpshape.getVertexList()){
+            this->addVertex(p);
+        }
+    }
+}
+
+void ShapeSelector::writeShapeFile()
+{
+    QString filename;
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::AnyFile);
+    dialog.setNameFilter("Circle Packing Shape Files (*.cpshape)");
+    dialog.setViewMode(QFileDialog::Detail);
+    if(dialog.exec()){
+        filename = dialog.selectedFiles().first();
+        QList<QPointF> points;
+        for(auto s: this->vertices){
+            points.append(QPointF(s->pos()));
+        }
+        Loader::CPShape cpshapefile(points, this->circleRadius);
+        cpshapefile.writeFile(filename);
+    }
 }
 
 void ShapeSelector::resizeEvent(QResizeEvent *event)

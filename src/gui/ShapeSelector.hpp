@@ -54,8 +54,8 @@ namespace Circles{
         void selectionChanged(int row);
 
         /**
-         * Cull the circles in the packing, so that only circles whose centers lie within the polygon are kept.
-         * Also recursively cull any circles that have one or less neighbours.
+         *Cull the circles in the packing, so that only circles whose centers lie within the polygon are kept. Also
+         *recursively cull any circles that have one or less neighbours.
          */
         void cullPacking();
 
@@ -93,6 +93,18 @@ namespace Circles{
          */
         void resetPolygon();
 
+        /**
+         * Summon a file dialog, and open the selected .cpshape file, resizing the circle array and
+         * pre-drawing the selected shape.
+         */
+        void readShapeFile();
+
+        /**
+         * Summon a file dialog and Write infromation about the size of the circle array and the location of the
+         * vertices of the polygon to a .cpshape file.
+         */
+        void writeShapeFile();
+
     private:
         virtual void resizeEvent(QResizeEvent *event);
 
@@ -108,6 +120,7 @@ namespace Circles{
         std::shared_ptr<View::PackingView> packingView;
         QGraphicsPolygonItem* polygon;
         int selectedRow = -1;
+        qreal circleRadius = 0.1;
 
 
     };

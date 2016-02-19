@@ -113,7 +113,7 @@ namespace Circles{
         bool drawCenters_    = false;
         bool drawIndices_    = false;
         bool drawConnectors_ = false;
-        bool drawColor_      = false; // because everyone loves american spelling I guess.
+        bool drawColor_      = true; // because everyone loves american spelling I guess.
 
         /// Re-create the graphics objects for the packingView
         void rebuildCircles();
