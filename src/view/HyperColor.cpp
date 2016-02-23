@@ -12,7 +12,7 @@ QColor Circles::View::getHyperColor(QPointF p)
     const qreal blending = 2.0;
     const qreal contrast1 = 0.5;
     const qreal contrast2 = 0.8;
-    const qreal radius = 1.0;
+    const qreal radius = 0.56;
 
     qreal x = p.x();
     qreal y = -p.y();
