@@ -1,5 +1,6 @@
 #include "graph/Graph.hpp"
 #include <QList>
+#include <memory>
 #include <QDebug>
 #include <QHash>
 
