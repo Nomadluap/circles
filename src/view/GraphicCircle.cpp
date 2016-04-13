@@ -12,8 +12,8 @@ GraphicCircle::GraphicCircle():
     this->setPos(0, 0);
     this->radius_ = 1.0;
     this->index_ = -1;
-    this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
-    prepareGeometryChange();
+//    this->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+//    prepareGeometryChange();
 }
 
 View::GraphicCircle::GraphicCircle(const Packing::Circle& c):
@@ -44,7 +44,7 @@ void GraphicCircle::paint(QPainter* painter, const QStyleOptionGraphicsItem* opt
     qreal lod = option->levelOfDetailFromTransform(painter->worldTransform());
     painter->setPen(QPen(Qt::black, 1.50/lod ));
     painter->setBrush(QBrush(QColor(0, 0, 0, 0)));
-    painter->setClipRect(option->exposedRect);
+//    painter->setClipRect(option->exposedRect);
     painter->drawEllipse(QPointF(0, 0), this->radius_, this->radius_);
 
 //    QFont font("Times", 10);

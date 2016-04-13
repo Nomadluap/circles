@@ -9,6 +9,7 @@
 #include <memory>
 #include <QColor>
 #include <QMap>
+#include <QImage>
 
 #include "packing/Packing.hpp"
 #include "packing./PackingCoordinate.hpp"
@@ -62,6 +63,13 @@ namespace Circles{
 
         Packing::Packing& packing();
 
+        /**
+         * Return an image of the scene in this view.
+         * @param resolution The vertical resolution of the desired image, in pixels.
+         * @return The generated image.
+         */
+        std::unique_ptr<QImage> renderImage(int resolution);
+
     public slots:
         void setDrawCircles     (bool state);
         void setDrawCenters     (bool state);
@@ -98,11 +106,12 @@ namespace Circles{
 
         void gotMousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
 
+
     private:
         std::shared_ptr<Packing::Packing> packing_;
         QList<std::shared_ptr<View::GraphicCircle> > graphicCircles_;
         QList<std::shared_ptr<QGraphicsPolygonItem> > colorPolygons_;
-        QList<std::shared_ptr<Text> > indices_;
+        std::shared_ptr<Text> indicies_;
 
 
         /// for storing triangle colors

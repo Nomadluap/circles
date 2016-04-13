@@ -3,6 +3,8 @@
 #include "packing/Packing.hpp"
 #include "packing/EuclidPacking.hpp"
 #include <QList>
+#include <memory>
+#include <QPainter>
 
 #include "graph/Triangle.hpp"
 #include "graph/Graph.hpp"
@@ -43,6 +45,22 @@ void PackingView::clearTriangleColor()
 Packing::Packing& PackingView::packing()
 {
     return *(this->packing_);
+}
+
+std::unique_ptr<QImage> PackingView::renderImage(int resolution)
+{
+    this->clearSelection();
+    this->setSceneRect(this->itemsBoundingRect());
+    QSize sceneSize = this->sceneRect().size().toSize();
+    sceneSize.scale(resolution, resolution, Qt::KeepAspectRatio);
+    auto image = std::make_unique<QImage>(sceneSize, QImage::Format_ARGB32);
+    image->fill(Qt::transparent);
+
+    QPainter painter(image.get());
+    painter.setRenderHint(QPainter::Antialiasing);
+    this->render(&painter);
+    return std::move(image);
+
 }
 
 void PackingView::setDrawCircles(bool state)
@@ -112,18 +130,11 @@ void PackingView::rebuildCenters()
 
 void PackingView::rebuildIndices()
 {
-    for(auto i: this->indices_) this->removeItem(i.get());
-    this->indices_.clear();
-
+    if(this->indicies_ != nullptr) this->removeItem(this->indicies_.get());
     if(this->drawIndices_){
-        for(auto c: this->graphicCircles_){
-            auto t = std::make_shared<Text>(QString::number(c->graphIndex()));
-            t->setFont(QFont("Times", 10));
-            t->setPos(this->packing_->circle(c->graphIndex()).projCenter());
-         //   t->setFlag(QGraphicsItem::ItemIgnoresTransformations, true);
-            this->indices_.append(t);
-            this->addItem(t.get());
-        }
+        this->indicies_ = std::make_shared<Text>(this->packing().circles(), this->itemsBoundingRect());
+        this->addItem(indicies_.get());
+        this->indicies_->setZValue(255);
     }
 }
 
@@ -145,9 +156,9 @@ void PackingView::rebuildColor()
         for(int i = 0; i < this->triangleColors_.keys().length(); ++i){
             Graph::Triangle t = this->triangleColors_.keys().at(i);
             QColor color = this->triangleColors_.values().at(i);
-            QPointF v1 = this->packing_->circle(t.p1()).center();
-            QPointF v2 = this->packing_->circle(t.p2()).center();
-            QPointF v3 = this->packing_->circle(t.p3()).center();
+            QPointF v1 = this->packing_->circle(t.p1()).projCenter();
+            QPointF v2 = this->packing_->circle(t.p2()).projCenter();
+            QPointF v3 = this->packing_->circle(t.p3()).projCenter();
             QPolygonF poly;
             poly << v1 << v2 << v3 << v1;
 

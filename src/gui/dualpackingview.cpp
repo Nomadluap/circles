@@ -6,6 +6,8 @@
 #include <QGLWidget>
 #include <QGLFormat>
 #include <memory>
+#include <QInputDialog>
+#include <QFileDialog>
 
 #include "view/HyperColor.hpp"
 
@@ -22,8 +24,8 @@ DualPackingView::DualPackingView(QWidget *parent) :
     ui->euclidview->scale(33.0, 33.0);
     ui->hyperview->scale(100.0, 100.0);
 
-    ui->euclidview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
-    ui->hyperview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+//    ui->euclidview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
+//    ui->hyperview->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
 
     ui->euclidview->setRenderHint(QPainter::Antialiasing, true);
     ui->hyperview->setRenderHint(QPainter::Antialiasing, true);
@@ -80,6 +82,14 @@ DualPackingView::DualPackingView(QWidget *parent) :
             SIGNAL(valueChanged(double)),
             this,
             SLOT(setHyperRadius(qreal)));
+    connect(ui->exportEuclidean,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(exportEuclideanImage()));
+    connect(ui->exportHyper,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(exportHyperbolicImage()));
 }
 
 DualPackingView::~DualPackingView()
@@ -292,4 +302,37 @@ void DualPackingView::setDrawIndices(bool state)
     this->euclidView_->rebuildGraphics();
     this->hyperView_->rebuildGraphics();
 
+}
+
+void DualPackingView::exportHyperbolicImage()
+{
+    // ask user for desired resolution
+    bool resolutionAccepted = true;
+    int resolution = QInputDialog::getInt(this, "Enter max. resolution", "Resolution(px)", 1024, 0, 65536, 1, &resolutionAccepted);
+    if(!resolutionAccepted) return;
+
+    // ask for file name
+    QString filename = QFileDialog::getSaveFileName(this, "Save image", QCoreApplication::applicationDirPath(), "PNG Files (*.png)");
+    if(!filename.isNull()){
+        //now get the rendered image
+        auto image = this->hyperView_->renderImage(resolution);
+        image->save(filename);
+
+    }
+}
+
+void DualPackingView::exportEuclideanImage()
+{
+    // ask user for desired resolution
+    bool resolutionAccepted = true;
+    int resolution = QInputDialog::getInt(this, "Enter max. resolution", "Resolution(px)", 1024, 0, 65536, 1, &resolutionAccepted);
+    if(!resolutionAccepted) return;
+
+    // ask for file name
+    QString filename = QFileDialog::getSaveFileName(this, "Save image", QCoreApplication::applicationDirPath(), "PNG Files (*.png)");
+    if(!filename.isNull()){
+        //now get the rendered image
+        auto image = this->euclidView_->renderImage(resolution);
+        image->save(filename);
+    }
 }

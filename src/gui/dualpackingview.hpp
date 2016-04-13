@@ -114,6 +114,16 @@ namespace Circles{
 
         void setDrawIndices(bool state);
 
+        /**
+         * Open a save dialog and save render of Hyperbolic view to the specified file
+         */
+        void exportHyperbolicImage();
+
+        /**
+         * Open a save dialog and save render of Euclidean view to the specified file
+         */
+        void exportEuclideanImage();
+
 
     private:
         Ui::DualPackingView *ui;
