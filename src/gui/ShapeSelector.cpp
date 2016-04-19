@@ -165,7 +165,7 @@ void ShapeSelector::circleResize(qreal radius)
    this->circleRadius = radius;
    //destroy nodes
    if(this->packingView != nullptr) disconnect(this->packingView.get(), &View::PackingView::gotMousePressEvent, this, &ShapeSelector::sceneMousePressEvent);
-   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.1, -1.1, 2.5, 2.5), r);
+   this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), r);
    this->packingView = std::make_shared<View::PackingView>(this->packing);
    this->packingView->setDrawCenters(false);
    this->packingView->setDrawCircles(true);

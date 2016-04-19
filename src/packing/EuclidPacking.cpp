@@ -34,7 +34,8 @@ std::shared_ptr<EuclidPacking> EuclidPacking::generateHexArray(QRectF area, qrea
     qreal width = area.width();
     qreal height = area.height();
     int w = int(width / (2.0 * radius) + 1);
-    int h = int( (height / (2.0*radius) - 1 ) * 2 / sqrt(3) + 2) + 1; // needs to be odd.
+    int h = int( (height / (2.0*radius) - 1 ) * 2 / sqrt(3) + 2) + 5; // needs to be odd.
+    qDebug() << "w is " << w << " h is " << h;
     return EuclidPacking::generateHexArray(w, h, startpos, radius);
 }
 
