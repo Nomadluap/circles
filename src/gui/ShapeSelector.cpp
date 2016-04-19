@@ -11,6 +11,7 @@
 #include <QFileDialog>
 
 #include "loader/CPShape.hpp"
+#include "view/GraphicCircle.hpp"
 
 
 using namespace Circles;
@@ -22,30 +23,6 @@ ShapeSelector::ShapeSelector(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setModal(false);
-//    // set up the packing for the first time
-//    this->packing = Packing::EuclidPacking::generateHexArray(QRectF(-1.0, -1.0, 2.0, 2.0), 0.1);
-//    this->packingView = std::make_shared<View::PackingView>(this->packing);
-//    this->packingView->update();
-//    this->packingView->setDrawCenters(false);
-//    this->packingView->setDrawCircles(true);
-//    this->packingView->setDrawColor(false);
-//    this->packingView->setDrawConnectors(false);
-//    this->packingView->setDrawIndices(false);
-
-
-//    ui->view->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::DirectRendering)));
-
-//    ui->view->setRenderHint(QPainter::Antialiasing, true);
-//    ui->view->setViewportUpdateMode(QGraphicsView::SmartViewportUpdate);
-//    ui->view->setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-
-//    qreal xscale = ui->view->size().width();
-//    qreal yscale = ui->view->size().height();
-//    //ui->view->scale(1.0/xscale, 1.0/yscale);
-//    //ui->view->setSceneRect(-1.0, -1.0, 2.0, 2.0);
-//    ui->view->setScene(this->packingView.get());
-//    ui->view->ensureVisible(this->packingView->sceneRect());
-//    ui->view->setTransform(QTransform());
     this->circleResize(0.1);
 
     this->setupPolygon();
@@ -189,6 +166,11 @@ void ShapeSelector::circleResize(qreal radius)
    QBrush b(Qt::SolidPattern);
    b.setColor(QColor(255, 0, 0, 68));
    this->polygon->setBrush(b);
+
+   qDebug() << "finding center";
+   auto indices = this->packingView->packing().graph().getNodes();
+
+
 }
 
 void ShapeSelector::addVertex(QPointF pos)
