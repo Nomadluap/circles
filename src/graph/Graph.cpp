@@ -6,7 +6,7 @@
 
 using namespace Circles::Graph;
 
-std::shared_ptr<Circles::Graph::Graph> Graph::Graph::generateHexArray(int w, int h)
+std::shared_ptr<Circles::Graph::Graph> Circles::Graph::Graph::generateHexArray(int w, int h)
 {
     int n = w;
         int m = h;
@@ -214,7 +214,7 @@ bool Circles::Graph::Graph::hasNode(Node n) const
     return this->edges->contains(n);
 }
 
-void Graph::Graph::removeNode(Node n)
+void Circles::Graph::Graph::removeNode(Node n)
 {
     for(auto e: this->edges->value(n)){
         this->removeEdge(n, e);

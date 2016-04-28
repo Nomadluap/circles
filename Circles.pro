@@ -5,6 +5,6 @@ SUBDIRS = \
     app \
     tests
 
-app.depends = src tests
+app.depends = src # tests
 tests.depends = src
 

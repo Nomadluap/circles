@@ -201,13 +201,13 @@ void DualPackingView::generateViews()
     this->euclidView_ = std::make_shared<View::PackingView>(this->euclidPacking_);
 
     connect(hyperView_.get(),
-            View::PackingView::gotMouseWheelEvent,
+            SIGNAL(gotMouseWheelEvent(int)),
             this,
-            DualPackingView::zoomHyperView);
+            SLOT(zoomHyperView(int)));
     connect(euclidView_.get(),
-            View::PackingView::gotMouseWheelEvent,
+            SIGNAL(gotMouseWheelEvent(int)),
             this,
-            DualPackingView::zoomEuclideanView);
+            SLOT(zoomEuclideanView(int)));
 
     qDebug() << "Displaying Views...";
     ui->euclidview->setScene(this->euclidView_.get());

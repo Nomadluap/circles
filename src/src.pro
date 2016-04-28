@@ -2,7 +2,7 @@ include(../defaults.pri)
 
 TARGET = circles
 TEMPLATE = lib
-CONFIG += shared
+CONFIG += shared staticlib
 
 SOURCES += \
     graph/Edge.cpp \
